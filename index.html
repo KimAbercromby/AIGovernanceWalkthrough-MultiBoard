@@ -1,0 +1,2355 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive walkthrough showing how one AI system remains connected across a multi-board governance lifecycle.">
+  <meta name="theme-color" content="#102a43">
+  <title>AI Multi-Board Lifecycle Walkthrough</title>
+  <style>
+    :root {
+      --navy-950: #081a2d;
+      --navy-900: #102a43;
+      --navy-800: #173f66;
+      --navy-700: #24527a;
+      --gold-500: #d6ad4a;
+      --gold-300: #ead28f;
+      --gold-100: #faf3df;
+      --ink: #172333;
+      --muted: #607084;
+      --paper: #ffffff;
+      --canvas: #f3f6f8;
+      --line: #d8e0e8;
+      --blue-100: #eaf3fb;
+      --green: #287b50;
+      --green-soft: #eaf6ef;
+      --orange: #b85725;
+      --orange-soft: #fff1e7;
+      --red: #a73a3a;
+      --red-soft: #fff0f0;
+      --purple: #68538f;
+      --purple-soft: #f2eff8;
+      --shadow-sm: 0 8px 28px rgba(16, 42, 67, 0.08);
+      --shadow-lg: 0 28px 80px rgba(5, 25, 48, 0.18);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #5aa7eb;
+      outline-offset: 3px;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(8, 26, 45, 0.97);
+      color: #fff;
+      backdrop-filter: blur(14px);
+    }
+
+    .header-inner {
+      display: flex;
+      min-height: 72px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1.5px solid var(--gold-500);
+      border-radius: 11px;
+      color: var(--gold-300);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-copy strong,
+    .brand-copy small {
+      display: block;
+    }
+
+    .brand-copy strong {
+      font-size: 14px;
+    }
+
+    .brand-copy small {
+      margin-top: 3px;
+      color: #aab9c8;
+      font-size: 10px;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-nav a,
+    .header-nav button {
+      border: 0;
+      background: transparent;
+      color: #d8e2ec;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .header-nav a:hover,
+    .header-nav button:hover {
+      color: var(--gold-300);
+    }
+
+    .hero {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 76% 38%, rgba(214, 173, 74, 0.14), transparent 29%),
+        linear-gradient(135deg, var(--navy-950), var(--navy-900) 52%, #113a62);
+      color: #fff;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+      gap: 72px;
+      align-items: center;
+      min-height: 530px;
+      padding: 68px 0 58px;
+    }
+
+    .eyebrow,
+    .kicker {
+      margin: 0;
+      color: var(--gold-500);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 720px;
+      margin: 17px 0 21px;
+      font-size: clamp(45px, 5.4vw, 70px);
+      font-weight: 750;
+      letter-spacing: -0.052em;
+      line-height: 1;
+    }
+
+    .hero h1 span {
+      color: var(--gold-300);
+    }
+
+    .hero-copy > p {
+      max-width: 650px;
+      margin: 0;
+      color: #c3d0dc;
+      font-size: 16px;
+      line-height: 1.72;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 45px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      padding: 0 19px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 780;
+      transition: transform 150ms ease, background 150ms ease, border-color 150ms ease;
+    }
+
+    .button:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.42;
+    }
+
+    .button-gold {
+      background: var(--gold-500);
+      color: var(--navy-950);
+    }
+
+    .button-gold:hover {
+      background: var(--gold-300);
+    }
+
+    .button-outline {
+      border-color: rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+    }
+
+    .button-outline:hover {
+      border-color: var(--gold-500);
+    }
+
+    .thread-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 23px;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(12px);
+    }
+
+    .thread-topline,
+    .record-head,
+    .block-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .thread-topline > span:first-child {
+      color: #aab9c9;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .live-chip {
+      border: 1px solid rgba(92, 202, 142, 0.36);
+      border-radius: 999px;
+      background: rgba(40, 123, 80, 0.2);
+      color: #8ce0b0;
+      padding: 4px 9px;
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .identity-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 24px 0 27px;
+    }
+
+    .identity-icon {
+      display: grid;
+      width: 49px;
+      height: 49px;
+      place-items: center;
+      border: 1px solid rgba(214, 173, 74, 0.48);
+      border-radius: 50%;
+      background: rgba(214, 173, 74, 0.1);
+      color: var(--gold-300);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .identity-row small,
+    .identity-row strong {
+      display: block;
+    }
+
+    .identity-row small {
+      margin-bottom: 4px;
+      color: #9eb0c2;
+      font-size: 10px;
+    }
+
+    .identity-row strong {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    .thread-flow {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+
+    .thread-flow::before {
+      position: absolute;
+      top: 18px;
+      right: 12%;
+      left: 12%;
+      height: 1px;
+      background: rgba(214, 173, 74, 0.42);
+      content: "";
+    }
+
+    .thread-node {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      justify-items: center;
+      gap: 7px;
+    }
+
+    .thread-node span {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid rgba(214, 173, 74, 0.5);
+      border-radius: 50%;
+      background: #0c3157;
+      color: var(--gold-300);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .thread-node small {
+      color: #b8c5d4;
+      font-size: 9px;
+    }
+
+    .thread-note {
+      display: flex;
+      gap: 11px;
+      margin-top: 25px;
+      border-left: 2px solid var(--gold-500);
+      background: rgba(3, 18, 34, 0.38);
+      padding: 13px 14px;
+    }
+
+    .thread-note > span {
+      color: var(--gold-500);
+    }
+
+    .thread-note p {
+      margin: 0;
+      color: #c3ceda;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .thread-note strong {
+      color: #fff;
+    }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .proof-strip > div {
+      display: flex;
+      min-height: 70px;
+      align-items: center;
+      gap: 12px;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0 18px;
+    }
+
+    .proof-strip > div:last-child {
+      border-right: 0;
+    }
+
+    .proof-strip span {
+      color: var(--gold-500);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 9px;
+    }
+
+    .proof-strip strong {
+      color: #d8e1ea;
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .scenario-section {
+      padding: 72px 0 42px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 26px;
+    }
+
+    .section-heading h2,
+    .walkthrough-heading h2,
+    .toolkit-copy h2 {
+      margin: 8px 0 0;
+      color: var(--navy-900);
+      font-size: clamp(27px, 3.4vw, 39px);
+      letter-spacing: -0.036em;
+      line-height: 1.08;
+    }
+
+    .section-heading > p {
+      max-width: 480px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .scenario-card {
+      position: relative;
+      min-height: 218px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper);
+      padding: 20px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(16, 42, 67, 0.035);
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .scenario-card:hover {
+      transform: translateY(-2px);
+      border-color: #aab8c6;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .scenario-card.active {
+      border-color: var(--scenario-colour);
+      box-shadow: inset 0 3px 0 var(--scenario-colour), var(--shadow-sm);
+    }
+
+    .scenario-top {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 17px;
+    }
+
+    .risk-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--scenario-colour);
+    }
+
+    .risk-label,
+    .retro-label {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .retro-label {
+      margin-left: auto;
+      border: 1px solid #ebc7c7;
+      border-radius: 999px;
+      background: var(--red-soft);
+      color: var(--red);
+      padding: 3px 7px;
+    }
+
+    .scenario-card > strong {
+      display: block;
+      color: var(--navy-900);
+      font-size: 16px;
+      letter-spacing: -0.015em;
+    }
+
+    .scenario-card > p {
+      min-height: 58px;
+      margin: 9px 0 15px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.58;
+    }
+
+    .scenario-result {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--navy-900);
+      font-size: 10px;
+      font-weight: 780;
+    }
+
+    .scenario-card.active .scenario-result {
+      color: var(--scenario-colour);
+    }
+
+    .walkthrough-section {
+      padding: 32px 0 80px;
+      scroll-margin-top: 74px;
+    }
+
+    .walkthrough-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 19px;
+    }
+
+    .walkthrough-heading h2 {
+      font-size: 28px;
+    }
+
+    .case-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 7px;
+    }
+
+    .case-chips span {
+      border: 1px solid #d1dae4;
+      border-radius: 999px;
+      background: #fff;
+      color: #4c5e72;
+      padding: 6px 10px;
+      font-size: 9px;
+      font-weight: 720;
+    }
+
+    .stage-navigator {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(70px, 1fr));
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      scrollbar-width: thin;
+    }
+
+    .stage-tab {
+      position: relative;
+      display: grid;
+      min-width: 70px;
+      justify-items: center;
+      gap: 6px;
+      border: 0;
+      border-right: 1px solid var(--line);
+      background: #fff;
+      padding: 11px 5px 10px;
+      cursor: pointer;
+    }
+
+    .stage-tab:last-child {
+      border-right: 0;
+    }
+
+    .stage-tab::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: transparent;
+      content: "";
+    }
+
+    .stage-tab span {
+      display: grid;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      border: 1px solid #cad4df;
+      border-radius: 50%;
+      background: #fff;
+      color: #728196;
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .stage-tab small {
+      color: #728196;
+      font-size: 8px;
+      font-weight: 720;
+    }
+
+    .stage-tab.visited span {
+      border-color: var(--gold-500);
+      background: var(--gold-100);
+      color: #70571b;
+    }
+
+    .stage-tab.active {
+      background: #f9fbfd;
+    }
+
+    .stage-tab.active::after {
+      background: var(--navy-900);
+    }
+
+    .stage-tab.active span {
+      border-color: var(--navy-900);
+      background: var(--navy-900);
+      color: #fff;
+    }
+
+    .stage-tab.active small {
+      color: var(--navy-900);
+    }
+
+    .walkthrough-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 316px;
+      align-items: start;
+      gap: 19px;
+      margin-top: 18px;
+    }
+
+    .stage-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stage-card-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 26px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fbfcfd, #fff);
+      padding: 23px 26px 19px;
+    }
+
+    .stage-count {
+      margin: 0 0 7px;
+      color: var(--gold-500);
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .stage-card h3 {
+      max-width: 630px;
+      margin: 0;
+      color: var(--navy-900);
+      font-size: clamp(21px, 2.5vw, 28px);
+      letter-spacing: -0.034em;
+      line-height: 1.15;
+    }
+
+    .status {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .status-gate {
+      background: var(--orange-soft);
+      color: var(--orange);
+    }
+
+    .status-front,
+    .status-control {
+      background: var(--blue-100);
+      color: #285e91;
+    }
+
+    .status-live {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .status-close {
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    .stage-question {
+      margin: 23px 26px 0;
+      border-left: 3px solid var(--gold-500);
+      background: var(--gold-100);
+      padding: 13px 15px;
+    }
+
+    .label {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .stage-question p {
+      margin: 5px 0 0;
+      color: #4d421f;
+      font-size: 12.5px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .stage-description {
+      margin: 17px 26px 19px;
+      color: #3f4d5d;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .stage-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 0 26px 19px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+    }
+
+    .stage-meta > div {
+      padding: 12px 13px;
+    }
+
+    .stage-meta > div + div {
+      border-left: 1px solid var(--line);
+    }
+
+    .stage-meta strong,
+    .output-grid strong {
+      display: block;
+      margin-top: 4px;
+      color: var(--navy-900);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .evidence-block {
+      margin: 0 26px 19px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+
+    .block-title {
+      border-bottom: 1px solid var(--line);
+      background: #f7f9fb;
+      padding: 11px 13px;
+    }
+
+    .block-title > div {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .mini-icon {
+      display: grid;
+      width: 29px;
+      height: 29px;
+      place-items: center;
+      border-radius: 7px;
+      background: var(--navy-900);
+      color: var(--gold-500);
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .block-title strong,
+    .block-title small {
+      display: block;
+    }
+
+    .block-title strong {
+      color: var(--navy-900);
+      font-size: 10.5px;
+    }
+
+    .block-title small {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .block-title > span {
+      border-radius: 999px;
+      background: var(--gold-100);
+      color: #725a1c;
+      padding: 4px 8px;
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .evidence-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .evidence-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 12px;
+      color: #455366;
+      font-size: 10px;
+    }
+
+    .evidence-list li:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .evidence-list li:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+
+    .evidence-list li span {
+      display: grid;
+      width: 17px;
+      height: 17px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green-soft);
+      color: var(--green);
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 11px;
+      margin: 0 26px 19px;
+    }
+
+    .output-grid > div {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 12px 13px;
+    }
+
+    .output-grid > div:last-child {
+      border-color: #eadba9;
+      background: #fffcf4;
+    }
+
+    .decision-lab {
+      margin: 0 26px 19px;
+      border: 1px dashed #b7c3cf;
+      border-radius: 10px;
+      background: #f9fbfd;
+      padding: 13px;
+    }
+
+    .decision-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .decision-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .decision-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .decision-buttons button {
+      border: 1px solid #cbd5df;
+      border-radius: 7px;
+      background: #fff;
+      padding: 8px 6px;
+      cursor: pointer;
+      color: #536276;
+      font-size: 9px;
+      font-weight: 760;
+    }
+
+    .decision-buttons button:hover,
+    .decision-buttons button.selected {
+      border-color: var(--navy-900);
+      background: var(--navy-900);
+      color: #fff;
+    }
+
+    .decision-result {
+      display: none;
+      gap: 8px;
+      margin: 10px 0 0;
+      color: #4e6074;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .decision-result.visible {
+      display: flex;
+    }
+
+    .decision-result span {
+      color: var(--gold-500);
+    }
+
+    .handoff {
+      display: flex;
+      gap: 12px;
+      margin: 0 26px 23px;
+      border: 1px solid #cbd7e4;
+      border-left: 4px solid var(--navy-900);
+      border-radius: 9px;
+      background: #f4f8fb;
+      padding: 13px 14px;
+    }
+
+    .handoff-mark {
+      display: grid;
+      width: 27px;
+      height: 27px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--navy-900);
+      color: var(--gold-500);
+      font-size: 12px;
+    }
+
+    .handoff p {
+      margin: 5px 0 0;
+      color: #435468;
+      font-size: 10.5px;
+      line-height: 1.5;
+    }
+
+    .skip-panel {
+      display: none;
+      align-items: center;
+      gap: 17px;
+      margin: 27px 26px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #f8fafb;
+      padding: 21px;
+    }
+
+    .skip-panel.visible {
+      display: flex;
+    }
+
+    .skip-icon {
+      display: grid;
+      width: 51px;
+      height: 51px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px dashed #a9b6c4;
+      border-radius: 50%;
+      color: #728195;
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .skip-panel h4 {
+      margin: 0 0 5px;
+      color: var(--navy-900);
+      font-size: 13px;
+    }
+
+    .skip-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10.5px;
+      line-height: 1.55;
+    }
+
+    .normal-stage-content.hidden {
+      display: none;
+    }
+
+    .stage-actions {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid var(--line);
+      background: #fafbfc;
+      padding: 14px 26px;
+    }
+
+    .stage-actions > span {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 650;
+    }
+
+    .button-back {
+      justify-self: start;
+      border-color: #cbd5df;
+      background: #fff;
+      color: var(--navy-900);
+    }
+
+    .button-navy {
+      justify-self: end;
+      background: var(--navy-900);
+      color: #fff;
+    }
+
+    .button-navy:hover {
+      background: var(--navy-800);
+    }
+
+    .case-record {
+      position: sticky;
+      top: 91px;
+      overflow: hidden;
+      border-radius: 14px;
+      background: var(--navy-900);
+      color: #fff;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .record-head {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 13px 16px;
+    }
+
+    .record-head > div {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--gold-300);
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .record-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #62d394;
+      box-shadow: 0 0 0 4px rgba(98, 211, 148, 0.11);
+    }
+
+    .record-head small {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      color: #adbdcc;
+      padding: 3px 7px;
+      font-size: 8px;
+      text-transform: uppercase;
+    }
+
+    .record-identity {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 19px 16px 16px;
+    }
+
+    .record-identity span,
+    .record-identity strong,
+    .record-identity small {
+      display: block;
+    }
+
+    .record-identity span {
+      color: #91a5b9;
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .record-identity strong {
+      margin: 5px 0 3px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 18px;
+      letter-spacing: 0.03em;
+    }
+
+    .record-identity small {
+      color: #91a5b9;
+      font-size: 8.5px;
+    }
+
+    .record-list {
+      margin: 0;
+      padding: 7px 16px;
+    }
+
+    .record-list > div {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+      padding: 9px 0;
+    }
+
+    .record-list dt {
+      color: #91a5b9;
+      font-size: 8.5px;
+    }
+
+    .record-list dd {
+      margin: 0;
+      color: #e8edf3;
+      font-size: 9px;
+      font-weight: 720;
+      text-align: right;
+    }
+
+    .record-list dd.attention {
+      color: var(--gold-300);
+    }
+
+    .record-update {
+      margin: 8px 16px 0;
+      border-left: 2px solid var(--gold-500);
+      background: rgba(0, 0, 0, 0.14);
+      padding: 10px 11px;
+    }
+
+    .record-update p {
+      margin: 5px 0 0;
+      color: #d2dbe5;
+      font-size: 9px;
+      line-height: 1.45;
+    }
+
+    .record-progress {
+      padding: 15px 16px 7px;
+    }
+
+    .record-progress > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .record-progress strong {
+      color: var(--gold-300);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 9px;
+    }
+
+    .progress-track {
+      display: block;
+      height: 4px;
+      overflow: hidden;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .progress-track > span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--gold-500);
+      transition: width 250ms ease;
+    }
+
+    .record-footnote {
+      margin: 6px 16px 17px;
+      color: #8196aa;
+      font-size: 8px;
+      line-height: 1.5;
+    }
+
+    .principles {
+      border-top: 1px solid var(--line);
+      background: #fff;
+      padding: 72px 0 78px;
+    }
+
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .principle-card {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 19px;
+    }
+
+    .principle-card > span {
+      color: var(--gold-500);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10px;
+    }
+
+    .principle-card h3 {
+      margin: 26px 0 8px;
+      color: var(--navy-900);
+      font-size: 15px;
+    }
+
+    .principle-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.62;
+    }
+
+    .toolkit {
+      background: var(--navy-950);
+      color: #fff;
+      padding: 76px 0;
+    }
+
+    .toolkit-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .toolkit-copy h2 {
+      color: #fff;
+    }
+
+    .toolkit-copy > p:last-child {
+      margin: 18px 0 0;
+      color: #9fb0c2;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .tool-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .tool-list a {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      align-items: center;
+      gap: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 13px 14px;
+      transition: background 150ms ease, border-color 150ms ease;
+    }
+
+    .tool-list a:hover {
+      border-color: rgba(214, 173, 74, 0.5);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .tool-number {
+      color: var(--gold-500);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 9px;
+    }
+
+    .tool-list strong,
+    .tool-list small {
+      display: block;
+    }
+
+    .tool-list strong {
+      font-size: 11px;
+    }
+
+    .tool-list small {
+      margin-top: 3px;
+      color: #91a4b7;
+      font-size: 9px;
+    }
+
+    .tool-list b {
+      color: var(--gold-500);
+      font-size: 12px;
+    }
+
+    .tool-list a.current {
+      border-color: rgba(214, 173, 74, 0.55);
+      background: rgba(214, 173, 74, 0.08);
+    }
+
+    .current-chip {
+      justify-self: end;
+      border-radius: 999px;
+      background: var(--gold-500);
+      color: var(--navy-950);
+      padding: 4px 7px;
+      font-size: 7px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .notice {
+      border-top: 1px solid var(--line);
+      background: #fff;
+      padding: 22px 0;
+    }
+
+    .notice p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      place-items: center;
+      background: rgba(4, 16, 29, 0.72);
+      padding: 20px;
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-panel {
+      width: min(640px, 100%);
+      max-height: min(760px, calc(100vh - 40px));
+      overflow: auto;
+      border-radius: 17px;
+      background: #fff;
+      box-shadow: 0 32px 100px rgba(0, 0, 0, 0.35);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line);
+      padding: 23px 24px 19px;
+    }
+
+    .modal-head h2 {
+      margin: 7px 0 0;
+      color: var(--navy-900);
+      font-size: 25px;
+      letter-spacing: -0.03em;
+    }
+
+    .modal-close {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      color: var(--navy-900);
+    }
+
+    .modal-body {
+      padding: 23px 24px 26px;
+    }
+
+    .guide-step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 13px;
+      padding: 13px 0;
+    }
+
+    .guide-step + .guide-step {
+      border-top: 1px solid var(--line);
+    }
+
+    .guide-step > span {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--navy-900);
+      color: var(--gold-300);
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .guide-step strong {
+      display: block;
+      color: var(--navy-900);
+      font-size: 12px;
+    }
+
+    .guide-step p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.58;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 38px;
+        padding-top: 58px;
+      }
+
+      .thread-card {
+        max-width: 620px;
+      }
+
+      .walkthrough-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .case-record {
+        position: static;
+      }
+
+      .principle-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .toolkit-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .header-inner {
+        min-height: 64px;
+      }
+
+      .brand-copy small,
+      .header-nav a {
+        display: none;
+      }
+
+      .hero-grid {
+        min-height: auto;
+        padding: 49px 0 43px;
+      }
+
+      .hero h1 {
+        font-size: clamp(40px, 13vw, 58px);
+      }
+
+      .proof-strip,
+      .scenario-grid,
+      .principle-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-strip > div {
+        min-height: 50px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .proof-strip > div:last-child {
+        border-bottom: 0;
+      }
+
+      .section-heading,
+      .walkthrough-heading {
+        display: block;
+      }
+
+      .section-heading > p {
+        margin-top: 14px;
+      }
+
+      .case-chips {
+        justify-content: flex-start;
+        margin-top: 13px;
+      }
+
+      .stage-card-head {
+        display: block;
+      }
+
+      .status {
+        display: inline-flex;
+        margin-top: 11px;
+      }
+
+      .stage-meta,
+      .output-grid,
+      .evidence-list,
+      .decision-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-meta > div + div {
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .evidence-list li {
+        border-right: 0;
+      }
+
+      .evidence-list li:nth-last-child(2) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .stage-question,
+      .stage-description,
+      .stage-meta,
+      .evidence-block,
+      .output-grid,
+      .decision-lab,
+      .handoff {
+        margin-right: 17px;
+        margin-left: 17px;
+      }
+
+      .stage-card-head,
+      .stage-actions {
+        padding-right: 17px;
+        padding-left: 17px;
+      }
+
+      .stage-actions {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stage-actions > span {
+        display: none;
+      }
+
+      .thread-node small {
+        font-size: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="AI Governance Toolkit home">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span class="brand-copy">
+          <strong>AI Governance Toolkit</strong>
+          <small>Practical governance for complex organisations</small>
+        </span>
+      </a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="#route">Lifecycle route</a>
+        <a href="#toolkit">Connected tools</a>
+        <button type="button" data-open-guide>How to use</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Multi-board lifecycle walkthrough</p>
+          <h1>One system. One record.<span> Every decision connected.</span></h1>
+          <p>
+            Follow an AI system from first intake through multiple governance bodies,
+            live monitoring, material change and final retirement without losing the
+            evidence, conditions or accountability between them.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-gold" href="#route">Start the walkthrough <span aria-hidden="true">→</span></a>
+            <button class="button button-outline" type="button" data-open-guide>Understand the model</button>
+          </div>
+        </div>
+
+        <aside class="thread-card" aria-label="Connected governance record">
+          <div class="thread-topline">
+            <span>Governance thread</span>
+            <span class="live-chip">Connected</span>
+          </div>
+          <div class="identity-row">
+            <span class="identity-icon" aria-hidden="true">ID</span>
+            <div>
+              <small>Permanent identity</small>
+              <strong>AIR-2026-0142</strong>
+            </div>
+          </div>
+          <div class="thread-flow" aria-hidden="true">
+            <div class="thread-node"><span>1</span><small>Register</small></div>
+            <div class="thread-node"><span>2</span><small>Case Log</small></div>
+            <div class="thread-node"><span>3</span><small>Boards</small></div>
+            <div class="thread-node"><span>4</span><small>Evidence</small></div>
+          </div>
+          <div class="thread-note">
+            <span aria-hidden="true">↳</span>
+            <p>
+              Decisions travel with their <strong>rationale, conditions and evidence</strong>,
+              not as disconnected approval labels.
+            </p>
+          </div>
+        </aside>
+      </div>
+      <div class="shell proof-strip" aria-label="Core operating rules">
+        <div><span>01</span><strong>Stable AIR-ID</strong></div>
+        <div><span>02</span><strong>Governance Case Log</strong></div>
+        <div><span>03</span><strong>Evidence at every gate</strong></div>
+        <div><span>04</span><strong>Lifecycle traceability</strong></div>
+      </div>
+    </section>
+
+    <section class="scenario-section" id="route">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">Choose a case to follow</p>
+            <h2>See how context changes the route</h2>
+          </div>
+          <p>
+            The connected record remains the same. Governance intensity and conditional
+            gates change according to the system.
+          </p>
+        </div>
+        <div class="scenario-grid" id="scenario-grid" aria-label="Example AI cases"></div>
+      </div>
+    </section>
+
+    <section class="walkthrough-section" id="walkthrough">
+      <div class="shell">
+        <div class="walkthrough-heading">
+          <div>
+            <p class="kicker">Interactive lifecycle</p>
+            <h2 id="scenario-name">Resident-facing service</h2>
+          </div>
+          <div class="case-chips" id="case-chips" aria-label="Selected case summary"></div>
+        </div>
+
+        <div class="stage-navigator" id="stage-navigator" aria-label="Lifecycle stages"></div>
+
+        <div class="walkthrough-grid">
+          <article class="stage-card" aria-live="polite">
+            <div class="stage-card-head">
+              <div>
+                <p class="stage-count" id="stage-count">Stage 1 of 12 · Front door</p>
+                <h3 id="stage-title">Identify the use and establish ownership</h3>
+              </div>
+              <span class="status status-front" id="stage-status">Case update required</span>
+            </div>
+
+            <div class="skip-panel" id="skip-panel">
+              <span class="skip-icon" aria-hidden="true">N/A</span>
+              <div>
+                <h4>This gate is not required for the selected example</h4>
+                <p>
+                  The reason is still recorded in the Governance Case Log. A visible
+                  N/A is part of the audit trail; an empty space is not.
+                </p>
+              </div>
+            </div>
+
+            <div class="normal-stage-content" id="normal-stage-content">
+              <div class="stage-question">
+                <span class="label">Decision question</span>
+                <p id="stage-question"></p>
+              </div>
+              <p class="stage-description" id="stage-description"></p>
+
+              <div class="stage-meta">
+                <div>
+                  <span class="label">Accountable lead</span>
+                  <strong id="stage-owner"></strong>
+                </div>
+                <div>
+                  <span class="label">Forum or authority</span>
+                  <strong id="stage-forum"></strong>
+                </div>
+              </div>
+
+              <div class="evidence-block">
+                <div class="block-title">
+                  <div>
+                    <span class="mini-icon" aria-hidden="true">E</span>
+                    <div>
+                      <strong>Evidence entering this stage</strong>
+                      <small>Authoritative references, not copied fragments</small>
+                    </div>
+                  </div>
+                  <span id="evidence-count">4 items</span>
+                </div>
+                <ul class="evidence-list" id="evidence-list"></ul>
+              </div>
+
+              <div class="output-grid">
+                <div>
+                  <span class="label">Stage output</span>
+                  <strong id="stage-output"></strong>
+                </div>
+                <div>
+                  <span class="label">Case Log update</span>
+                  <strong id="case-update"></strong>
+                </div>
+              </div>
+
+              <div class="decision-lab" id="decision-lab">
+                <div class="decision-title">
+                  <span class="label">Explore an example decision</span>
+                  <p>See how it affects the connected record.</p>
+                </div>
+                <div class="decision-buttons" id="decision-buttons">
+                  <button type="button" data-decision="progress">Progress</button>
+                  <button type="button" data-decision="conditional">Progress with condition</button>
+                  <button type="button" data-decision="evidence">Return for evidence</button>
+                </div>
+                <p class="decision-result" id="decision-result">
+                  <span aria-hidden="true">↳</span>
+                  <span id="decision-description"></span>
+                </p>
+              </div>
+
+              <div class="handoff">
+                <span class="handoff-mark" aria-hidden="true">→</span>
+                <div>
+                  <span class="label">Controlled handoff</span>
+                  <p id="stage-handoff"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="stage-actions">
+              <button class="button button-back" id="back-button" type="button">← Previous</button>
+              <span id="stage-position">1 / 12</span>
+              <button class="button button-navy" id="next-button" type="button">Next stage →</button>
+            </div>
+          </article>
+
+          <aside class="case-record" aria-label="Governance Case Log summary">
+            <div class="record-head">
+              <div><span class="record-pulse" aria-hidden="true"></span> Governance Case Log</div>
+              <small>Live record</small>
+            </div>
+            <div class="record-identity">
+              <span>Permanent system identity</span>
+              <strong>AIR-2026-0142</strong>
+              <small>Created once and never replaced</small>
+            </div>
+            <dl class="record-list">
+              <div><dt>Current stage</dt><dd id="record-stage">Intake</dd></div>
+              <div><dt>Priority</dt><dd id="record-priority">Priority 2 · High</dd></div>
+              <div><dt>Risk tier</dt><dd id="record-risk">High</dd></div>
+              <div><dt>Assurance route</dt><dd id="record-assurance">Enhanced</dd></div>
+              <div><dt>Evidence indexed</dt><dd id="record-evidence">4 references</dd></div>
+              <div><dt>Open conditions</dt><dd class="attention" id="record-conditions">2 actions</dd></div>
+            </dl>
+            <div class="record-update">
+              <span class="label">Latest append-only update</span>
+              <p id="record-update">Intake source, date, owner and initial scope recorded</p>
+            </div>
+            <div class="record-progress">
+              <div>
+                <span class="label">Lifecycle explored</span>
+                <strong id="record-progress-label">1 / 12</strong>
+              </div>
+              <span class="progress-track"><span id="progress-fill" style="width: 8.33%"></span></span>
+            </div>
+            <p class="record-footnote">
+              The Register identifies the system. The Case Log preserves its changing
+              governance history, evidence, decisions and actions.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="principles">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">Operating rules</p>
+            <h2>What prevents fragmentation</h2>
+          </div>
+          <p>
+            The model works with existing boards. It strengthens the thread between
+            them instead of replacing their authority.
+          </p>
+        </div>
+        <div class="principle-grid">
+          <article class="principle-card">
+            <span>01</span>
+            <h3>Identity never changes</h3>
+            <p>The same AIR-ID appears on every assessment, board paper, decision and evidence reference.</p>
+          </article>
+          <article class="principle-card">
+            <span>02</span>
+            <h3>Conditions travel forward</h3>
+            <p>Each recipient sees outstanding actions, accountable owners and due dates, not only “approved”.</p>
+          </article>
+          <article class="principle-card">
+            <span>03</span>
+            <h3>Evidence stays authoritative</h3>
+            <p>The Case Log points to controlled evidence rather than creating contradictory copies.</p>
+          </article>
+          <article class="principle-card">
+            <span>04</span>
+            <h3>Change creates re-entry</h3>
+            <p>Material change reopens the relevant gates under the existing case instead of bypassing history.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolkit" id="toolkit">
+      <div class="shell toolkit-grid">
+        <div class="toolkit-copy">
+          <p class="kicker">Connected toolkit</p>
+          <h2>Each tool answers a different governance question</h2>
+          <p>
+            Together they explain the lifecycle, calculate governance need,
+            route a system through multiple forums and preserve continuity.
+          </p>
+        </div>
+        <div class="tool-list">
+          <a href="https://kimabercromby.github.io/AIGovernanceWalkthrough/" target="_blank" rel="noreferrer">
+            <span class="tool-number">01</span>
+            <span><strong>Standard lifecycle walkthrough</strong><small>How does proportionate AI governance work?</small></span>
+            <b aria-hidden="true">↗</b>
+          </a>
+          <a href="https://kimabercromby.github.io/AIGovernanceTriage/" target="_blank" rel="noreferrer">
+            <span class="tool-number">02</span>
+            <span><strong>AI governance triage</strong><small>What are the priority, risk and assurance needs?</small></span>
+            <b aria-hidden="true">↗</b>
+          </a>
+          <a href="https://kimabercromby.github.io/AIGovernanceTriage-MultiBoard/" target="_blank" rel="noreferrer">
+            <span class="tool-number">03</span>
+            <span><strong>Multi-board triage and router</strong><small>Which gates, evidence and handoffs are required?</small></span>
+            <b aria-hidden="true">↗</b>
+          </a>
+          <a class="current" href="#top">
+            <span class="tool-number">04</span>
+            <span><strong>Multi-board lifecycle walkthrough</strong><small>How does the system remain connected end to end?</small></span>
+            <span class="current-chip">Current</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="notice">
+      <div class="shell">
+        <p>
+          Illustrative governance model. AGPI prioritisation orders attention; it is not
+          a risk assessment and does not grant permission to deploy. Organisations should
+          map the generic authorities shown here to their own approved forums and roles.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="guide-modal" role="dialog" aria-modal="true" aria-labelledby="guide-title">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div>
+          <p class="kicker">How to use this walkthrough</p>
+          <h2 id="guide-title">Follow the governance thread</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-guide aria-label="Close guide">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="guide-step">
+          <span>1</span>
+          <div><strong>Choose an example case</strong><p>Compare a higher-risk procured service, a lower-risk internal tool and a live system discovered retrospectively.</p></div>
+        </div>
+        <div class="guide-step">
+          <span>2</span>
+          <div><strong>Move through all 12 stages</strong><p>Use the numbered route or the previous and next buttons. Each stage shows its authority, evidence, output and controlled handoff.</p></div>
+        </div>
+        <div class="guide-step">
+          <span>3</span>
+          <div><strong>Explore board decisions</strong><p>At governance gates, choose an example decision and see conditions accumulate in the connected case record.</p></div>
+        </div>
+        <div class="guide-step">
+          <span>4</span>
+          <div><strong>Watch the Case Log</strong><p>The permanent AIR-ID remains fixed while the current stage, evidence, conditions and latest update change around it.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scenarios = [
+      {
+        key: "resident",
+        name: "Resident-facing service",
+        context: "A procured AI assistant will help residents navigate housing and benefits services.",
+        tier: "High",
+        priority: "Priority 2 · High",
+        assurance: "Enhanced",
+        commercial: true,
+        retrospective: false,
+        colour: "#b85725",
+        initialConditions: 2
+      },
+      {
+        key: "assistant",
+        name: "Staff productivity assistant",
+        context: "An approved generative AI tool will summarise non-sensitive internal meeting notes.",
+        tier: "Low",
+        priority: "Priority 4 · Routine",
+        assurance: "Proportionate",
+        commercial: false,
+        retrospective: false,
+        colour: "#287b50",
+        initialConditions: 0
+      },
+      {
+        key: "retrospective",
+        name: "Live AI discovered",
+        context: "A service has already adopted an AI-enabled tool outside the governance front door.",
+        tier: "High",
+        priority: "Priority 1 · Critical",
+        assurance: "Immediate retrospective",
+        commercial: true,
+        retrospective: true,
+        colour: "#a73a3a",
+        initialConditions: 3
+      }
+    ];
+
+    const stages = [
+      {
+        id: "intake", short: "Intake", phase: "Front door", kind: "front",
+        title: "Identify the use and establish ownership",
+        owner: "Service Owner", forum: "AI governance front door",
+        question: "What is the AI use, why is it needed and who is accountable?",
+        description: "Every proposed or discovered AI use enters through one route. The intake captures the purpose, people affected, source, data, capability and named owner before governance work begins.",
+        evidence: ["AI Intake Form", "Business purpose and expected benefit", "Named Service Owner", "Initial supplier or model information"],
+        output: "A recognised governance case with an accountable owner",
+        handoff: "Send the validated intake to the register owner so the system can receive its permanent identity.",
+        caseUpdate: "Intake source, date, owner and initial scope recorded"
+      },
+      {
+        id: "identity", short: "AIR-ID", phase: "Front door", kind: "front",
+        title: "Create the Register entry and Governance Case Log",
+        owner: "AI Governance Lead", forum: "AI Register and case management",
+        question: "How will every later decision remain connected?",
+        description: "The system receives one stable AIR-ID. The AI Register holds the inventory record; the Governance Case Log holds the developing history of gates, conditions, actions and evidence.",
+        evidence: ["Validated intake", "AI Register record", "Governance Case Log opened", "Evidence Index location"],
+        output: "One stable identity used across every board and artefact",
+        handoff: "Place the AIR-ID on all assessments, submissions, decisions and evidence before triage starts.",
+        caseUpdate: "AIR-ID assigned; Case Log and Evidence Index linked"
+      },
+      {
+        id: "triage", short: "Triage", phase: "Shape the route", kind: "control",
+        title: "Determine priority, risk and the evidence plan",
+        owner: "Service Owner with AI Governance Lead", forum: "Risk-proportionate triage",
+        question: "How much governance does this system need?",
+        description: "AGPI prioritisation, inherent and residual risk, mandatory escalation triggers and lifecycle context determine the assurance intensity and planned multi-board route.",
+        evidence: ["AGPI priority result", "Risk classification", "Mandatory trigger check", "Required assessment and evidence plan"],
+        output: "A proportionate route, not a permission to deploy",
+        handoff: "Attach the triage summary to the Case Log and route the case to strategic prioritisation with its planned evidence requirements.",
+        caseUpdate: "Priority, risk tier, triggers and planned route recorded"
+      },
+      {
+        id: "strategic", short: "Strategic", phase: "Multi-board gates", kind: "gate",
+        title: "Confirm strategic fit and permission to progress",
+        owner: "Strategic Sponsor", forum: "Strategic planning or prioritisation forum",
+        question: "Is the proposal sufficiently valuable and defined to progress?",
+        description: "The first organisational gate confirms the purpose, ownership, priority, expected benefits, dependencies and strategic fit. It may approve progression, impose conditions or stop the case.",
+        evidence: ["AI Intake Form and AIR-ID", "AGPI triage result", "Purpose and benefits statement", "Indicative cost and dependencies"],
+        output: "Strategic decision with rationale and conditions",
+        handoff: "Carry the decision, unresolved conditions and agreed scope into the technical review, not only the final approval label.",
+        caseUpdate: "Decision authority, date, rationale and conditions appended"
+      },
+      {
+        id: "technical", short: "Technical", phase: "Multi-board gates", kind: "gate",
+        title: "Confirm technical feasibility and control design",
+        owner: "Technical Design Authority", forum: "Technical design review",
+        question: "Is the design secure, supportable and technically sound?",
+        description: "Architecture, integration, data flows, access permissions, security, testing and operational support are examined against the agreed scope.",
+        evidence: ["Solution design and data flows", "Integrations and permissions", "Security review", "Test approach and acceptance criteria"],
+        output: "Versioned technical endorsement or return for remediation",
+        handoff: "File the endorsed design baseline in the Evidence Index and send its conditions to AI assurance.",
+        caseUpdate: "Technical opinion and design-baseline reference appended"
+      },
+      {
+        id: "assurance", short: "Assurance", phase: "Multi-board gates", kind: "gate",
+        title: "Form an AI-specific assurance opinion",
+        owner: "AI Assurance Authority", forum: "AI Assurance Board",
+        question: "Are the AI-specific risks understood and sufficiently controlled?",
+        description: "The board evaluates the evidence package proportionately, drawing together data protection, equality, human rights, security, model, supplier and human-oversight evidence.",
+        evidence: ["Responsible AI assessment", "DPIA, EIA or HRA as required", "Model Card and supplier due diligence", "Human oversight and monitoring design"],
+        output: "A versioned assurance opinion, not a replacement for other boards",
+        handoff: "Pass the assurance opinion, material limitations, accepted risks and open conditions to digital governance.",
+        caseUpdate: "Assurance opinion version and evidence gaps appended"
+      },
+      {
+        id: "digital", short: "Digital", phase: "Multi-board gates", kind: "gate",
+        title: "Make the digital portfolio decision",
+        owner: "Digital Portfolio Authority", forum: "Digital Governance Board",
+        question: "Should this investment progress within the wider portfolio?",
+        description: "The board considers funding, capacity, delivery dependencies, strategic priority, technical endorsement and the AI assurance opinion as one decision package.",
+        evidence: ["Business case or benefits statement", "Technical endorsement", "Versioned AI assurance opinion", "Dependencies, resources and open conditions"],
+        output: "Portfolio decision and confirmed delivery route",
+        handoff: "Record the decision and route to commercial approval when a purchase, contract or material supplier change is involved.",
+        caseUpdate: "Portfolio decision and delivery conditions appended"
+      },
+      {
+        id: "commercial", short: "Commercial", phase: "Multi-board gates", kind: "gate", conditional: "commercial",
+        title: "Approve the supplier and contractual route",
+        owner: "Commercial or Procurement Authority", forum: "Procurement Board or delegated authority",
+        question: "Are the supplier, contract and procurement route acceptable?",
+        description: "This conditional gate secures audit, transparency, data, security, change-notification, exit and ongoing assurance rights in the contractual arrangement.",
+        evidence: ["Supplier AI due diligence", "Evaluation and funding approval", "Data, security and AI contract terms", "Audit, notification and exit rights"],
+        output: "Commercial approval, or a recorded N/A with rationale",
+        handoff: "Add contract obligations and supplier conditions to the Case Log so release and monitoring owners can enforce them.",
+        caseUpdate: "Commercial decision, contract reference or N/A rationale appended"
+      },
+      {
+        id: "release", short: "Release", phase: "Release", kind: "gate",
+        title: "Decide whether the system is ready to operate",
+        owner: "Deployment or Release Authority", forum: "Operational release decision",
+        question: "Are the service, controls and evidence ready for live operation?",
+        description: "The release authority confirms testing, accepted conditions, support, training, rollback, monitoring, incident response and the final evidence baseline.",
+        evidence: ["Test and acceptance results", "Closure or acceptance of conditions", "Monitoring and review schedule", "Incident, rollback and suspension plan"],
+        output: "Deploy, deploy with conditions, return or stop",
+        handoff: "Transfer every live condition to a named operational owner with a due date and monitoring measure.",
+        caseUpdate: "Release decision and live control baseline appended"
+      },
+      {
+        id: "operate", short: "Monitor", phase: "Live operation", kind: "live",
+        title: "Operate, monitor and review",
+        owner: "Service Owner and Model or Supplier Owner", forum: "Scheduled operational and governance review",
+        question: "Is the system still performing safely and as approved?",
+        description: "Monitoring tests performance, fairness, incidents, complaints, human oversight, supplier changes and control effectiveness against the approved baseline.",
+        evidence: ["Performance and risk indicators", "Bias, drift and outcome monitoring", "Incidents, complaints and overrides", "Supplier and model-change notifications"],
+        output: "Continue, adjust controls, escalate or suspend",
+        handoff: "Update the Register review dates and append monitoring evidence and review decisions to the Case Log.",
+        caseUpdate: "Review result, metrics, incidents and actions appended"
+      },
+      {
+        id: "reentry", short: "Re-entry", phase: "Live operation", kind: "live",
+        title: "Re-enter governance when the approved baseline changes",
+        owner: "AI Governance Lead", forum: "Change or incident triage",
+        question: "Does this change or event require earlier gates to be revisited?",
+        description: "A material model, supplier, purpose, data, integration or autonomy change, and any significant incident, reopens the relevant parts of the route rather than creating an unconnected new case.",
+        evidence: ["Change or incident record", "Comparison with approved baseline", "Updated risk and impact assessment", "Containment and remediation evidence"],
+        output: "A targeted re-entry route under the same AIR-ID",
+        handoff: "Link the new decision cycle to the original baseline and preserve the before-and-after evidence.",
+        caseUpdate: "Re-entry trigger, affected gates and containment actions appended"
+      },
+      {
+        id: "retire", short: "Retire", phase: "Closure", kind: "close",
+        title: "Retire the system and preserve the record",
+        owner: "Service Owner with Records and Information Governance", forum: "Retirement or decommissioning authority",
+        question: "Has the system been safely withdrawn and its record retained?",
+        description: "Retirement confirms technical decommissioning, contract closure, data disposition, dependency removal, resident or staff communication and evidence retention.",
+        evidence: ["Retirement decision and date", "Data retention or deletion evidence", "Supplier and contract closure", "Final outcomes and lessons learned"],
+        output: "Register status closed; complete audit history retained",
+        handoff: "Close the active case without deleting its history. Preserve the Case Log and authoritative evidence for the required retention period.",
+        caseUpdate: "Retirement rationale, closure evidence and retention status appended"
+      }
+    ];
+
+    const decisions = {
+      progress: {
+        description: "Evidence is sufficient and no new condition is added.",
+        conditionDelta: 0
+      },
+      conditional: {
+        description: "A named action, owner and due date travel with the case into the next gate.",
+        conditionDelta: 1
+      },
+      evidence: {
+        description: "The route pauses until the evidence gap is resolved and recorded.",
+        conditionDelta: 1
+      }
+    };
+
+    const state = {
+      scenarioKey: "resident",
+      stageIndex: 0,
+      maxVisited: 0,
+      decisions: {}
+    };
+
+    const getScenario = () => scenarios.find(item => item.key === state.scenarioKey) || scenarios[0];
+    const isSkipped = stage => stage.conditional === "commercial" && !getScenario().commercial;
+
+    function renderScenarios() {
+      const grid = document.getElementById("scenario-grid");
+      grid.innerHTML = scenarios.map(item => `
+        <button
+          class="scenario-card ${item.key === state.scenarioKey ? "active" : ""}"
+          type="button"
+          data-scenario="${item.key}"
+          aria-pressed="${item.key === state.scenarioKey}"
+          style="--scenario-colour:${item.colour}"
+        >
+          <span class="scenario-top">
+            <span class="risk-dot" aria-hidden="true"></span>
+            <span class="risk-label">${item.tier} risk</span>
+            ${item.retrospective ? '<span class="retro-label">Live</span>' : ""}
+          </span>
+          <strong>${item.name}</strong>
+          <p>${item.context}</p>
+          <span class="scenario-result">${item.assurance} assurance <span aria-hidden="true">→</span></span>
+        </button>
+      `).join("");
+
+      grid.querySelectorAll("[data-scenario]").forEach(button => {
+        button.addEventListener("click", () => selectScenario(button.dataset.scenario));
+      });
+    }
+
+    function renderStageNavigator() {
+      const navigator = document.getElementById("stage-navigator");
+      navigator.innerHTML = stages.map((stage, index) => {
+        const status = index === state.stageIndex ? "active" : index <= state.maxVisited ? "visited" : "future";
+        return `
+          <button
+            class="stage-tab ${status}"
+            type="button"
+            data-stage="${index}"
+            aria-current="${index === state.stageIndex ? "step" : "false"}"
+            title="${index + 1}. ${stage.title}"
+          >
+            <span>${index + 1}</span>
+            <small>${stage.short}</small>
+          </button>
+        `;
+      }).join("");
+
+      navigator.querySelectorAll("[data-stage]").forEach(button => {
+        button.addEventListener("click", () => goToStage(Number(button.dataset.stage)));
+      });
+    }
+
+    function selectScenario(key) {
+      state.scenarioKey = key;
+      state.stageIndex = 0;
+      state.maxVisited = 0;
+      state.decisions = {};
+      renderAll();
+    }
+
+    function goToStage(index, scroll = true) {
+      state.stageIndex = Math.max(0, Math.min(index, stages.length - 1));
+      state.maxVisited = Math.max(state.maxVisited, state.stageIndex);
+      renderAll();
+      if (scroll) {
+        document.getElementById("walkthrough").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function recordDecision(key) {
+      state.decisions[stages[state.stageIndex].id] = key;
+      renderStage();
+    }
+
+    function cumulativeEvidence() {
+      return stages.slice(0, state.maxVisited + 1).reduce((count, stage) => {
+        return count + (isSkipped(stage) ? 0 : stage.evidence.length);
+      }, 0);
+    }
+
+    function openConditions() {
+      const scenario = getScenario();
+      return scenario.initialConditions + Object.values(state.decisions).reduce((total, key) => {
+        return total + decisions[key].conditionDelta;
+      }, 0);
+    }
+
+    function stageStatus(stage) {
+      const scenario = getScenario();
+      if (isSkipped(stage)) return "Not required · rationale recorded";
+      if (scenario.retrospective && state.stageIndex < 3) return "Retrospective baseline";
+      return stage.kind === "gate" ? "Decision required" : "Case update required";
+    }
+
+    function renderStage() {
+      const scenario = getScenario();
+      const stage = stages[state.stageIndex];
+      const skipped = isSkipped(stage);
+      const currentDecision = state.decisions[stage.id];
+
+      document.getElementById("scenario-name").textContent = scenario.name;
+      document.getElementById("case-chips").innerHTML = `
+        <span>${scenario.priority}</span>
+        <span>${scenario.tier} risk</span>
+        <span>${scenario.assurance} assurance</span>
+      `;
+      document.getElementById("stage-count").textContent = `Stage ${state.stageIndex + 1} of ${stages.length} · ${stage.phase}`;
+      document.getElementById("stage-title").textContent = stage.title;
+      document.getElementById("stage-question").textContent = stage.question;
+      document.getElementById("stage-description").textContent = stage.description;
+      document.getElementById("stage-owner").textContent = stage.owner;
+      document.getElementById("stage-forum").textContent = stage.forum;
+      document.getElementById("stage-output").textContent = stage.output;
+      document.getElementById("case-update").textContent = stage.caseUpdate;
+      document.getElementById("stage-handoff").textContent = stage.handoff;
+      document.getElementById("evidence-count").textContent = `${stage.evidence.length} items`;
+      document.getElementById("evidence-list").innerHTML = stage.evidence
+        .map(item => `<li><span aria-hidden="true">✓</span>${item}</li>`)
+        .join("");
+
+      const status = document.getElementById("stage-status");
+      status.className = `status status-${stage.kind}`;
+      status.textContent = stageStatus(stage);
+
+      document.getElementById("skip-panel").classList.toggle("visible", skipped);
+      document.getElementById("normal-stage-content").classList.toggle("hidden", skipped);
+      document.getElementById("decision-lab").style.display = stage.kind === "gate" && !skipped ? "block" : "none";
+
+      document.querySelectorAll("[data-decision]").forEach(button => {
+        button.classList.toggle("selected", button.dataset.decision === currentDecision);
+        button.setAttribute("aria-pressed", button.dataset.decision === currentDecision ? "true" : "false");
+      });
+
+      const decisionResult = document.getElementById("decision-result");
+      decisionResult.classList.toggle("visible", Boolean(currentDecision));
+      document.getElementById("decision-description").textContent =
+        currentDecision ? decisions[currentDecision].description : "";
+
+      document.getElementById("back-button").disabled = state.stageIndex === 0;
+      document.getElementById("next-button").disabled = state.stageIndex === stages.length - 1;
+      document.getElementById("stage-position").textContent = `${state.stageIndex + 1} / ${stages.length}`;
+
+      document.getElementById("record-stage").textContent = stage.short;
+      document.getElementById("record-priority").textContent = scenario.priority;
+      document.getElementById("record-risk").textContent = scenario.tier;
+      document.getElementById("record-assurance").textContent = scenario.assurance;
+      document.getElementById("record-evidence").textContent = `${cumulativeEvidence()} references`;
+      document.getElementById("record-conditions").textContent = `${openConditions()} actions`;
+      document.getElementById("record-update").textContent = skipped
+        ? "Commercial gate marked N/A with the routing rationale retained"
+        : stage.caseUpdate;
+      document.getElementById("record-progress-label").textContent = `${state.maxVisited + 1} / ${stages.length}`;
+      document.getElementById("progress-fill").style.width = `${((state.maxVisited + 1) / stages.length) * 100}%`;
+    }
+
+    function renderAll() {
+      renderScenarios();
+      renderStageNavigator();
+      renderStage();
+    }
+
+    document.getElementById("back-button").addEventListener("click", () => goToStage(state.stageIndex - 1));
+    document.getElementById("next-button").addEventListener("click", () => goToStage(state.stageIndex + 1));
+    document.querySelectorAll("[data-decision]").forEach(button => {
+      button.addEventListener("click", () => recordDecision(button.dataset.decision));
+    });
+
+    const modal = document.getElementById("guide-modal");
+    const closeButton = modal.querySelector("[data-close-guide]");
+    let lastFocusedElement = null;
+
+    function openGuide() {
+      lastFocusedElement = document.activeElement;
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      closeButton.focus();
+    }
+
+    function closeGuide() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+      if (lastFocusedElement) lastFocusedElement.focus();
+    }
+
+    document.querySelectorAll("[data-open-guide]").forEach(button => button.addEventListener("click", openGuide));
+    closeButton.addEventListener("click", closeGuide);
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeGuide();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && modal.classList.contains("open")) closeGuide();
+      if (event.key === "ArrowRight" && !modal.classList.contains("open")) goToStage(state.stageIndex + 1, false);
+      if (event.key === "ArrowLeft" && !modal.classList.contains("open")) goToStage(state.stageIndex - 1, false);
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>
