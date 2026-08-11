@@ -34,8 +34,8 @@
   .badge{font-size:13px;font-weight:500;color:#DCE3F0;border:1px solid rgba(255,255,255,.22);
     padding:6px 12px;border-radius:999px}
 
-  section{padding:64px 0}
-  .section-head{max-width:640px;margin-bottom:40px}
+  section{padding:52px 0}
+  .section-head{max-width:640px;margin-bottom:30px}
   .section-head h2{font-size:clamp(24px,4vw,32px);font-weight:750;margin-top:10px}
   .section-head p{color:var(--muted);margin-top:12px;font-size:17.5px}
 
@@ -67,6 +67,58 @@
   .tag.artefact{background:#C9A44218;border-color:#C9A44240;color:#7A6318}
   .carry{margin-top:14px;font-size:14.5px;color:var(--muted);display:flex;gap:8px;align-items:baseline}
   .carry b{color:var(--gold);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;margin-right:9px}
+
+  .join-line{color:var(--muted);font-size:16px;max-width:660px;margin-top:4px}
+
+  /* interactive follow-a-system stepper */
+  .scenarios{display:flex;flex-wrap:wrap;margin:0 0 26px}
+  .scn{flex:1 1 260px;text-align:left;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px 20px;margin:0 10px 12px 0;cursor:pointer;
+    box-shadow:var(--shadow);transition:border-color .15s,transform .15s;font-family:inherit}
+  .scn:hover{transform:translateY(-2px)}
+  .scn.active{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-soft),var(--shadow)}
+  .scn .st{font-weight:700;font-size:16px;color:var(--navy)}
+  .scn .sb{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.45}
+  .scn .stier{display:inline-block;margin-top:12px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+  .scn.active .stier{}
+  .tier-High{background:#b857251a;color:#8a3d18;border:1px solid #b8572540}
+  .tier-Low{background:#287b501a;color:#1c5c3a;border:1px solid #287b5040}
+  .tier-Critical{background:#a73a3a1a;color:#8a2a2a;border:1px solid #a73a3a40}
+  .retro-flag{display:inline-block;margin-left:8px;font-size:11px;font-weight:800;letter-spacing:.04em;
+    text-transform:uppercase;color:#8a2a2a;background:#a73a3a14;border:1px solid #a73a3a40;padding:3px 8px;border-radius:6px;vertical-align:middle}
+
+  .stepper{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+  .step-progress{display:flex;flex-wrap:wrap;background:var(--soft);border-bottom:1px solid var(--line);padding:12px 14px}
+  .dot{display:flex;align-items:center;font-size:12.5px;font-weight:600;color:var(--muted);margin:3px 4px}
+  .dot .b{width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-right:6px;color:var(--muted)}
+  .dot.done .b{background:var(--gold-soft);border-color:var(--gold);color:#7a6318}
+  .dot.active .b{background:var(--navy);border-color:var(--navy);color:#fff}
+  .dot.active{color:var(--navy)}
+  .dot .sep{color:var(--line);margin:0 3px 0 7px}
+  .step-main{display:flex;flex-wrap:wrap}
+  .step-panel{flex:1 1 340px;padding:24px 26px}
+  .badge-row{display:flex;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .badge-row .who{font-weight:700;color:var(--navy);font-size:15px;margin-right:10px}
+  .mini{font-size:12px;font-weight:600;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:3px 9px;margin:2px 6px 2px 0}
+  .step-panel h3{font-size:20px;color:var(--navy);margin:2px 0 10px}
+  .step-panel .wht{font-size:15.5px;color:var(--ink);line-height:1.6}
+  .step-panel .rr{margin-top:16px;background:#a73a3a0d;border:1px solid #a73a3a33;border-radius:10px;padding:12px 14px;font-size:14px;color:#7a2727}
+  .step-panel .rr b{color:#8a2a2a;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+  .record{flex:1 1 250px;background:var(--navy);color:#cdd6e6;padding:22px 24px}
+  .record h4{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 4px}
+  .record .rid{font-size:12.5px;color:var(--gold-soft);margin-bottom:14px}
+  .rentry{position:relative;padding:0 0 14px 20px;font-size:13.5px;line-height:1.5}
+  .rentry::before{content:"";position:absolute;left:4px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  .rentry::after{content:"";position:absolute;left:7px;top:13px;bottom:-2px;width:2px;background:#23385c}
+  .rentry:last-child::after{display:none}
+  .rentry .rs{color:#fff;font-weight:600}
+  .step-nav{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:14px 20px;background:var(--soft)}
+  .step-nav button{font-family:inherit;font-size:14px;font-weight:600;padding:9px 18px;border-radius:9px;cursor:pointer;border:1px solid var(--navy);background:var(--navy);color:#fff}
+  .step-nav button.ghost{background:#fff;color:var(--navy)}
+  .step-nav button:disabled{opacity:.35;cursor:not-allowed}
+  .step-nav .sc{font-size:13px;color:var(--muted);font-weight:600}
+  @media (max-width:640px){ .record{flex-basis:100%} }
 
   /* principles */
   .principles{background:var(--navy);color:#fff}
@@ -139,12 +191,6 @@
     <p class="lede">An AI system is classified once, then that single classification travels
       across the governance forums that already exist. This walkthrough shows the journey, and
       the thread that stops it fragmenting along the way.</p>
-    <div class="badges">
-      <span class="badge">Classify once</span>
-      <span class="badge">Route across existing forums</span>
-      <span class="badge">One assurance opinion</span>
-      <span class="badge">One traceable record</span>
-    </div>
   </div>
 </header>
 
@@ -153,101 +199,22 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">The lifecycle</p>
-      <h2>How a system moves, step by step</h2>
-      <p>Each stage has one job, one place it happens, and one thing it hands to the next.
-        The gold thread is the system's record, it never breaks.</p>
+      <h2>Follow a system through, step by step</h2>
+      <p>Pick a system below, including one already in use, and step it through the lifecycle. Watch its single governance record build as it moves, the thread that never breaks.</p>
     </div>
 
-    <div class="pipeline">
-      <span class="pstep"><span class="n">1</span>Intake</span><span class="psep">&rsaquo;</span>
-      <span class="pstep"><span class="n">2</span>Triage</span><span class="psep">&rsaquo;</span>
-      <span class="pstep"><span class="n">3</span>Route</span><span class="psep">&rsaquo;</span>
-      <span class="pstep"><span class="n">4</span>Assess</span><span class="psep">&rsaquo;</span>
-      <span class="pstep"><span class="n">5</span>Decide</span><span class="psep">&rsaquo;</span>
-      <span class="pstep"><span class="n">6</span>Deploy</span><span class="psep">&rsaquo;</span>
-      <span class="pstep"><span class="n">7</span>Operate</span><span class="psep">&rsaquo;</span>
-      <span class="pstep"><span class="n">8</span>Change</span>
-    </div>
+    <div class="scenarios" id="scenarios"></div>
 
-    <div class="timeline">
-      <div class="stage">
-        <div class="node">1</div>
-        <div class="card">
-          <h3>Intake</h3>
-          <p class="what">The use case is described and ownership is established. The system enters the register and is given a permanent identifier.</p>
-          <div class="meta"><span class="tag artefact">Intake Form</span><span class="tag artefact">AI Register</span></div>
-          <div class="carry"><b>Hands on</b><span>a register ID that everything else will key to.</span></div>
-        </div>
+    <div class="stepper">
+      <div class="step-progress" id="progress"></div>
+      <div class="step-main">
+        <div class="step-panel" id="panel"></div>
+        <aside class="record" id="record"></aside>
       </div>
-
-      <div class="stage">
-        <div class="node">2</div>
-        <div class="card">
-          <h3>Triage</h3>
-          <p class="what">The system is classified once: a governance priority (AGPI), a risk tier, and any mandatory escalation triggers. This single classification decides the route.</p>
-          <div class="meta"><span class="tag artefact">Triage tool</span><span class="tag artefact">Risk Worksheet</span></div>
-          <div class="carry"><b>Hands on</b><span>a priority, a risk tier and the forums the system must clear.</span></div>
-        </div>
-      </div>
-
-      <div class="stage">
-        <div class="node">3</div>
-        <div class="card">
-          <h3>Route</h3>
-          <p class="what">The classification maps onto the forums that already exist. Each forum acts under its own delegated authority; none is bypassed, and no new approval board is created.</p>
-          <div class="meta"><span class="tag forum">Strategic</span><span class="tag forum">Technical</span><span class="tag forum">Digital</span><span class="tag forum">Procurement</span><span class="tag forum">Release</span></div>
-          <div class="carry"><b>Hands on</b><span>a planned gate route, with the assurance board holding the thread.</span></div>
-        </div>
-      </div>
-
-      <div class="stage">
-        <div class="node">4</div>
-        <div class="card">
-          <h3>Assess</h3>
-          <p class="what">The assessments the tier requires are carried out, scoped to the system, not a blanket set. Higher risk pulls in more; lower risk stays proportionate.</p>
-          <div class="meta"><span class="tag artefact">DPIA</span><span class="tag artefact">Equality</span><span class="tag artefact">Human Rights</span><span class="tag artefact">Responsible AI</span><span class="tag artefact">Security</span><span class="tag artefact">Model Card</span></div>
-          <div class="carry"><b>Hands on</b><span>an evidence set, indexed against the register ID.</span></div>
-        </div>
-      </div>
-
-      <div class="stage">
-        <div class="node">5</div>
-        <div class="card">
-          <h3>Decide</h3>
-          <p class="what">Each forum decides under its own authority. The assurance board issues one assurance opinion that every forum relies on rather than re-deriving. Conditions are attached, not lost.</p>
-          <div class="meta"><span class="tag artefact">Decision Record</span><span class="tag forum">Assurance opinion</span></div>
-          <div class="carry"><b>Hands on</b><span>an approved system and the conditions it must meet.</span></div>
-        </div>
-      </div>
-
-      <div class="stage">
-        <div class="node">6</div>
-        <div class="card">
-          <h3>Deploy</h3>
-          <p class="what">The rollout carries the approved system, and its conditions, into live service. Go-live is itself logged as a gate, so it sits on the same timeline as everything before it.</p>
-          <div class="meta"><span class="tag artefact">Rollout Plan</span></div>
-          <div class="carry"><b>Hands on</b><span>a live system with its oversight and rollback in place.</span></div>
-        </div>
-      </div>
-
-      <div class="stage">
-        <div class="node">7</div>
-        <div class="card">
-          <h3>Operate</h3>
-          <p class="what">In service, the system is monitored, incidents are captured, and reviews happen on schedule. The register stays the live, authoritative record.</p>
-          <div class="meta"><span class="tag artefact">Dashboard</span><span class="tag artefact">Incident Form</span><span class="tag artefact">ATRS Record</span></div>
-          <div class="carry"><b>Hands on</b><span>monitoring evidence and a current record of the system.</span></div>
-        </div>
-      </div>
-
-      <div class="stage">
-        <div class="node">8</div>
-        <div class="card">
-          <h3>Change &rarr; re-entry</h3>
-          <p class="what">A material change to the model, data, supplier or scope sends the system back to triage. The identity and the thread persist, so the history is never lost.</p>
-          <div class="meta"><span class="tag">Re-triage</span><span class="tag">Same register ID</span></div>
-          <div class="carry"><b>Loops to</b><span>Triage, carrying the whole record with it.</span></div>
-        </div>
+      <div class="step-nav">
+        <button class="ghost" id="prevBtn" type="button">&larr; Previous</button>
+        <span class="sc" id="stepCount"></span>
+        <button id="nextBtn" type="button">Next stage &rarr;</button>
       </div>
     </div>
   </div>
@@ -331,43 +298,10 @@
         </div>
       </div>
     </div>
+    <p class="join-line">The lifecycle and the management system meet at the register: what is captured on each system rolls up into the programme view, conformity, measurement and corrective action.</p>
+    </div>
+  </section>
 
-    <div class="note">
-      <h3>The register is the join</h3>
-      <p>The lifecycle and the management system meet at the register. What is captured on each system rolls up into the programme view:</p>
-      <div class="flow">
-        <span class="box">Register &amp; triage</span><span class="arw">&rarr;</span>
-        <span class="box">Conformity picture</span>
-        <span class="box" style="margin-left:14px">Monitoring</span><span class="arw">&rarr;</span>
-        <span class="box">Measurement plan</span>
-        <span class="box" style="margin-left:14px">Incidents</span><span class="arw">&rarr;</span>
-        <span class="box">Corrective action</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TOOLS -->
-<section class="tools">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">The two tools</p>
-      <h2>Each answers a different question</h2>
-    </div>
-    <div class="grid">
-      <div class="tcard">
-        <p class="eyebrow">Triage tool</p>
-        <h3>Where should this system go?</h3>
-        <p>Classify a system once, set its priority and risk tier, flag escalation, and export a register row and a planned gate route across the forums.</p>
-      </div>
-      <div class="tcard">
-        <p class="eyebrow">This walkthrough</p>
-        <h3>How does a system travel?</h3>
-        <p>Show the journey the triage produces, stage by stage, and the thread that keeps one system as one continuous, traceable record.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <footer>
   <div class="wrap">
@@ -375,5 +309,113 @@
   </div>
 </footer>
 
+
+<script>
+(function(){
+  var scenarios=[
+    {key:'resident',name:'Resident-facing service',blurb:'A procured AI assistant to help residents navigate housing and benefits.',tier:'High',priority:'Priority 2 \u00b7 High',assurance:'Enhanced assurance',retro:false},
+    {key:'assistant',name:'Staff productivity assistant',blurb:'An approved generative tool summarising non-sensitive internal notes.',tier:'Low',priority:'Priority 4 \u00b7 Routine',assurance:'Proportionate assurance',retro:false},
+    {key:'discovered',name:'Live AI already in use',blurb:'A service adopted an AI tool outside the front door \u2014 found running. The retrospective case.',tier:'Critical',priority:'Priority 1 \u00b7 Critical',assurance:'Immediate, retrospective',retro:true}
+  ];
+  var stages=[
+    {s:'Intake',forum:'Front door',art:['Intake Form','AI Register'],
+     what:'The use is described and ownership established. It enters the register and is given a permanent identifier.',
+     rec:'Register ID assigned; purpose, owner and initial scope logged.',
+     retroWhat:'Discovered, not proposed. A live tool is found outside the front door. It still enters here, flagged retrospective, and an immediate containment decision is taken while governance catches up.',
+     retroRec:'Register ID assigned retrospectively; discovery source and \u201calready in use\u201d status logged, with an interim containment note.'},
+    {s:'Triage',forum:'Triage',art:['Triage tool','Risk Worksheet'],
+     what:'Classified once \u2014 a governance priority, a risk tier and any escalation triggers. This single classification sets the route.',
+     rec:'Classified: {priority}, {tier} risk.'},
+    {s:'Route',forum:'All forums',art:['Gate plan'],
+     what:'The classification maps onto the forums that already exist. Each acts under its own authority; none is bypassed.',
+     rec:'Planned gate route set across the forums; assurance board holds the thread.',
+     retroWhat:'Same routing, but expedited: a live high-risk system is taken to the forums urgently and the assurance board convenes quickly.',
+     retroRec:'Expedited gate route set; urgency and interim controls noted.'},
+    {s:'Assess',forum:'Assessment',art:['DPIA','Equality','Human Rights','Responsible AI','Security'],
+     what:'The assessments the tier requires are carried out, scoped to the system, not a blanket set. Higher risk pulls in more.',
+     rec:'Required assessments indexed to the register ID.',
+     retroWhat:'Assessments are back-filled \u2014 carried out now, after the fact, because the system is already running. Any gaps become conditions.',
+     retroRec:'Assessments back-filled; gaps captured as conditions to meet.'},
+    {s:'Decide',forum:'Each forum + assurance',art:['Decision Record'],
+     what:'Each forum decides under its own authority. The assurance board issues one opinion that all rely on rather than re-deriving. Conditions attach.',
+     rec:'Decision and conditions recorded; one assurance opinion issued.',
+     retroWhat:'The decision also covers the live system directly: may it continue, must it pause, or stop until conditions are met?',
+     retroRec:'Continue / pause / stop decision recorded, with conditions and a deadline.'},
+    {s:'Deploy',forum:'Release',art:['Rollout Plan'],
+     what:'The rollout carries the approved system and its conditions into live service. Go-live is itself logged as a gate.',
+     rec:'Go-live logged; conditions and rollback in place.',
+     retroWhat:'Already deployed \u2014 so this stage brings the live system into controlled operation instead: conditions applied, monitoring switched on, rollback readied.',
+     retroRec:'Live system brought under control; conditions applied, monitoring on.'},
+    {s:'Operate',forum:'Operation',art:['Dashboard','Incident Form','ATRS Record'],
+     what:'In service, the system is monitored, incidents captured and reviews scheduled. The register stays the live, authoritative record.',
+     rec:'Monitoring live; record kept current.'},
+    {s:'Change',forum:'Re-entry',art:['Re-triage'],
+     what:'A material change to model, data, supplier or scope sends the system back to triage. The identity and the thread persist, so history is never lost.',
+     rec:'On change, re-enters at triage \u2014 same register ID, whole history intact.'}
+  ];
+  var state={si:0,stage:0};
+  var idFor=function(sc){return {resident:'AIR-0142',assistant:'AIR-0143',discovered:'AIR-0144'}[sc.key]||'AIR-0000';};
+  var $=function(id){return document.getElementById(id);};
+
+  function fill(t,sc){return t.replace('{priority}',sc.priority).replace('{tier}',sc.tier);}
+
+  function renderScenarios(){
+    var h='';
+    scenarios.forEach(function(sc,i){
+      h+='<button class="scn'+(i===state.si?' active':'')+'" data-i="'+i+'" type="button">'
+       +'<span class="st">'+sc.name+(sc.retro?'<span class="retro-flag">Retrospective</span>':'')+'</span>'
+       +'<span class="sb">'+sc.blurb+'</span><br>'
+       +'<span class="stier tier-'+sc.tier+'">'+sc.priority+'</span></button>';
+    });
+    $('scenarios').innerHTML=h;
+    $('scenarios').querySelectorAll('.scn').forEach(function(b){
+      b.addEventListener('click',function(){state.si=+b.dataset.i;state.stage=0;render();});
+    });
+  }
+  function renderProgress(){
+    var h='';
+    stages.forEach(function(st,i){
+      var cls=i===state.stage?'active':(i<state.stage?'done':'');
+      h+='<span class="dot '+cls+'"><span class="b">'+(i+1)+'</span>'+st.s+'</span>';
+      if(i<stages.length-1) h+='<span class="sep">&rsaquo;</span>';
+    });
+    $('progress').innerHTML=h;
+  }
+  function renderPanel(){
+    var sc=scenarios[state.si], st=stages[state.stage];
+    var what=(sc.retro&&st.retroWhat)?st.retroWhat:st.what;
+    var arts=st.art.map(function(a){return '<span class="mini">'+a+'</span>';}).join('');
+    var h='<div class="badge-row"><span class="who">'+sc.name+'</span>'
+        +'<span class="mini">'+sc.priority+'</span><span class="mini">'+sc.assurance+'</span></div>'
+        +'<h3>'+(state.stage+1)+'. '+st.s+'</h3>'
+        +'<div class="wht">'+what+'</div>'
+        +'<div class="badge-row" style="margin-top:14px"><span class="mini">Forum: '+st.forum+'</span>'+arts+'</div>';
+    if(sc.retro&&st.retroWhat){
+      h+='<div class="rr"><b>Retrospective</b><br>Because this system was already live, this stage adapts, but it joins the same single record rather than starting a new one.</div>';
+    }
+    $('panel').innerHTML=h;
+  }
+  function renderRecord(){
+    var sc=scenarios[state.si];
+    var h='<h4>Governance record</h4><div class="rid">'+idFor(sc)+' \u00b7 one system, one record</div>';
+    for(var i=0;i<=state.stage;i++){
+      var st=stages[i];
+      var rec=(sc.retro&&st.retroRec)?st.retroRec:st.rec;
+      rec=fill(rec,sc);
+      h+='<div class="rentry"><span class="rs">'+st.s+'.</span> '+rec+'</div>';
+    }
+    $('record').innerHTML=h;
+  }
+  function renderNav(){
+    $('prevBtn').disabled=state.stage===0;
+    $('nextBtn').disabled=state.stage===stages.length-1;
+    $('stepCount').textContent='Stage '+(state.stage+1)+' of '+stages.length;
+  }
+  function render(){renderScenarios();renderProgress();renderPanel();renderRecord();renderNav();}
+  $('prevBtn').addEventListener('click',function(){if(state.stage>0){state.stage--;render();}});
+  $('nextBtn').addEventListener('click',function(){if(state.stage<stages.length-1){state.stage++;render();}});
+  render();
+})();
+</script>
 </body>
 </html>
