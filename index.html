@@ -6,11 +6,11 @@
 <title>AI Multi-Board Lifecycle Walkthrough</title>
 <style>
   :root{
-    --navy:#0A2342; --ink:#16213B; --gold:#C9A442; --gold-soft:#EFE3BE;
+    --navy:#122C47; --ink:#16213B; --gold:#C8AB36; --gold-soft:#EFE3BE;
     --bg:#FAF9F6; --card:#FFFFFF; --muted:#5C6270; --line:#E6E3DB; --soft:#F2F0EA;
     --shadow:0 1px 2px rgba(16,25,45,.04),0 8px 24px rgba(16,25,45,.06);
     --radius:14px;
-    --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font:Arial,"Helvetica Neue",Helvetica,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -63,8 +63,8 @@
   .meta{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:16px}
   .tag{font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:8px;background:var(--soft);
     color:var(--navy);border:1px solid var(--line)}
-  .tag.forum{background:#0A234211;border-color:#0A234222}
-  .tag.artefact{background:#C9A44218;border-color:#C9A44240;color:#7A6318}
+  .tag.forum{background:#122C4711;border-color:#122C4722}
+  .tag.artefact{background:#C8AB3618;border-color:#C8AB3640;color:#7A6318}
   .carry{margin-top:14px;font-size:14.5px;color:var(--muted);display:flex;gap:8px;align-items:baseline}
   .carry b{color:var(--gold);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;margin-right:9px}
 
@@ -162,7 +162,7 @@
   .chips{display:flex;flex-wrap:wrap}
   .chip{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:6px 11px;
     font-size:13px;font-weight:600;color:var(--navy);margin:0 6px 6px 0}
-  .chip.gold{background:#C9A44218;border-color:#C9A44240;color:#7A6318}
+  .chip.gold{background:#C8AB3618;border-color:#C8AB3640;color:#7A6318}
 
   /* tools */
   .tools .grid{grid-template-columns:repeat(2,1fr)}
@@ -324,21 +324,21 @@
      retroWhat:'Discovered, not proposed. A live tool is found outside the front door. It still enters here, flagged retrospective, and an immediate containment decision is taken while governance catches up.',
      retroRec:'Register ID assigned retrospectively; discovery source and \u201calready in use\u201d status logged, with an interim containment note.'},
     {s:'Triage',forum:'Triage',art:['Triage tool','Risk Worksheet'],
-     what:'Classified once \u2014 a governance priority, a risk tier and any escalation triggers. This single classification sets the route.',
+     what:'Classified once \u2014 a governance priority, a risk tier and any escalation triggers. This single classification sets the route. The fields captured here hand off to the forms that own them \u2014 escalation to the Risk Worksheet, the affects-individuals and public-facing flags to the impact assessments, and procurement to supplier due diligence.',
      rec:'Classified: {priority}, {tier} risk.'},
     {s:'Route',forum:'All forums',art:['Gate plan'],
      what:'The classification maps onto the forums that already exist. Each acts under its own authority; none is bypassed.',
      rec:'Planned gate route set across the forums; assurance board holds the thread.',
      retroWhat:'Same routing, but expedited: a live high-risk system is taken to the forums urgently and the assurance board convenes quickly.',
      retroRec:'Expedited gate route set; urgency and interim controls noted.'},
-    {s:'Assess',forum:'Assessment',art:['DPIA','Equality','Human Rights','Responsible AI','Security'],
-     what:'The assessments the tier requires are carried out, scoped to the system, not a blanket set. Higher risk pulls in more.',
+    {s:'Assess',forum:'Assessment',art:['DPIA','Equality','Human Rights','Responsible AI','Security','Supplier DDQ'],
+     what:'The assessments the tier requires are carried out, scoped to the system, not a blanket set. Higher risk pulls in more, and procured systems pull in supplier due diligence.',
      rec:'Required assessments indexed to the register ID.',
      retroWhat:'Assessments are back-filled \u2014 carried out now, after the fact, because the system is already running. Any gaps become conditions.',
      retroRec:'Assessments back-filled; gaps captured as conditions to meet.'},
-    {s:'Decide',forum:'Each forum + assurance',art:['Decision Record'],
+    {s:'Decide',forum:'Each forum + assurance',art:['Decision Record','Gate Log'],
      what:'Each forum decides under its own authority. The assurance board issues one opinion that all rely on rather than re-deriving. Conditions attach.',
-     rec:'Decision and conditions recorded; one assurance opinion issued.',
+     rec:'Decision and conditions recorded; the approval event \u2014 who approved and when \u2014 logged in the Gate Log; one assurance opinion issued.',
      retroWhat:'The decision also covers the live system directly: may it continue, must it pause, or stop until conditions are met?',
      retroRec:'Continue / pause / stop decision recorded, with conditions and a deadline.'},
     {s:'Deploy',forum:'Release',art:['Rollout Plan'],
