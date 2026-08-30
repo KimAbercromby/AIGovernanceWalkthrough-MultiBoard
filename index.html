@@ -105,6 +105,9 @@
   .step-panel .wht{font-size:15.5px;color:var(--ink);line-height:1.6}
   .step-panel .rr{margin-top:16px;background:#a73a3a0d;border:1px solid #a73a3a33;border-radius:10px;padding:12px 14px;font-size:14px;color:#7a2727}
   .step-panel .rr b{color:#8a2a2a;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+  .step-panel .trg{margin-top:16px;background:#C8AB360f;border:1px solid #C8AB3559;border-radius:10px;padding:12px 14px;font-size:14px;color:#6b5a12}
+  .step-panel .trg b{color:#8a7412;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+  .mini.trig{color:#6b5a12;background:#C8AB361a;border-color:#C8AB3366}
   .record{flex:1 1 250px;background:var(--navy);color:#cdd6e6;padding:22px 24px}
   .record h4{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 4px}
   .record .rid{font-size:12.5px;color:var(--gold-soft);margin-bottom:14px}
@@ -173,6 +176,11 @@
 
   footer{background:var(--navy);color:#9FB0CC;font-size:13.5px;padding:28px 0;text-align:center}
   footer b{color:#fff;font-weight:600}
+  footer a{color:var(--gold);font-weight:600;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .toollink{display:inline-block;margin-top:16px;background:var(--navy);color:#fff;font-weight:700;font-size:13.5px;text-decoration:none;padding:9px 16px;border-radius:8px;border:1px solid var(--navy)}
+  .toollink:hover{background:#fff;color:var(--navy)}
+  .toollink .arw{color:var(--gold);font-weight:800;margin-left:6px}
 
   @media (max-width:640px){
     .grid,.tools .grid{grid-template-columns:1fr}
@@ -306,6 +314,7 @@
 <footer>
   <div class="wrap">
     <b>AI Multi-Board Lifecycle Walkthrough</b> &nbsp;·&nbsp; Generic reference model &nbsp;·&nbsp; Forum names are configurable &nbsp;·&nbsp; Stores no data
+    <div style="margin-top:12px">Related tools: <a href="https://kimabercromby.github.io/AIGovernanceTriage-MultiBoard/" target="_blank" rel="noopener">Multi-Board Triage Calculator</a> &nbsp;·&nbsp; <a href="https://kimabercromby.github.io/triage-engines-simulation/" target="_blank" rel="noopener">How the answer is reached</a></div>
   </div>
 </footer>
 
@@ -313,7 +322,7 @@
 <script>
 (function(){
   var scenarios=[
-    {key:'resident',name:'Resident-facing service',blurb:'A procured AI assistant to help residents navigate housing and benefits.',tier:'High',priority:'Priority 2 \u00b7 High',assurance:'Enhanced assurance',retro:false},
+    {key:'resident',name:'Resident-facing service',blurb:'A procured AI assistant used with vulnerable residents to help them access housing and benefits, processing special-category data.',tier:'High',priority:'Priority 2 \u00b7 High',assurance:'Comprehensive assurance',trigger:'Special-category data, and use with vulnerable residents',retro:false},
     {key:'assistant',name:'Staff productivity assistant',blurb:'An approved generative tool summarising non-sensitive internal notes.',tier:'Low',priority:'Priority 4 \u00b7 Routine',assurance:'Proportionate assurance',retro:false},
     {key:'discovered',name:'Live AI already in use',blurb:'A service adopted an AI tool outside the front door \u2014 found running. The retrospective case.',tier:'Critical',priority:'Priority 1 \u00b7 Critical',assurance:'Immediate, retrospective',retro:true}
   ];
@@ -324,8 +333,9 @@
      retroWhat:'Discovered, not proposed. A live tool is found outside the front door. It still enters here, flagged retrospective, and an immediate containment decision is taken while governance catches up.',
      retroRec:'Register ID assigned retrospectively; discovery source and \u201calready in use\u201d status logged, with an interim containment note.'},
     {s:'Triage',forum:'Triage',art:['Triage tool','Risk Worksheet'],
-     what:'Classified once \u2014 a governance priority, a risk tier and any escalation triggers. This single classification sets the route. The fields captured here hand off to the forms that own them \u2014 escalation to the Risk Worksheet, the affects-individuals and public-facing flags to the impact assessments, and procurement to supplier due diligence.',
-     rec:'Classified: {priority}, {tier} risk.'},
+     what:'Classified once \u2014 a governance priority, a risk tier and any escalation triggers. This single classification sets the route. If a mandatory escalation trigger fires, it sets the assurance floor at comprehensive on its own, whatever the priority score. The fields captured here hand off to the forms that own them \u2014 escalation to the Risk Worksheet, the affects-individuals and public-facing flags to the impact assessments, and procurement to supplier due diligence.',
+     rec:'Classified: {priority}, {tier} risk.{trig}',
+     tool:{href:'https://kimabercromby.github.io/AIGovernanceTriage-MultiBoard/',label:'Open the Multi-Board Triage Calculator'}},
     {s:'Route',forum:'All forums',art:['Gate plan'],
      what:'The classification maps onto the forums that already exist. Each acts under its own authority; none is bypassed.',
      rec:'Planned gate route set across the forums; assurance board holds the thread.',
@@ -357,7 +367,7 @@
   var idFor=function(sc){return {resident:'AIR-0142',assistant:'AIR-0143',discovered:'AIR-0144'}[sc.key]||'AIR-0000';};
   var $=function(id){return document.getElementById(id);};
 
-  function fill(t,sc){return t.replace('{priority}',sc.priority).replace('{tier}',sc.tier);}
+  function fill(t,sc){return t.replace('{priority}',sc.priority).replace('{tier}',sc.tier).replace('{trig}',sc.trigger?' Mandatory escalation trigger fired; assurance floor set to comprehensive.':'');}
 
   function renderScenarios(){
     var h='';
@@ -386,10 +396,17 @@
     var what=(sc.retro&&st.retroWhat)?st.retroWhat:st.what;
     var arts=st.art.map(function(a){return '<span class="mini">'+a+'</span>';}).join('');
     var h='<div class="badge-row"><span class="who">'+sc.name+'</span>'
-        +'<span class="mini">'+sc.priority+'</span><span class="mini">'+sc.assurance+'</span></div>'
+        +'<span class="mini">'+sc.priority+'</span><span class="mini">'+sc.assurance+'</span>'
+        +(sc.trigger?'<span class="mini trig">Mandatory trigger</span>':'')+'</div>'
         +'<h3>'+(state.stage+1)+'. '+st.s+'</h3>'
         +'<div class="wht">'+what+'</div>'
         +'<div class="badge-row" style="margin-top:14px"><span class="mini">Forum: '+st.forum+'</span>'+arts+'</div>';
+    if(st.tool){
+      h+='<a class="toollink" href="'+st.tool.href+'" target="_blank" rel="noopener">'+st.tool.label+'<span class="arw">&rarr;</span></a>';
+    }
+    if(st.s==='Triage'&&sc.trigger){
+      h+='<div class="trg"><b>Mandatory escalation</b><br>'+sc.trigger+'. A trigger like this sets the assurance floor at comprehensive regardless of the priority score, and pulls the full assessment set in downstream.</div>';
+    }
     if(sc.retro&&st.retroWhat){
       h+='<div class="rr"><b>Retrospective</b><br>Because this system was already live, this stage adapts, but it joins the same single record rather than starting a new one.</div>';
     }
