@@ -346,8 +346,8 @@
      rec:'Required assessments indexed to the register ID.',
      retroWhat:'Assessments are back-filled \u2014 carried out now, after the fact, because the system is already running. Any gaps become conditions.',
      retroRec:'Assessments back-filled; gaps captured as conditions to meet.'},
-    {s:'Decide',forum:'Each forum + assurance',art:['Decision Record','Gate Log'],
-     what:'Each forum decides under its own authority. The assurance board issues one opinion that all rely on rather than re-deriving. Conditions attach.',
+    {s:'Decide',forum:'Each forum + assurance',art:['Decision-Ready Paper','Decision Record','Gate Log'],
+     what:'Each forum decides under its own authority, working from one Decision-Ready Paper prepared for it rather than re-briefing from scratch. The assurance board issues one opinion that all rely on rather than re-deriving. Conditions attach.',
      rec:'Decision and conditions recorded; the approval event \u2014 who approved and when \u2014 logged in the Gate Log; one assurance opinion issued.',
      retroWhat:'The decision also covers the live system directly: may it continue, must it pause, or stop until conditions are met?',
      retroRec:'Continue / pause / stop decision recorded, with conditions and a deadline.'},
@@ -356,12 +356,18 @@
      rec:'Go-live logged; conditions and rollback in place.',
      retroWhat:'Already deployed \u2014 so this stage brings the live system into controlled operation instead: conditions applied, monitoring switched on, rollback readied.',
      retroRec:'Live system brought under control; conditions applied, monitoring on.'},
-    {s:'Operate',forum:'Operation',art:['Dashboard','Incident Form','ATRS Record'],
-     what:'In service, the system is monitored, incidents captured and reviews scheduled. The register stays the live, authoritative record.',
-     rec:'Monitoring live; record kept current.'},
+    {s:'Operate',forum:'Operation',art:['Dashboard','Post-Deployment Monitoring Log','Incident Form','ATRS Record'],
+     what:'In service, the system is monitored against agreed metrics and thresholds in the post-deployment monitoring log, incidents are captured and reviews scheduled. A threshold breach, material change or reassessment recorded there is what routes the system onward \u2014 back to triage as a change, or into retirement at end of life. The register stays the live, authoritative record.',
+     rec:'Monitoring live in the post-deployment log; thresholds, reviews and any breaches recorded; register kept current.'},
     {s:'Change',forum:'Re-entry',art:['Re-triage'],
-     what:'A material change to model, data, supplier or scope sends the system back to triage. The identity and the thread persist, so history is never lost.',
-     rec:'On change, re-enters at triage \u2014 same register ID, whole history intact.'}
+     what:'A material change to model, data, supplier or scope sends the system back to triage. The identity and the thread persist, so history is never lost. Change is one of two ways a system leaves steady-state operation; the other is retirement.',
+     rec:'On change, re-enters at triage \u2014 same register ID, whole history intact.'},
+    {s:'Retire',forum:'Assurance + owning forum',art:['Gate Log','Decision Record','Post-Deployment Monitoring Log'],
+     what:'At end of life the system is decommissioned through a retirement gate, not simply switched off. The decision and its conditions are recorded, data is disposed of or retained on a stated basis, the ATRS record is withdrawn or updated, supplier exit is settled, the post-deployment monitoring log is closed, and a named owner keeps residual accountability for decisions the system already made. If a successor replaces it, that successor enters intake as its own system. The register status moves to decommissioned. The depth of the gate scales with the system\u2019s governance priority.',
+     rec:'Retirement gate logged; monitoring closed; data, ATRS, supplier exit and residual accountability settled; register status set to decommissioned.',
+     tool:{href:'https://kimabercromby.github.io/AIGovernanceTriage-MultiBoard/',label:'Open the retirement mode in the Multi-Board Triage Calculator'},
+     retroWhat:'A discovered system can also be retired outright if it should never have been running \u2014 the same gate, reached quickly, records the decommission and the reasons.',
+     retroRec:'Retirement gate logged for the discovered system; decommission, data handling and reasons recorded.'}
   ];
   var state={si:0,stage:0};
   var idFor=function(sc){return {resident:'AIR-0142',assistant:'AIR-0143',discovered:'AIR-0144'}[sc.key]||'AIR-0000';};
