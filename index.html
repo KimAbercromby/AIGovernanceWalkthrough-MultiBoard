@@ -237,7 +237,7 @@
       <p>Systems usually fragment because each forum re-briefs from scratch. These four rules keep the thread intact across every hand-off.</p>
     </div>
     <div class="grid">
-      <div class="pcard"><h3>Identity never changes</h3><p>One register ID is assigned at intake and used everywhere. Every assessment, decision and review keys back to it, so the system is always the same system.</p></div>
+      <div class="pcard"><h3>Identity never changes</h3><p>One AIR-ID is assigned at intake and used everywhere. Every assessment, decision and review keys back to it, so the system is always the same system.</p></div>
       <div class="pcard"><h3>Conditions travel forward</h3><p>Conditions set at any gate are carried into the next, and into deployment, rather than being re-argued or quietly dropped between forums.</p></div>
       <div class="pcard"><h3>Evidence stays authoritative</h3><p>Assessments are indexed to the register, not re-created per forum. One assurance opinion is derived once and relied on by all.</p></div>
       <div class="pcard"><h3>Change creates re-entry</h3><p>A material change re-enters the system at triage rather than starting a new, disconnected record. The timeline is continuous.</p></div>
@@ -264,7 +264,7 @@
       <h3>The assurance board holds the thread</h3>
       <p>It does not approve, and it does not replace any forum's authority. It provides continuity and assurance across them:</p>
       <ul>
-        <li>owns the record, the gate log and the evidence index, all keyed to one register ID;</li>
+        <li>owns the record, the gate log and the evidence index, all keyed to one AIR-ID;</li>
         <li>issues one assurance opinion that every forum relies on rather than re-deriving;</li>
         <li>prepares the AI content of each forum's papers, so a system is never re-briefed from scratch.</li>
       </ul>
@@ -324,17 +324,20 @@
   var scenarios=[
     {key:'resident',name:'Resident-facing service',blurb:'A procured AI assistant used with vulnerable residents to help them access housing and benefits, processing special-category data.',tier:'High',priority:'Priority 2 \u00b7 High',assurance:'Comprehensive assurance',trigger:'Special-category data, and use with vulnerable residents',retro:false},
     {key:'assistant',name:'Staff productivity assistant',blurb:'An approved generative tool summarising non-sensitive internal notes.',tier:'Low',priority:'Priority 4 \u00b7 Routine',assurance:'Proportionate assurance',retro:false},
-    {key:'discovered',name:'Live AI already in use',blurb:'A service adopted an AI tool outside the front door \u2014 found running. The retrospective case.',tier:'Critical',priority:'Priority 1 \u00b7 Critical',assurance:'Immediate, retrospective',retro:true}
+    {key:'discovered',name:'Live AI already in use',blurb:'A service adopted an AI tool outside the front door \u2014 found running. The retrospective case.',tier:'Critical',priority:'Priority 1 \u00b7 Critical',assurance:'Immediate, retrospective',retro:true},
+    {key:'agent',name:'Agentic AI (can act)',blurb:'A procured housing-repairs agent that triages reports, raises work orders and schedules approved contractors up to a cost ceiling, and emails residents. It takes actions, not just outputs.',tier:'High',priority:'Priority 2 \u00b7 High',assurance:'Agentic controls review',trigger:'It can act autonomously under delegated authority',retro:false,agentic:true}
   ];
   var stages=[
     {s:'Intake',forum:'Front door',art:['Intake Form','AI Register'],
      what:'The use is described and ownership established. It enters the register and is given a permanent identifier.',
-     rec:'Register ID assigned; purpose, owner and initial scope logged.',
+     rec:'AIR-ID assigned; purpose, owner and initial scope logged.',
      retroWhat:'Discovered, not proposed. A live tool is found outside the front door. It still enters here, flagged retrospective, and an immediate containment decision is taken while governance catches up.',
-     retroRec:'Register ID assigned retrospectively; discovery source and \u201calready in use\u201d status logged, with an interim containment note.'},
-    {s:'Triage',forum:'Triage',art:['Triage tool','Risk Worksheet'],
-     what:'Classified once \u2014 a governance priority, a risk tier and any escalation triggers. This single classification sets the route. If a mandatory escalation trigger fires, it sets the assurance floor at comprehensive on its own, whatever the priority score. The fields captured here hand off to the forms that own them \u2014 escalation to the Risk Worksheet, the affects-individuals and public-facing flags to the impact assessments, and procurement to supplier due diligence.',
+     retroRec:'AIR-ID assigned retrospectively; discovery source and \u201calready in use\u201d status logged, with an interim containment note.'},
+    {s:'Triage',forum:'Triage',art:['Triage tool','Risk Worksheet'],agenticArt:['Triage tool','Risk Worksheet','Agentic Triage (48)','Agent Record / ASBOM (45)','Design Principles (44)','Classification Reference (47)','Authority Graph (46)'],
+     what:'Classified once \u2014 a governance priority, a risk tier and any escalation triggers. One front door, then a proportionate route: a light-touch route for low-risk systems that cannot act (register and stop), the standard route for systems that inform decisions or touch residents, and the enhanced / agentic route for anything that can act. One question decides the last of these: can it act? If yes, a distinct agentic triage runs in addition to the priority triage. If a mandatory escalation trigger fires, it sets the assurance floor at comprehensive on its own, whatever the priority score. The fields captured here hand off to the forms that own them \u2014 escalation to the Risk Worksheet, the affects-individuals and public-facing flags to the impact assessments, and procurement to supplier due diligence.',
+     agenticWhat:'This system can act, so the can-it-act gate fires and a second, agentic triage runs alongside the priority triage. It scores the five agency dimensions (consequence, autonomy, authority, reach, controllability) as a profile, sets an agency tier T0 to T5, tests the authority boundary and the kill-switch, and opens an Agent Record (ASBOM). The priority triage still runs; the two readings combine to route it.',
      rec:'Classified: {priority}, {tier} risk.{trig}',
+     agenticRec:'Classified {priority}, {tier} risk; can-it-act gate fired \u2014 agentic triage run, agency tier and autonomy set, Agent Record (ASBOM) opened.',
      tool:{href:'https://kimabercromby.github.io/AIGovernanceTriage-MultiBoard/',label:'Open the Multi-Board Triage Calculator'}},
     {s:'Route',forum:'All forums',art:['Gate plan'],
      what:'The classification maps onto the forums that already exist. Each acts under its own authority; none is bypassed.',
@@ -343,7 +346,7 @@
      retroRec:'Expedited gate route set; urgency and interim controls noted.'},
     {s:'Assess',forum:'Assessment',art:['DPIA','Equality','Human Rights','Responsible AI','Security','Supplier DDQ'],
      what:'The assessments the tier requires are carried out, scoped to the system, not a blanket set. Higher risk pulls in more, and procured systems pull in supplier due diligence.',
-     rec:'Required assessments indexed to the register ID.',
+     rec:'Required assessments indexed to the AIR-ID.',
      retroWhat:'Assessments are back-filled \u2014 carried out now, after the fact, because the system is already running. Any gaps become conditions.',
      retroRec:'Assessments back-filled; gaps captured as conditions to meet.'},
     {s:'Decide',forum:'Each forum + assurance',art:['Decision-Ready Paper','Decision Record','Gate Log'],
@@ -357,11 +360,14 @@
      retroWhat:'Already deployed \u2014 so this stage brings the live system into controlled operation instead: conditions applied, monitoring switched on, rollback readied.',
      retroRec:'Live system brought under control; conditions applied, monitoring on.'},
     {s:'Operate',forum:'Operation',art:['Dashboard','Post-Deployment Monitoring Log','Incident Form','ATRS Record','Contestability & Redress Control'],
+     agenticArt:['Dashboard','Post-Deployment Monitoring Log','Incident Form','Contestability & Redress Control','Agentic Action/Decision Record (50)','Agent Record / ASBOM (45)'],
      what:'In service, the system is monitored against agreed metrics and thresholds in the post-deployment monitoring log, incidents are captured, reviews scheduled, and any resident challenge to an AI-influenced decision handled through the Contestability and Redress Control (WCC-AIG-41). A threshold breach, material change or reassessment recorded there is what routes the system onward \u2014 back to triage as a change, or into retirement at end of life. The register stays the live, authoritative record.',
-     rec:'Monitoring live in the post-deployment log; thresholds, reviews and any breaches recorded; register kept current.'},
+     agenticWhat:'In service the agent is monitored like any system, and additionally each consequential action it takes is captured in the Agentic Action / Decision Record (WCC-AIG-50): the authority invoked, the action, the human approval or override state and an evidence reference, generated by the platform and linked to the AIR-ID. The Agent Record / ASBOM stays the authoritative record of its authority envelope, and any action that exceeds authority routes into the incident process.',
+     rec:'Monitoring live in the post-deployment log; thresholds, reviews and any breaches recorded; register kept current.',
+     agenticRec:'Monitoring live; each consequential action logged to the Agentic Action/Decision Record (50) against the AIR-ID; ASBOM authority envelope current.'},
     {s:'Change',forum:'Re-entry',art:['Re-triage'],
      what:'A material change to model, data, supplier or scope sends the system back to triage. The identity and the thread persist, so history is never lost. Change is one of two ways a system leaves steady-state operation; the other is retirement.',
-     rec:'On change, re-enters at triage \u2014 same register ID, whole history intact.'},
+     rec:'On change, re-enters at triage \u2014 same AIR-ID, whole history intact.'},
     {s:'Retire',forum:'Assurance + owning forum',art:['Gate Log','Decision Record','Post-Deployment Monitoring Log'],
      what:'At end of life the system is decommissioned through a retirement gate, not simply switched off. The decision and its conditions are recorded, data is disposed of or retained on a stated basis, the ATRS record is withdrawn or updated, supplier exit is settled, the post-deployment monitoring log is closed, and a named owner keeps residual accountability for decisions the system already made. If a successor replaces it, that successor enters intake as its own system. The register status moves to decommissioned. The depth of the gate scales with the system\u2019s governance priority.',
      rec:'Retirement gate logged; monitoring closed; data, ATRS, supplier exit and residual accountability settled; register status set to decommissioned.',
@@ -370,7 +376,7 @@
      retroRec:'Retirement gate logged for the discovered system; decommission, data handling and reasons recorded.'}
   ];
   var state={si:0,stage:0};
-  var idFor=function(sc){return {resident:'AIR-0142',assistant:'AIR-0143',discovered:'AIR-0144'}[sc.key]||'AIR-0000';};
+  var idFor=function(sc){return {resident:'AIR-0142',assistant:'AIR-0143',discovered:'AIR-0144',agent:'AIR-2007'}[sc.key]||'AIR-0000';};
   var $=function(id){return document.getElementById(id);};
 
   function fill(t,sc){return t.replace('{priority}',sc.priority).replace('{tier}',sc.tier).replace('{trig}',sc.trigger?' Mandatory escalation trigger fired; assurance floor set to comprehensive.':'');}
@@ -399,8 +405,9 @@
   }
   function renderPanel(){
     var sc=scenarios[state.si], st=stages[state.stage];
-    var what=(sc.retro&&st.retroWhat)?st.retroWhat:st.what;
-    var arts=st.art.map(function(a){return '<span class="mini">'+a+'</span>';}).join('');
+    var what=(sc.agentic&&st.agenticWhat)?st.agenticWhat:((sc.retro&&st.retroWhat)?st.retroWhat:st.what);
+    var artList=(sc.agentic&&st.agenticArt)?st.agenticArt:st.art;
+    var arts=artList.map(function(a){return '<span class="mini">'+a+'</span>';}).join('');
     var h='<div class="badge-row"><span class="who">'+sc.name+'</span>'
         +'<span class="mini">'+sc.priority+'</span><span class="mini">'+sc.assurance+'</span>'
         +(sc.trigger?'<span class="mini trig">Mandatory trigger</span>':'')+'</div>'
@@ -416,6 +423,9 @@
     if(sc.retro&&st.retroWhat){
       h+='<div class="rr"><b>Retrospective</b><br>Because this system was already live, this stage adapts, but it joins the same single record rather than starting a new one.</div>';
     }
+    if(sc.agentic&&st.agenticWhat){
+      h+='<div class="rr" style="border-left-color:#9B1C1C;background:#fbf5f5"><b>Agentic route</b><br>This is a system that can act. It stays on the same single record and one AIR-ID, but the agentic controls (the agency profile, the Agent Record/ASBOM and, in service, the Action/Decision Record) apply in addition to the ordinary route.</div>';
+    }
     $('panel').innerHTML=h;
   }
   function renderRecord(){
@@ -423,7 +433,7 @@
     var h='<h4>Governance record</h4><div class="rid">'+idFor(sc)+' \u00b7 one system, one record</div>';
     for(var i=0;i<=state.stage;i++){
       var st=stages[i];
-      var rec=(sc.retro&&st.retroRec)?st.retroRec:st.rec;
+      var rec=(sc.agentic&&st.agenticRec)?st.agenticRec:((sc.retro&&st.retroRec)?st.retroRec:st.rec);
       rec=fill(rec,sc);
       h+='<div class="rentry"><span class="rs">'+st.s+'.</span> '+rec+'</div>';
     }
