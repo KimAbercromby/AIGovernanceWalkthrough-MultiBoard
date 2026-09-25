@@ -17,7 +17,7 @@ test("static entry point references the maintainable local application assets", 
 
 test("public copy states the proposed-draft status and record/legal boundaries", () => {
   const copy = `${page}\n${docs}`;
-  assert.match(copy, /proposed draft for Council review/i);
+  assert.match(copy, /proposed draft for owner review/i);
   assert.match(copy, /not approved or live/i);
   assert.match(copy, /Equality Act 2010 section 149/i);
   assert.match(copy, /Human Rights Act\s+1998\s+section 6/i);

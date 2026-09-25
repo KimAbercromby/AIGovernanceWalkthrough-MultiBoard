@@ -50,7 +50,7 @@ node --test
 
 ## Governance and interpretation boundaries
 
-The Westminster suite used as context is a **proposed draft for Council review,
+The governance suite used as context is a **proposed draft for owner review,
 not approved or live policy**. This tool is an educational demonstration, not a
 system of record. Its stage navigation is not evidence of a completed stage or
 gate. No submitted information is stored.
