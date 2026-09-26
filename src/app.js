@@ -82,7 +82,7 @@ const renderStageDetail = () => {
     <div class="stage-output"><span class="mini-label">ILLUSTRATIVE OUTPUT</span><p>${stage.output}</p><p class="stage-note">${stage.note}</p></div>
     ${canExploreOutcome ? `
       <div class="decision-explorer">
-        <div><b>Explore a gate response</b><span>Demonstration only; no 36 event or 16 decision is created.</span></div>
+        <div><b>Explore a gate response</b><span>Demonstration only; no AIG-DEC-04 event or AIG-DEC-03 decision is created.</span></div>
         <div class="decision-buttons">
           <button class="button button-small button-outline" type="button" data-outcome="condition">Illustrate a condition</button>
           <button class="button button-small button-outline" type="button" data-outcome="evidence">Return for evidence</button>

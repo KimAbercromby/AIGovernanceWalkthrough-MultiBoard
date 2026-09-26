@@ -12,7 +12,7 @@ export const cases = [
       0: "Capture intended service, affected people and supplier context. The intake is a draft handoff, not a Council-issued identifier.",
       4: "Determine risk and assurance needs with the responsible owners. A resident-facing context merits careful screening; this example does not predetermine a risk tier.",
       7: "Consider procurement and supplier assurance if applicable. Confirm procurement requirements and legal scope with their owners.",
-      9: "A formal decision belongs in WCC-AIG-16 or approved native forum minutes, not in this walkthrough or an event log."
+      9: "A formal decision belongs in AIG-DEC-03 or approved native forum minutes, not in this walkthrough or an event log."
     }
   },
   {
@@ -42,7 +42,7 @@ export const cases = [
     stageNotes: {
       0: "Record the discovery and known facts through the approved intake route. Do not backdate an approval or invent an AIR-ID.",
       2: "Establish current use, ownership, data flows, controls and evidence. Escalate safety, rights, privacy or security concerns through their proper routes.",
-      9: "A decision to continue, change or pause use must come from an authorised forum and be recorded in WCC-AIG-16 or approved native minutes."
+      9: "A decision to continue, change or pause use must come from an authorised forum and be recorded in AIG-DEC-03 or approved native minutes."
     }
   },
   {
@@ -51,13 +51,13 @@ export const cases = [
     title: "Action-capable agent",
     short: "Can act · enhanced controls",
     type: "AGENTIC ROUTE",
-    description: "An agentic system may call tools, change records or otherwise act. Capability and permission are assessed explicitly; agent authority and delegations are owned by 45, not inferred from a lifecycle stage.",
+      description: "An agentic system may call tools, change records or otherwise act. Capability and permission are assessed explicitly; agent authority and delegations are owned by AIG-AGT-04, not inferred from a lifecycle stage.",
     emphasis: "No authority is granted here. Apply the can-it-act screen and verify permissions in the authorised source.",
     route: "Potentially action-capable · enhanced controls to assess",
     stageNotes: {
       3: "Test whether the system can take actions in its real configuration, including tool access, delegated credentials, write permissions and human confirmation.",
       6: "Use the approved agency profile and tiering process. Do not use this illustration to assign an agency tier or grant permission.",
-      7: "WCC-AIG-45 owns agent authority, permissions and delegations. This walkthrough does not create or modify that record.",
+      7: "AIG-AGT-04 owns agent authority, permissions and delegations. This walkthrough does not create or modify that record.",
       10: "Runtime Action / Decision Records remain in their designated source. Monitoring must cover actual actions, limits, failures and revocation."
     }
   }
@@ -69,20 +69,20 @@ export const stages = [
     question: "What system or proposed use needs to be registered?",
     authority: "Service / business owner; intake route",
     evidence: ["Purpose and intended use", "Owner and supplier context", "People and services in scope"],
-    output: "A draft 04 intake handoff and a request to follow the authorised identifier process.",
-    handoff: "04 intake → optional relationship mapping → authorised 05 Register owner",
-    record: "04 — AI Intake Form / authorised intake route",
+    output: "A draft AIG-INV-03 intake handoff and a request to follow the authorised identifier process.",
+    handoff: "AIG-INV-03 intake → proposed controlled AIG-INV-05 relationship mapping → authorised AIG-INV-04 Register owner",
+    record: "AIG-INV-03 — AI Intake Form / authorised intake route",
     note: "Intake and this walkthrough do not issue a permanent AIR-ID."
   },
   {
     title: "Map capabilities and system relationships",
     question: "Which outcome-led use cases need which capabilities, and what systems or components relate to them?",
     authority: "Service, technical and architecture owners",
-    evidence: ["04 use-case facts", "Verified 05 AIR-ID only when one exists", "Versioned model, data, interface, agent and tool pointers"],
+    evidence: ["AIG-INV-03 use-case facts", "Verified AIG-INV-04 AIR-ID only when one exists", "Versioned model, data, interface, agent and tool pointers"],
     output: "An optional relationship-map handoff showing confirmed links, proposed links and gaps for owner review.",
-    handoff: "Use the standalone proposed map as a pointer; reconcile system identity to 05 and component authority to native sources",
-    record: "Standalone proposed Capabilities and System Map — relationship pointers only",
-    note: "The map is not a second Register, legal/applicability source, permission record, gate, decision or approval. Unmapped or zero-count links do not prove absence."
+    handoff: "Use proposed controlled AIG-INV-05 as a pointer; reconcile system identity to AIG-INV-04 and component authority to native sources",
+    record: "AIG-INV-05 Capabilities and System Map — proposed controlled artefact, not approved/adopted; relationship pointers only",
+    note: "The proposed map is not a second Register, legal/applicability source, permission record, gate, decision or approval. Unmapped or zero-count links do not prove absence."
   },
   {
     title: "Confirm identity and scope",
@@ -90,8 +90,8 @@ export const stages = [
     authority: "Authorised Register owner",
     evidence: ["Verified system identity", "Related projects and components", "Known status and provenance"],
     output: "A proposed identity/scope handoff for reconciliation against the authorised current Register.",
-    handoff: "Verify the official AIR-ID and current status against 05; reconcile map pointers separately",
-    record: "05 — authorised Register: permanent AIR-ID and current system state",
+    handoff: "Verify the official AIR-ID and current status against AIG-INV-04; reconcile map pointers separately",
+    record: "AIG-INV-04 — proposed authorised Register: permanent AIR-ID and current system state",
     note: "Do not duplicate, infer or replace a Council-issued AIR-ID."
   },
   {
@@ -101,7 +101,7 @@ export const stages = [
     evidence: ["Capabilities and permissions", "Human oversight", "Data, integrations and change history"],
     output: "A capability and action-screening handoff, including whether enhanced agentic controls need assessment.",
     handoff: "Route verified findings to the right assurance owners",
-    record: "Proposed map relationship pointers only; 05 current state; 45 agent authority and permissions",
+    record: "Proposed AIG-INV-05 map relationship pointers only; AIG-INV-04 current state; AIG-AGT-04 agent authority and permissions",
     note: "Marketing labels and a stage in this walkthrough do not establish capability."
   },
   {
@@ -111,7 +111,7 @@ export const stages = [
     evidence: ["AGPI priority rationale", "Risk and impact assessment", "Equality, rights, privacy and safety screening"],
     output: "A proposed assessment plan; decisions and findings must be recorded in their proper sources.",
     handoff: "Screen every tier; route specialist questions to accountable owners",
-    record: "05 current assurance state; native assessment sources",
+    record: "AIG-INV-04 current assurance state; AIG-ASS-01 priority, AIG-ASS-02 risk assessment and native specialist sources",
     note: "AGPI orders attention; it is not risk classification, permission or a waiver of duties."
   },
   {
@@ -121,8 +121,8 @@ export const stages = [
     evidence: ["Applicable proposed gates", "Owners and target dates", "Reason for any gate not planned"],
     output: "A prospective Gate Plan—not proof that any gate occurred or passed.",
     handoff: "Verify the destination and exact headers before preparing a live handoff",
-    record: "36 — separate Gate Log: prospective Gate Plan",
-    note: "The Gate Log is separate from the 05 Register. A proposed plan is not an event, decision or approval."
+    record: "AIG-DEC-04 — separate Gate Log: prospective Gate Plan",
+    note: "The Gate Log is separate from the AIG-INV-04 Register. A proposed plan is not an event, decision or approval."
   },
   {
     title: "Assess agency and authority",
@@ -131,7 +131,7 @@ export const stages = [
     evidence: ["Agency profile and proposed tier", "Tool and permission inventory", "Human controls and revocation route"],
     output: "An authority-review handoff; no authority or permission is conferred by this walkthrough.",
     handoff: "Agent permissions and delegations stay with their authorised owner",
-    record: "45 — Agent Record / ASBOM and authority source",
+    record: "AIG-AGT-04 — Agent Record / ASBOM and authority source",
     note: "Only relevant where agentic controls apply; never infer permission from an approval elsewhere."
   },
   {
@@ -140,8 +140,8 @@ export const stages = [
     authority: "The relevant specialist and legal/policy owners",
     evidence: ["Native specialist reviews", "Source and supplier assurance", "Applicable obligations confirmed for this case"],
     output: "Versioned evidence pointers and open questions for the appropriate owners.",
-    handoff: "05 Evidence Index points to native evidence; evidence remains authoritative at source",
-    record: "05 Evidence Index; 27/42 review references where relevant",
+    handoff: "AIG-INV-04 Evidence Index points to native evidence; evidence remains authoritative at source",
+    record: "AIG-INV-04 Evidence Index; AIG-AIMS-05 requirements and AIG-AIMS-13 source assurance crosswalk where relevant",
     note: "EU AI Act, ATRS, procurement and standards questions require case-specific confirmation."
   },
   {
@@ -151,7 +151,7 @@ export const stages = [
     evidence: ["Meeting/event date", "Participants and evidence considered", "Decision reference and outcome"],
     output: "A dated event handoff linked to the appropriate formal decision record.",
     handoff: "A plan is prospective; an event is dated history",
-    record: "36 — separate Gate Log: dated Gate Events",
+    record: "AIG-DEC-04 — separate Gate Log: dated Gate Events",
     note: "A logged event does not itself supply the decision, authority or approval."
   },
   {
@@ -159,9 +159,9 @@ export const stages = [
     question: "What did the authorised decision-maker decide, and on what basis?",
     authority: "Approved forum / delegated decision-maker",
     evidence: ["Authority and date", "Rationale and evidence", "Conditions, owners and due dates"],
-    output: "A formal decision in WCC-AIG-16 or approved native forum minutes; linked event references only.",
+    output: "A formal decision in AIG-DEC-03 or approved native forum minutes; linked event references only.",
     handoff: "Event-linked conditions stay traceable to their originating decision",
-    record: "16 — formal decision; 36 — separate Gate Log with event-linked conditions",
+    record: "AIG-DEC-03 — formal decision; AIG-DEC-04 — separate Gate Log with event-linked conditions",
     note: "This walkthrough cannot record, infer, or present an approval as granted."
   },
   {
@@ -171,7 +171,7 @@ export const stages = [
     evidence: ["Decision and conditions", "Operational readiness", "Approved limitations and escalation routes"],
     output: "A draft release-readiness handoff for authorised review—not a deployment decision.",
     handoff: "Reconcile live handoff against exact approved workbook headers",
-    record: "36 plan/events and 16 decision source; 45 if agent authority applies",
+    record: "AIG-DEC-04 plan/events and AIG-DEC-03 decision source; AIG-AGT-04 if agent authority applies",
     note: "The walkthrough does not mark conditions satisfied or authorise deployment."
   },
   {
@@ -181,7 +181,7 @@ export const stages = [
     evidence: ["Monitoring measures and review dates", "Incident and contestability routes", "Action records and change signals"],
     output: "A monitoring handoff to the designated operational sources.",
     handoff: "Monitoring and runtime records stay in their native sources",
-    record: "Monitoring source; 45 for agent authority context",
+    record: "AIG-OPS-02 monitoring source; AIG-AGT-04 for agent authority context",
     note: "This walkthrough is not an incident, monitoring or runtime action log."
   },
   {
@@ -191,45 +191,45 @@ export const stages = [
     evidence: ["Change and re-entry rationale", "Retirement / decommissioning evidence", "Record closure and retention checks"],
     output: "A change or retirement handoff that preserves the system's connected history.",
     handoff: "Update only through the authorised register and event processes",
-    record: "05 current state; 36 event history; native monitoring / retirement sources",
+    record: "AIG-INV-04 current state; AIG-DEC-04 event history; native monitoring / retirement sources",
     note: "Material change may reopen relevant reviews; retirement does not erase the audit history."
   }
 ];
 
 export const recordBoundaries = [
   {
-    number: "MAP",
+    number: "AIG-INV-05",
     label: "RELATIONSHIP POINTERS",
-    title: "Standalone proposed system map",
-    text: "A relationship-pointer aid linking outcome-led use cases, capabilities, governed systems and referenced components. It is not a second Register or an authoritative legal, permission, gate, decision or approval source; 04 remains the use-case source and official system identity/current state remains in 05.",
+    title: "Proposed controlled system map",
+    text: "AIG-INV-05 is a proposed controlled artefact, not yet approved or adopted. It is a relationship-pointer aid linking outcome-led use cases, capabilities, governed systems and referenced components. It is not a second Register or an authoritative legal, permission, gate, decision or approval source; AIG-INV-03 remains the use-case source and official system identity/current state remains in AIG-INV-04.",
     color: "teal"
   },
   {
-    number: "05",
+    number: "AIG-INV-04",
     label: "SYSTEM & ASSURANCE",
     title: "Permanent identity, current state",
-    text: "The authorised 05 Register holds the Council-issued AIR-ID and current system/assurance state. The Evidence Index keeps versioned pointers to native evidence; neither a proposed map nor this walkthrough replaces it.",
+    text: "AIG-INV-04 is the proposed Register artefact for the Council-issued AIR-ID and current system/assurance state. The Evidence Index keeps versioned pointers to native evidence; neither a proposed map nor this walkthrough replaces it.",
     color: "navy"
   },
   {
-    number: "36",
+    number: "AIG-DEC-04",
     label: "GOVERNANCE HISTORY",
     title: "Plan ≠ event ≠ condition",
-    text: "The separate 36 Gate Log holds a prospective Gate Plan, dated Gate Events and individually event-linked Gate Conditions. These are distinct from the 05 Register and from formal decisions.",
+    text: "The separate proposed AIG-DEC-04 Gate Log holds a prospective Gate Plan, dated Gate Events and individually event-linked Gate Conditions. These are distinct from the AIG-INV-04 Register and from formal decisions.",
     color: "blue"
   },
   {
-    number: "16",
+    number: "AIG-DEC-03",
     label: "FORMAL DECISION",
     title: "Authority and rationale",
-    text: "Formal decisions stay in WCC-AIG-16 or approved native forum minutes. A gate event points to that decision; a derived view or count is not approval evidence.",
+    text: "Formal decisions stay in AIG-DEC-03 or approved native forum minutes. A gate event points to that decision; a derived view or count is not approval evidence.",
     color: "gold"
   },
   {
-    number: "45",
+    number: "AIG-AGT-04",
     label: "AGENT AUTHORITY",
     title: "Permissions live at source",
-    text: "WCC-AIG-45 owns agent permissions and delegations. Other records join via AIR-ID and a proposed stable AG-ID; this demonstration invents neither identifier nor permission.",
+    text: "AIG-AGT-04 owns agent permissions and delegations. Other records join via AIR-ID and a proposed stable AG-ID; this demonstration invents neither identifier nor permission.",
     color: "violet"
   }
 ];
@@ -252,7 +252,7 @@ export function createIllustrativeOutcome(kind, stageIndex) {
   if (kind === "condition") {
     return {
       title: "Illustrative condition only",
-      text: "Example: evidence is requested before the next review. In a real process, an authorised decision-maker must set the condition; its owner, due date and source event must be recorded in the approved 36 workflow. Nothing was saved."
+      text: "Example: evidence is requested before the next review. In a real process, an authorised decision-maker must set the condition; its owner, due date and source event must be recorded in the proposed AIG-DEC-04 workflow after approval/adoption. Nothing was saved."
     };
   }
   if (kind === "evidence") {

@@ -29,24 +29,25 @@ node --test
 
 - Four illustrative cases, selected independently of the shared thirteen-stage
   lifecycle.
-- The intake-to-register handoff: 04 intake → a standalone proposed Capabilities
-  and System Map for relationship pointers → the authorised 05 Register. The map
+- The intake-to-register handoff: AIG-INV-03 intake → proposed controlled
+  artefact AIG-INV-05 Capabilities and System Map → AIG-INV-04 Register. The map
   links outcome-led use cases, capabilities, systems and component references;
-  it is not a second Register, a legal/applicability source, or an approval.
+  it is not yet approved or adopted and is not a second Register, a
+  legal/applicability source, or an approval.
 - A stable Council-issued AIR-ID as an identity boundary. The walkthrough does
   **not** invent or display a sample AIR-ID; the authorised Council process
   issues and confirms it.
 - Case-specific changes in emphasis without deciding risk tier, legal scope,
   approval, or whether a control is applicable.
-- Separate record ownership: governed 05 holds the permanent Council-issued
-  AIR-ID and current system/assurance state; the separate 36 Gate Log holds a
+- Separate record ownership: proposed AIG-INV-04 holds the permanent
+  Council-issued AIR-ID and current system/assurance state; proposed AIG-DEC-04 holds a
   prospective Gate Plan, dated Gate Events and event-linked Gate Conditions.
-  These do not imply approval. Formal decisions remain in WCC-AIG-16 or approved
-  native forum minutes; WCC-AIG-45 owns agent permissions and delegations.
+  These do not imply approval. Formal decisions remain in AIG-DEC-03 or approved
+  native forum minutes; AIG-AGT-04 owns agent permissions and delegations.
 - An illustrative condition and return-for-evidence interaction that explains
   the handoff but does not create, save, or record a gate outcome.
 - A framework handoff comparing proposed requirement/source review destinations
-  27 and 42 without treating a publication or map as a legal applicability or
+  AIG-AIMS-05 and AIG-AIMS-13 without treating a publication or map as a legal applicability or
   conformity decision.
 
 ## Governance and interpretation boundaries
@@ -66,7 +67,7 @@ permissions or ISO conformity.
 
 Illustrative outputs are drafts and handoffs only. They must not be copied into
 live records without verification against the relevant authorised source and
-process. The standalone proposed map is a relationship pointer, not an
+process. Proposed controlled AIG-INV-05 is a relationship pointer, not an
 authoritative register, gate log, legal record or approval source. The tool does
 not connect to workbooks or write Council records. Evidence stays in its native
 authoritative source.
