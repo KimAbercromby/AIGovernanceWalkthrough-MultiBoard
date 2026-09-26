@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { cases, createIllustrativeOutcome, getStageView, recordBoundaries, recordThread, stageThreadFocus, stages } from "../src/model.js";
+import { cases, createIllustrativeOutcome, getStageView, identifierStatus, recordBoundaries, recordThread, stageThreadFocus, stages } from "../src/model.js";
 
 test("walkthrough retains four cases and a thirteen-stage connected lifecycle", () => {
   assert.equal(cases.length, 4);
@@ -23,6 +23,34 @@ test("case-specific notes tailor the route without deciding risk or applicabilit
   assert.match(getStageView("resident-service", 7).caseNote, /Confirm.*requirements/i);
   assert.match(getStageView("retrospective", 0).caseNote, /Do not backdate/i);
   assert.throws(() => getStageView("unknown", 0), RangeError);
+});
+
+test("one unverified system identity maps to distinct, independently considered use cases", () => {
+  for (const example of cases) {
+    assert.equal(example.system.airId, null);
+    assert.ok(example.useCases.length > 0);
+    assert.ok(example.useCases.every((useCase) => useCase.ucId === null));
+    assert.ok(example.useCases.every((useCase) => useCase.priority && useCase.risk && useCase.decision));
+    assert.ok(example.useCases.every(({ decision }) => /^UNVERIFIED\b/.test(decision)));
+    assert.ok(example.useCases.every(({ decision }) => /UC-specific decision and any conditions/i.test(decision)));
+  }
+
+  const staff = cases.find(({ id }) => id === "staff-assistant");
+  assert.equal(staff.useCases.length, 2);
+  assert.match(staff.system.status, /unverified/i);
+  assert.match(staff.useCases[0].purpose, /ordinary non-agentic/i);
+  assert.ok(staff.useCases.every(({ decision }) => /^UNVERIFIED\b/.test(decision)));
+  assert.ok(staff.useCases.every(({ decision }) => /UC-specific decision and any conditions/i.test(decision)));
+  assert.notEqual(staff.useCases[0].priority, staff.useCases[1].priority);
+  assert.notEqual(staff.useCases[0].risk, staff.useCases[1].risk);
+});
+
+test("missing or conflicting identifiers remain unverified", () => {
+  assert.equal(identifierStatus([null]), "unverified");
+  assert.equal(identifierStatus([]), "unverified");
+  assert.equal(identifierStatus(["record-a", "record-b"]), "unverified");
+  assert.equal(identifierStatus(["record-a", null]), "unverified");
+  assert.equal(identifierStatus(["record-a", "record-a"]), "verified");
 });
 
 test("record ownership keeps Register, Gate Log, decision and Agent Record distinct", () => {

@@ -25,8 +25,15 @@ test("public copy states the proposed-draft status and record/legal boundaries",
   assert.match(page, /formal decisions stay in AIG-DEC-03 or approved minutes/i);
   assert.match(page, /AIG-INV-05 is only a descriptive controlled artefact in the proposed catalogue—it is not adopted/i);
   assert.match(page, /does not share or transfer case data to or from them/i);
+  assert.match(page, /each materially different use.*own UC-ID/i);
+  assert.match(page, /system-level status does not establish approval for any use/i);
+  assert.match(page, /Every use-specific decision and any conditions must be verified against.*UC-specific records/i);
+  assert.match(page, /UC decision is unverified, even for ordinary non-agentic use/i);
+  assert.match(page, /Missing or conflicting identifiers\/statuses are unverified/i);
   assert.match(app, /Identity persists/);
   assert.match(app, /no data is shared or transferred/i);
+  assert.match(app, /DISTINCT MATERIAL USES.*EACH NEEDS ITS OWN UC-ID/i);
+  assert.match(app, /no approval authority is implied/i);
   assert.match(copy, /does\s+not\s+connect to workbooks or write Council records/i);
   assert.match(copy, /not a second Register/i);
   assert.match(copy, /not a second Register[\s\S]*approval/i);
@@ -44,5 +51,9 @@ test("public copy states the proposed-draft status and record/legal boundaries",
 test("draft handoffs do not claim live workbook integration or persistence", () => {
   assert.match(docs, /does\s+not\s+connect to workbooks or write Council records/i);
   assert.match(docs, /relationship pointer, not an\s+authoritative register/i);
+  assert.match(docs, /including ordinary non-agentic use/i);
+  assert.match(docs, /system-level status does not\s+establish a decision for any UC-ID/i);
+  assert.match(docs, /every UC decision—including ordinary non-agentic use—is\s+unverified/i);
+  assert.doesNotMatch(`${page}\n${docs}\n${app}`, /approved baseline/i);
   assert.match(app, /no AIG-DEC-04 event or AIG-DEC-03 decision is created/i);
 });
