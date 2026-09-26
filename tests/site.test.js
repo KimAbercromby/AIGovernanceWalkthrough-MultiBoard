@@ -19,15 +19,15 @@ test("public copy states the proposed-draft status and record/legal boundaries",
   const copy = `${page}\n${docs}`;
   assert.match(copy, /proposed draft for Council review/i);
   assert.match(copy, /not approved or live/i);
-  assert.match(copy, /04 intake.*standalone proposed.*05 Register/i);
-  assert.match(copy, /separate 36 Gate Log/i);
+  assert.match(copy, /AIG-INV-03 intake.*proposed controlled artefact AIG-INV-05.*AIG-INV-04 Register/i);
+  assert.match(copy, /separate proposed AIG-DEC-04 Gate Log/i);
   assert.match(copy, /not a second Register/i);
-  assert.match(copy, /not a second Register.*approval/i);
+  assert.match(copy, /not a second Register[\s\S]*approval/i);
   assert.match(copy, /Equality Act 2010 section 149/i);
   assert.match(copy, /Human Rights Act\s+1998\s+section 6/i);
   assert.match(copy, /EU AI Act, ATRS,\s*procurement/i);
-  assert.match(copy, /27.*Applicable Requirements and Change Register/i);
-  assert.match(copy, /42.*Source Assurance and Traceability Register/i);
+  assert.match(copy, /AIG-AIMS-05.*Applicable Requirements and Change Register/i);
+  assert.match(copy, /AIG-AIMS-13.*Source Assurance and Traceability Register/i);
   assert.match(copy, /does not decide whether a law applies/i);
   assert.match(page, /Governance\s+<b>Walkthrough<\/b>/);
   assert.doesNotMatch(copy, /\bWestminster\b|London borough/i);
@@ -37,5 +37,5 @@ test("public copy states the proposed-draft status and record/legal boundaries",
 test("draft handoffs do not claim live workbook integration or persistence", () => {
   assert.match(docs, /does\s+not\s+connect to workbooks or write Council records/i);
   assert.match(docs, /relationship pointer, not an\s+authoritative register/i);
-  assert.match(app, /no 36 event or 16 decision is created/i);
+  assert.match(app, /no AIG-DEC-04 event or AIG-DEC-03 decision is created/i);
 });
