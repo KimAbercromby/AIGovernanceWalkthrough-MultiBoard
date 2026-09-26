@@ -36,9 +36,19 @@ node --test
   legal/applicability source, or an approval.
 - A stable Council-issued AIR-ID as an identity boundary. The walkthrough does
   **not** invent or display a sample AIR-ID; the authorised Council process
-  issues and confirms it.
-- Case-specific changes in emphasis without deciding risk tier, legal scope,
-  approval, or whether a control is applicable.
+  issues and confirms one AIR-ID per system. Each materially different use,
+  including ordinary non-agentic use, needs its own UC-ID; UC-IDs are not
+  invented or displayed as live values here. Missing or conflicting IDs/statuses
+  are unverified, not inferred.
+- An explicit system-to-use mapping with separate illustrative priority, risk
+  and decision fields per use. The staff-assistant example contrasts ordinary
+  non-agentic drafting with a materially different use. Every example's
+  UC-specific decision and conditions are unverified and must be checked in
+  their authoritative records—even for ordinary non-agentic use. System-level
+  status does not establish a use-specific decision. No example is a real
+  assessment, decision or approval authority.
+- Case-specific changes in emphasis without deciding actual risk tier, legal
+  scope, approval, or whether a control is applicable.
 - Separate record ownership: proposed AIG-INV-04 holds the permanent
   Council-issued AIR-ID and current system/assurance state; proposed AIG-DEC-04 holds a
   prospective Gate Plan, dated Gate Events and event-linked Gate Conditions.
@@ -62,8 +72,15 @@ assessment and does not waive Equality Act 2010 section 149, Human Rights Act
 1998 section 6, privacy or other case-specific duties. EU AI Act, ATRS,
 procurement and standards requirements are conditional and need case-specific
 confirmation by the appropriate legal or policy owner. The walkthrough does not
-fabricate AIR-IDs, approvals, legal scope, FRIA completion, publication,
-permissions or ISO conformity.
+fabricate AIR-IDs, UC-IDs, live approvals, legal scope, FRIA completion,
+publication, permissions or ISO conformity. A system-level status does not
+establish a decision for any UC-ID; every materially different use is considered
+separately. Each use-specific decision and any conditions must be verified
+against authoritative UC-specific records. With no such evidence in this
+walkthrough, every UC decision—including ordinary non-agentic use—is
+unverified. Missing or conflicting identifiers or status evidence remain
+unverified. Illustrative distinctions in priority and risk are not live findings
+and do not imply an authorised Council decision-maker.
 
 Illustrative outputs are drafts and handoffs only. They must not be copied into
 live records without verification against the relevant authorised source and
