@@ -2,6 +2,7 @@ import {
   cases,
   createIllustrativeOutcome,
   getStageView,
+  identifierStatus,
   recordBoundaries,
   recordThread,
   stageThreadFocus,
@@ -43,6 +44,27 @@ const renderSummary = () => {
       <h3>${example.title}</h3>
       <p>${example.description}</p>
       <p class="case-emphasis"><b>Route context</b> · ${example.route}<br>${example.emphasis}</p>
+      <section class="use-case-map" aria-label="Illustrative system and use-case identity mapping">
+        <div class="use-case-system">
+          <div><span class="mini-label">ONE SYSTEM · AIR-ID</span><b>${example.system.label}</b></div>
+          <span class="identity-status">${identifierStatus([example.system.airId])} · not populated</span>
+          <p>Verify the one Council-issued AIR-ID in AIG-INV-04. System-level status: ${example.system.status}. It does not establish a decision for any UC-ID.</p>
+        </div>
+        <div class="use-case-list">
+          <span class="mini-label">DISTINCT MATERIAL USES · EACH NEEDS ITS OWN UC-ID</span>
+          ${example.useCases.map((useCase) => `
+            <article class="use-case-item">
+              <div class="use-case-heading"><b>${useCase.reference}</b><span>UC-ID: ${identifierStatus([useCase.ucId])}${useCase.ucId ? ` · ${useCase.ucId}` : " · not populated"}</span></div>
+              <p>${useCase.purpose}</p>
+              <dl>
+                <div><dt>Priority</dt><dd>${useCase.priority}</dd></div>
+                <div><dt>Risk</dt><dd>${useCase.risk}</dd></div>
+                <div><dt>UC decision / conditions</dt><dd>${useCase.decision}</dd></div>
+              </dl>
+            </article>`).join("")}
+        </div>
+        <p class="use-case-disclaimer">All labels and outcomes here are illustrative, not Council records, findings or decisions. Missing or conflicting identifiers/statuses are unverified; no approval authority is implied.</p>
+      </section>
     </div>
     <div class="summary-badge"><span>EXAMPLE</span><b>${example.number}</b><small>NOT A LIVE CASE</small></div>`;
 };
