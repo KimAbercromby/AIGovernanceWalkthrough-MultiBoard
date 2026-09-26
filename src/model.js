@@ -8,6 +8,29 @@ export const cases = [
     description: "A service procured to support a resident-facing process. The route depends on intended use, impacts, data, supplier controls and the system's actual capabilities—not the procurement label alone.",
     emphasis: "Screen impacts and applicable duties; assess the case before confirming gates or obligations.",
     route: "Resident-facing · procurement context · duties to confirm",
+    system: {
+      label: "Illustrative resident-facing service system",
+      airId: null,
+      status: "Unverified; system-level status does not establish any use-specific decision"
+    },
+    useCases: [
+      {
+        reference: "Illustrative use A",
+        ucId: null,
+        purpose: "Routine information support for a resident-facing service",
+        priority: "Illustrative: standard attention; confirm with owners",
+        risk: "Unassessed; screen impacts and duties",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      },
+      {
+        reference: "Illustrative use B",
+        ucId: null,
+        purpose: "Use that materially influences an individual service outcome",
+        priority: "Illustrative: heightened attention",
+        risk: "Unassessed; impact and rights review needed",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      }
+    ],
     stageNotes: {
       0: "Capture intended service, affected people and supplier context. The intake is a draft handoff, not a Council-issued identifier.",
       4: "Determine risk and assurance needs with the responsible owners. A resident-facing context merits careful screening; this example does not predetermine a risk tier.",
@@ -24,6 +47,29 @@ export const cases = [
     description: "A staff productivity assistant is shown on a proportionate light-touch path where it cannot take actions. “Routine” does not mean unscreened: data, purpose, impacts and all relevant duties still need consideration.",
     emphasis: "Light-touch is an example route, not an exemption from screening or case-specific duties.",
     route: "Staff use · capability and data must be checked",
+    system: {
+      label: "Illustrative staff productivity system",
+      airId: null,
+      status: "Unverified; system-level status does not establish any use-specific decision"
+    },
+    useCases: [
+      {
+        reference: "Illustrative use A",
+        ucId: null,
+        purpose: "Ordinary non-agentic internal drafting with no action permissions",
+        priority: "Illustrative: lower attention",
+        risk: "Illustrative: lower relative risk; still screen",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      },
+      {
+        reference: "Illustrative use B",
+        ucId: null,
+        purpose: "Summarising sensitive case material for a different operational purpose",
+        priority: "Illustrative: heightened attention",
+        risk: "Illustrative: different and potentially elevated impacts; assess",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      }
+    ],
     stageNotes: {
       3: "Verify the actual capabilities and permissions. Do not assume that a product marketed as an assistant cannot act.",
       4: "Even a low-priority or light-touch case is screened. AGPI prioritisation does not waive equality, human-rights, privacy or other duties.",
@@ -39,6 +85,29 @@ export const cases = [
     description: "An AI-enabled system is discovered after it has gone live. The organisation establishes the facts, records current state, assesses exposure and routes the case for authorised decisions without rewriting history.",
     emphasis: "Discovery is not approval. Record verified facts, escalate concerns and obtain authorised direction.",
     route: "In use · retrospective discovery · immediate fact-finding",
+    system: {
+      label: "Illustrative discovered system",
+      airId: null,
+      status: "Unverified; discovery does not establish any use-specific decision"
+    },
+    useCases: [
+      {
+        reference: "Illustrative use A",
+        ucId: null,
+        purpose: "Use confirmed during retrospective fact-finding",
+        priority: "Illustrative: urgent fact-finding",
+        risk: "Unassessed; establish facts and exposure",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      },
+      {
+        reference: "Illustrative use B",
+        ucId: null,
+        purpose: "A materially different discovered purpose, if found",
+        priority: "Illustrative: assess separately",
+        risk: "Unassessed; do not inherit another use's assessment",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      }
+    ],
     stageNotes: {
       0: "Record the discovery and known facts through the approved intake route. Do not backdate an approval or invent an AIR-ID.",
       2: "Establish current use, ownership, data flows, controls and evidence. Escalate safety, rights, privacy or security concerns through their proper routes.",
@@ -54,6 +123,29 @@ export const cases = [
       description: "An agentic system may call tools, change records or otherwise act. Capability and permission are assessed explicitly; agent authority and delegations are owned by AIG-AGT-04, not inferred from a lifecycle stage.",
     emphasis: "No authority is granted here. Apply the can-it-act screen and verify permissions in the authorised source.",
     route: "Potentially action-capable · enhanced controls to assess",
+    system: {
+      label: "Illustrative action-capable system",
+      airId: null,
+      status: "Unverified; system identity and state require confirmation"
+    },
+    useCases: [
+      {
+        reference: "Illustrative use A",
+        ucId: null,
+        purpose: "Ordinary non-agentic use with actions disabled",
+        priority: "Illustrative: assess proportionately",
+        risk: "Unassessed; verify actual configuration",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      },
+      {
+        reference: "Illustrative use B",
+        ucId: null,
+        purpose: "Action-capable use with tool access or write permissions",
+        priority: "Illustrative: heightened attention",
+        risk: "Unassessed; assess action-specific impacts and controls",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      }
+    ],
     stageNotes: {
       3: "Test whether the system can take actions in its real configuration, including tool access, delegated credentials, write permissions and human confirmation.",
       6: "Use the approved agency profile and tiering process. Do not use this illustration to assign an agency tier or grant permission.",
@@ -300,6 +392,15 @@ export function getStageView(caseId, stageIndex) {
     caseNote: selectedCase.stageNotes?.[stageIndex] ?? null,
     case: selectedCase
   };
+}
+
+// An identifier is verified only when it is present and every authoritative
+// reference supplied for comparison agrees. Missing or conflicting values are
+// deliberately treated as unverified, never inferred from a system baseline.
+export function identifierStatus(values) {
+  const supplied = values.filter((value) => typeof value === "string" && value.trim());
+  if (supplied.length !== values.length || supplied.length === 0) return "unverified";
+  return new Set(supplied).size === 1 ? "verified" : "unverified";
 }
 
 export function createIllustrativeOutcome(kind, stageIndex) {
