@@ -3,6 +3,8 @@ import {
   createIllustrativeOutcome,
   getStageView,
   recordBoundaries,
+  recordThread,
+  stageThreadFocus,
   stages
 } from "./model.js";
 
@@ -17,6 +19,7 @@ const caseList = byId("case-list");
 const caseSummary = byId("case-summary");
 const stageCount = byId("stage-count");
 const progressBar = byId("progress-bar");
+const recordThreadElement = byId("record-thread");
 const stageList = byId("stage-list");
 const stageDetail = byId("stage-detail");
 const previousButton = byId("previous-stage");
@@ -53,6 +56,33 @@ const renderStageNavigation = () => {
         ${index < state.stageIndex ? '<span class="explored-mark" aria-label="Explored">✓</span>' : ""}
       </button>
     </li>`).join("");
+};
+
+const renderRecordThread = () => {
+  const focusedRecords = stageThreadFocus[state.stageIndex] ?? [];
+  const currentStage = stages[state.stageIndex];
+  recordThreadElement.setAttribute(
+    "aria-label",
+    `Connected references for stage ${state.stageIndex + 1}, ${currentStage.title}. Separate records; no data is shared or transferred.`
+  );
+  recordThreadElement.innerHTML = `
+    <div class="thread-heading">
+      <div><span class="mini-label">ONE CASE · DISTINCT RECORDS</span><b>Reference thread</b></div>
+      <span class="thread-stage">Stage ${String(state.stageIndex + 1).padStart(2, "0")} focus</span>
+    </div>
+    <ol class="thread-list" tabindex="0" aria-label="Separate authoritative records connected by references">
+      ${recordThread.map((record) => {
+        const isIdentity = record.id === "identity";
+        const isFocused = focusedRecords.includes(record.id);
+        return `<li class="thread-node ${isIdentity ? "is-identity" : ""} ${isFocused ? "is-focused" : ""}">
+          <span class="thread-id">${record.number}</span>
+          <b>${record.title}</b>
+          <span class="thread-description">${record.description}</span>
+          <small>${isIdentity ? "Identity persists · " : ""}${record.role}${isFocused ? " · stage focus" : ""}</small>
+        </li>`;
+      }).join("")}
+    </ol>
+    <p class="thread-note">References preserve continuity; each source keeps its own authority. Nothing is joined, copied or updated by this illustrative walkthrough.</p>`;
 };
 
 const renderStageDetail = () => {
@@ -96,6 +126,7 @@ const render = () => {
   renderCases();
   renderSummary();
   renderStageNavigation();
+  renderRecordThread();
   renderStageDetail();
   stageCount.textContent = `Stage ${String(state.stageIndex + 1).padStart(2, "0")} of ${String(stages.length).padStart(2, "0")}`;
   progressBar.style.width = `${((state.stageIndex + 1) / stages.length) * 100}%`;

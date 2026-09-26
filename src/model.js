@@ -121,8 +121,8 @@ export const stages = [
     evidence: ["Applicable proposed gates", "Owners and target dates", "Reason for any gate not planned"],
     output: "A prospective Gate Plan—not proof that any gate occurred or passed.",
     handoff: "Verify the destination and exact headers before preparing a live handoff",
-    record: "AIG-DEC-04 — separate Gate Log: prospective Gate Plan",
-    note: "The Gate Log is separate from the AIG-INV-04 Register. A proposed plan is not an event, decision or approval."
+    record: "AIG-DEC-04 Gate Log — prospective plan under the confirmed AIR-ID",
+    note: "The Gate Log and Register remain distinct sources linked by the confirmed AIR-ID. A proposed plan is not an event, decision or approval."
   },
   {
     title: "Assess agency and authority",
@@ -151,7 +151,7 @@ export const stages = [
     evidence: ["Meeting/event date", "Participants and evidence considered", "Decision reference and outcome"],
     output: "A dated event handoff linked to the appropriate formal decision record.",
     handoff: "A plan is prospective; an event is dated history",
-    record: "AIG-DEC-04 — separate Gate Log: dated Gate Events",
+    record: "AIG-DEC-04 Gate Log — dated events linked by the same AIR-ID",
     note: "A logged event does not itself supply the decision, authority or approval."
   },
   {
@@ -161,7 +161,7 @@ export const stages = [
     evidence: ["Authority and date", "Rationale and evidence", "Conditions, owners and due dates"],
     output: "A formal decision in AIG-DEC-03 or approved native forum minutes; linked event references only.",
     handoff: "Event-linked conditions stay traceable to their originating decision",
-    record: "AIG-DEC-03 — formal decision; AIG-DEC-04 — separate Gate Log with event-linked conditions",
+    record: "AIG-DEC-03 — formal decision; AIG-DEC-04 Gate Log — conditions linked to its event and AIR-ID",
     note: "This walkthrough cannot record, infer, or present an approval as granted."
   },
   {
@@ -215,7 +215,7 @@ export const recordBoundaries = [
     number: "AIG-DEC-04",
     label: "GOVERNANCE HISTORY",
     title: "Plan ≠ event ≠ condition",
-    text: "The separate proposed AIG-DEC-04 Gate Log holds a prospective Gate Plan, dated Gate Events and individually event-linked Gate Conditions. These are distinct from the AIG-INV-04 Register and from formal decisions.",
+    text: "The proposed AIG-DEC-04 Gate Log carries the same confirmed AIR-ID into a prospective Gate Plan, dated Gate Events and individually event-linked Gate Conditions. It remains a distinct source from the AIG-INV-04 Register and formal decisions.",
     color: "blue"
   },
   {
@@ -232,6 +232,63 @@ export const recordBoundaries = [
     text: "AIG-AGT-04 owns agent permissions and delegations. Other records join via AIR-ID and a proposed stable AG-ID; this demonstration invents neither identifier nor permission.",
     color: "violet"
   }
+];
+
+// These are references between distinct records, not a shared or transferred dataset.
+// The AIR-ID remains the identity in AIG-INV-04; it is intentionally not populated here.
+export const recordThread = [
+  {
+    id: "identity",
+    number: "AIG-INV-04",
+    title: "Register",
+    description: "Council-issued AIR-ID + current status",
+    role: "Identity owner"
+  },
+  {
+    id: "intake",
+    number: "AIG-INV-03",
+    title: "Intake",
+    description: "Use-case and intake facts",
+    role: "Intake source"
+  },
+  {
+    id: "map",
+    number: "AIG-INV-05",
+    title: "System map",
+    description: "Descriptive artefact · proposed catalogue, not adopted",
+    role: "Relationship pointers only"
+  },
+  {
+    id: "history",
+    number: "AIG-DEC-04",
+    title: "Gate Log",
+    description: "Plans · dated events · event-linked conditions",
+    role: "Separate lifecycle history"
+  },
+  {
+    id: "decision",
+    number: "AIG-DEC-03",
+    title: "Decision",
+    description: "Formal decision; or approved native minutes",
+    role: "Formal authority"
+  }
+];
+
+// Thread emphasis follows the lifecycle; the identity owner remains visible at every stage.
+export const stageThreadFocus = [
+  ["intake"],
+  ["map"],
+  ["identity"],
+  ["map", "identity"],
+  ["identity"],
+  ["history"],
+  ["identity"],
+  ["identity"],
+  ["history"],
+  ["decision", "history"],
+  ["decision", "history"],
+  ["history"],
+  ["identity", "history"]
 ];
 
 export function getStageView(caseId, stageIndex) {
