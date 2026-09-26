@@ -57,7 +57,7 @@ const renderStageNavigation = () => {
 
 const renderStageDetail = () => {
   const stage = getStageView(state.caseId, state.stageIndex);
-  const canExploreOutcome = state.stageIndex >= 3 && state.stageIndex <= 9;
+  const canExploreOutcome = state.stageIndex >= 4 && state.stageIndex <= 10;
   stageDetail.setAttribute("tabindex", "-1");
   stageDetail.innerHTML = `
     <div class="stage-topline">

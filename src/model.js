@@ -9,10 +9,10 @@ export const cases = [
     emphasis: "Screen impacts and applicable duties; assess the case before confirming gates or obligations.",
     route: "Resident-facing · procurement context · duties to confirm",
     stageNotes: {
-      1: "Capture intended service, affected people and supplier context. The intake is a draft handoff, not a Council-issued identifier.",
-      3: "Determine risk and assurance needs with the responsible owners. A resident-facing context merits careful screening; this example does not predetermine a risk tier.",
-      6: "Consider procurement and supplier assurance if applicable. Confirm procurement requirements and legal scope with their owners.",
-      8: "A formal decision belongs in WCC-AIG-16 or approved native forum minutes, not in this walkthrough or an event log."
+      0: "Capture intended service, affected people and supplier context. The intake is a draft handoff, not a Council-issued identifier.",
+      4: "Determine risk and assurance needs with the responsible owners. A resident-facing context merits careful screening; this example does not predetermine a risk tier.",
+      7: "Consider procurement and supplier assurance if applicable. Confirm procurement requirements and legal scope with their owners.",
+      9: "A formal decision belongs in WCC-AIG-16 or approved native forum minutes, not in this walkthrough or an event log."
     }
   },
   {
@@ -25,9 +25,9 @@ export const cases = [
     emphasis: "Light-touch is an example route, not an exemption from screening or case-specific duties.",
     route: "Staff use · capability and data must be checked",
     stageNotes: {
-      2: "Verify the actual capabilities and permissions. Do not assume that a product marketed as an assistant cannot act.",
-      3: "Even a low-priority or light-touch case is screened. AGPI prioritisation does not waive equality, human-rights, privacy or other duties.",
-      7: "Record the reason for any gate not required in the proper planning record; do not infer “not applicable” from this example."
+      3: "Verify the actual capabilities and permissions. Do not assume that a product marketed as an assistant cannot act.",
+      4: "Even a low-priority or light-touch case is screened. AGPI prioritisation does not waive equality, human-rights, privacy or other duties.",
+      5: "Record the reason for any gate not required in the proper planning record; do not infer “not applicable” from this example."
     }
   },
   {
@@ -41,8 +41,8 @@ export const cases = [
     route: "In use · retrospective discovery · immediate fact-finding",
     stageNotes: {
       0: "Record the discovery and known facts through the approved intake route. Do not backdate an approval or invent an AIR-ID.",
-      4: "Establish current use, ownership, data flows, controls and evidence. Escalate safety, rights, privacy or security concerns through their proper routes.",
-      8: "A decision to continue, change or pause use must come from an authorised forum and be recorded in WCC-AIG-16 or approved native minutes."
+      2: "Establish current use, ownership, data flows, controls and evidence. Escalate safety, rights, privacy or security concerns through their proper routes.",
+      9: "A decision to continue, change or pause use must come from an authorised forum and be recorded in WCC-AIG-16 or approved native minutes."
     }
   },
   {
@@ -55,10 +55,10 @@ export const cases = [
     emphasis: "No authority is granted here. Apply the can-it-act screen and verify permissions in the authorised source.",
     route: "Potentially action-capable · enhanced controls to assess",
     stageNotes: {
-      2: "Test whether the system can take actions in its real configuration, including tool access, delegated credentials, write permissions and human confirmation.",
-      5: "Use the approved agency profile and tiering process. Do not use this illustration to assign an agency tier or grant permission.",
-      6: "WCC-AIG-45 owns agent authority, permissions and delegations. This walkthrough does not create or modify that record.",
-      9: "Runtime Action / Decision Records remain in their designated source. Monitoring must cover actual actions, limits, failures and revocation."
+      3: "Test whether the system can take actions in its real configuration, including tool access, delegated credentials, write permissions and human confirmation.",
+      6: "Use the approved agency profile and tiering process. Do not use this illustration to assign an agency tier or grant permission.",
+      7: "WCC-AIG-45 owns agent authority, permissions and delegations. This walkthrough does not create or modify that record.",
+      10: "Runtime Action / Decision Records remain in their designated source. Monitoring must cover actual actions, limits, failures and revocation."
     }
   }
 ];
@@ -69,19 +69,29 @@ export const stages = [
     question: "What system or proposed use needs to be registered?",
     authority: "Service / business owner; intake route",
     evidence: ["Purpose and intended use", "Owner and supplier context", "People and services in scope"],
-    output: "A draft intake and a request to follow the authorised identifier process.",
-    handoff: "Intake → authorised register owner",
-    record: "05 — current system record once verified",
-    note: "A permanent AIR-ID is issued by the Council process; this tool never creates one."
+    output: "A draft 04 intake handoff and a request to follow the authorised identifier process.",
+    handoff: "04 intake → optional relationship mapping → authorised 05 Register owner",
+    record: "04 — AI Intake Form / authorised intake route",
+    note: "Intake and this walkthrough do not issue a permanent AIR-ID."
+  },
+  {
+    title: "Map capabilities and system relationships",
+    question: "Which outcome-led use cases need which capabilities, and what systems or components relate to them?",
+    authority: "Service, technical and architecture owners",
+    evidence: ["04 use-case facts", "Verified 05 AIR-ID only when one exists", "Versioned model, data, interface, agent and tool pointers"],
+    output: "An optional relationship-map handoff showing confirmed links, proposed links and gaps for owner review.",
+    handoff: "Use the standalone proposed map as a pointer; reconcile system identity to 05 and component authority to native sources",
+    record: "Standalone proposed Capabilities and System Map — relationship pointers only",
+    note: "The map is not a second Register, legal/applicability source, permission record, gate, decision or approval. Unmapped or zero-count links do not prove absence."
   },
   {
     title: "Confirm identity and scope",
     question: "What is in scope, and is there already a system record?",
     authority: "Authorised Register owner",
     evidence: ["Verified system identity", "Related projects and components", "Known status and provenance"],
-    output: "A proposed identity/scope handoff for reconciliation against the current register.",
-    handoff: "Verify against 05 before any row is changed",
-    record: "05 — permanent AIR-ID and current state",
+    output: "A proposed identity/scope handoff for reconciliation against the authorised current Register.",
+    handoff: "Verify the official AIR-ID and current status against 05; reconcile map pointers separately",
+    record: "05 — authorised Register: permanent AIR-ID and current system state",
     note: "Do not duplicate, infer or replace a Council-issued AIR-ID."
   },
   {
@@ -91,7 +101,7 @@ export const stages = [
     evidence: ["Capabilities and permissions", "Human oversight", "Data, integrations and change history"],
     output: "A capability and action-screening handoff, including whether enhanced agentic controls need assessment.",
     handoff: "Route verified findings to the right assurance owners",
-    record: "05 current state; 45 for agent authority and permissions",
+    record: "Proposed map relationship pointers only; 05 current state; 45 agent authority and permissions",
     note: "Marketing labels and a stage in this walkthrough do not establish capability."
   },
   {
@@ -111,8 +121,8 @@ export const stages = [
     evidence: ["Applicable proposed gates", "Owners and target dates", "Reason for any gate not planned"],
     output: "A prospective Gate Plan—not proof that any gate occurred or passed.",
     handoff: "Verify the destination and exact headers before preparing a live handoff",
-    record: "36 — prospective Gate Plan, within the integrated 05/36 workbook",
-    note: "The workbook is one integrated working draft, not separate authoritative 05 and 36 files."
+    record: "36 — separate Gate Log: prospective Gate Plan",
+    note: "The Gate Log is separate from the 05 Register. A proposed plan is not an event, decision or approval."
   },
   {
     title: "Assess agency and authority",
@@ -141,7 +151,7 @@ export const stages = [
     evidence: ["Meeting/event date", "Participants and evidence considered", "Decision reference and outcome"],
     output: "A dated event handoff linked to the appropriate formal decision record.",
     handoff: "A plan is prospective; an event is dated history",
-    record: "36 — dated Gate Events",
+    record: "36 — separate Gate Log: dated Gate Events",
     note: "A logged event does not itself supply the decision, authority or approval."
   },
   {
@@ -151,7 +161,7 @@ export const stages = [
     evidence: ["Authority and date", "Rationale and evidence", "Conditions, owners and due dates"],
     output: "A formal decision in WCC-AIG-16 or approved native forum minutes; linked event references only.",
     handoff: "Event-linked conditions stay traceable to their originating decision",
-    record: "16 — formal decision; 36 — event-linked conditions",
+    record: "16 — formal decision; 36 — separate Gate Log with event-linked conditions",
     note: "This walkthrough cannot record, infer, or present an approval as granted."
   },
   {
@@ -188,17 +198,24 @@ export const stages = [
 
 export const recordBoundaries = [
   {
+    number: "MAP",
+    label: "RELATIONSHIP POINTERS",
+    title: "Standalone proposed system map",
+    text: "A relationship-pointer aid linking outcome-led use cases, capabilities, governed systems and referenced components. It is not a second Register or an authoritative legal, permission, gate, decision or approval source; 04 remains the use-case source and official system identity/current state remains in 05.",
+    color: "teal"
+  },
+  {
     number: "05",
     label: "SYSTEM & ASSURANCE",
     title: "Permanent identity, current state",
-    text: "The integrated workbook's 05 area holds the Council-issued AIR-ID and current system/assurance state. The Evidence Index keeps versioned pointers to native evidence; it does not replace the evidence.",
+    text: "The authorised 05 Register holds the Council-issued AIR-ID and current system/assurance state. The Evidence Index keeps versioned pointers to native evidence; neither a proposed map nor this walkthrough replaces it.",
     color: "navy"
   },
   {
     number: "36",
     label: "GOVERNANCE HISTORY",
     title: "Plan ≠ event ≠ condition",
-    text: "In the same 05/36 workbook, Gate Plan is prospective, Gate Events are dated history, and Gate Conditions are individually linked to an event. These are connected but distinct records.",
+    text: "The separate 36 Gate Log holds a prospective Gate Plan, dated Gate Events and individually event-linked Gate Conditions. These are distinct from the 05 Register and from formal decisions.",
     color: "blue"
   },
   {

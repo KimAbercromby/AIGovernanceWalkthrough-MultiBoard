@@ -146,13 +146,14 @@ a { color: inherit; }
 .journey-controls .button { min-height: 34px; font-size: 9px; }
 .control-note { color: #8795a0; font-size: 8px; }
 .records-section { padding: 72px 0 76px; background: #edf1f3; border-top: 1px solid #e4e9ec; }
-.record-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.record-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
 .record-card { min-height: 208px; padding: 17px 16px; background: white; border: 1px solid #e0e6e9; border-radius: 9px; }
 .record-card-top { display: flex; align-items: center; gap: 10px; }
 .record-number { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 8px; color: white; background: var(--navy); font: 800 13px Manrope, sans-serif; }
 .record-blue .record-number { background: #38708c; }
 .record-gold .record-number { background: #b5892b; }
 .record-violet .record-number { background: #655482; }
+.record-teal .record-number { background: #34766f; }
 .record-card h3 { margin: 15px 0 7px; color: var(--navy); font: 700 13px Manrope, sans-serif; }
 .record-card p { margin: 0; color: #637584; font-size: 9px; line-height: 1.65; }
 .guardrail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 16px; }
@@ -195,7 +196,7 @@ a { color: inherit; }
   .case-layout { grid-template-columns: 225px minmax(0, 1fr); }
   .journey-body { grid-template-columns: 175px minmax(0, 1fr); }
   .stage-detail { padding: 18px; }
-  .record-grid { grid-template-columns: repeat(2, 1fr); }
+  .record-grid { grid-template-columns: repeat(3, 1fr); }
   .toolkit-layout { gap: 35px; }
 }
 

@@ -17,19 +17,25 @@ test("static entry point references the maintainable local application assets", 
 
 test("public copy states the proposed-draft status and record/legal boundaries", () => {
   const copy = `${page}\n${docs}`;
-  assert.match(copy, /proposed draft for owner review/i);
+  assert.match(copy, /proposed draft for Council review/i);
   assert.match(copy, /not approved or live/i);
+  assert.match(copy, /04 intake.*standalone proposed.*05 Register/i);
+  assert.match(copy, /separate 36 Gate Log/i);
+  assert.match(copy, /not a second Register/i);
+  assert.match(copy, /not a second Register.*approval/i);
   assert.match(copy, /Equality Act 2010 section 149/i);
   assert.match(copy, /Human Rights Act\s+1998\s+section 6/i);
   assert.match(copy, /EU AI Act, ATRS,\s*procurement/i);
   assert.match(copy, /27.*Applicable Requirements and Change Register/i);
   assert.match(copy, /42.*Source Assurance and Traceability Register/i);
   assert.match(copy, /does not decide whether a law applies/i);
+  assert.match(page, /Governance\s+<b>Walkthrough<\/b>/);
+  assert.doesNotMatch(copy, /\bWestminster\b|London borough/i);
   assert.doesNotMatch(copy, /\bAIR-\d{4}-\d+\b/);
 });
 
-test("draft handoffs do not claim live header verification or persistence", () => {
-  assert.match(docs, /without verification against the exact current 05\/36 headers/i);
-  assert.match(docs, /does not connect to the workbook or write\s+Council records/i);
+test("draft handoffs do not claim live workbook integration or persistence", () => {
+  assert.match(docs, /does\s+not\s+connect to workbooks or write Council records/i);
+  assert.match(docs, /relationship pointer, not an\s+authoritative register/i);
   assert.match(app, /no 36 event or 16 decision is created/i);
 });
