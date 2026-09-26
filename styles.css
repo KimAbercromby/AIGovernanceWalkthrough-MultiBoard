@@ -95,6 +95,23 @@ a { color: inherit; }
 .summary-copy > p { margin: 0; color: #697b89; font-size: 10px; line-height: 1.6; }
 .summary-copy .case-emphasis { margin-top: 9px; color: #425a6d; }
 .case-emphasis b { color: #273e52; }
+.use-case-map { margin-top: 14px; padding: 12px; border: 1px solid #dfe7ea; border-radius: 7px; background: #f8fafb; }
+.use-case-system { padding-bottom: 10px; border-bottom: 1px solid #e1e8eb; }
+.use-case-system > div:first-child { display: inline-block; vertical-align: middle; }
+.use-case-system > div:first-child b { display: block; margin-top: 3px; color: #30495d; font-size: 9px; }
+.identity-status { display: inline-block; margin-left: 8px; padding: 4px 6px; border-radius: 4px; background: #fff5dc; color: #785e20; font-size: 7px; font-weight: 700; text-transform: uppercase; }
+.use-case-system p, .use-case-item > p { margin: 5px 0 0; color: #6a7b88; font-size: 8px; line-height: 1.5; }
+.use-case-list { display: grid; gap: 7px; margin-top: 10px; }
+.use-case-list > .mini-label { margin-bottom: 1px; }
+.use-case-item { padding: 8px; border-radius: 5px; background: white; border: 1px solid #e8edef; }
+.use-case-heading { display: flex; justify-content: space-between; gap: 7px; align-items: baseline; }
+.use-case-heading b { color: #30495d; font-size: 8px; }
+.use-case-heading span { color: #866b2d; font-size: 7px; font-weight: 700; text-transform: uppercase; }
+.use-case-item dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin: 8px 0 0; }
+.use-case-item dl > div { min-width: 0; }
+.use-case-item dt { color: #738391; font-size: 7px; font-weight: 700; text-transform: uppercase; }
+.use-case-item dd { margin: 3px 0 0; color: #42586a; font-size: 7px; line-height: 1.45; }
+.use-case-disclaimer { margin: 8px 0 0; color: #7b8994; font-size: 7px; line-height: 1.5; }
 .summary-badge { display: flex; align-self: flex-start; flex: 0 0 72px; flex-direction: column; align-items: center; padding: 8px 5px; border: 1px solid #e5e9ec; border-radius: 7px; color: #657889; }
 .summary-badge span, .summary-badge small { font-size: 6px; font-weight: 700; letter-spacing: .08em; }
 .summary-badge b { color: var(--navy); font: 700 24px Manrope, sans-serif; line-height: 1.3; }
@@ -244,6 +261,8 @@ a { color: inherit; }
   .case-chevron { display: none; }
   .identity-card { margin-top: 14px; }
   .case-summary { padding: 16px; }
+  .use-case-item dl { grid-template-columns: 1fr; gap: 5px; }
+  .use-case-heading { align-items: flex-start; flex-direction: column; gap: 3px; }
   .summary-badge { flex-basis: 61px; }
   .progress-wrap { padding: 12px 16px; }
   .record-thread { padding: 13px 14px 11px; }
