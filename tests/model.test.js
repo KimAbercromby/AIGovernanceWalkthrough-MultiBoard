@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { cases, createIllustrativeOutcome, getStageView, recordBoundaries, stages } from "../src/model.js";
+import { cases, createIllustrativeOutcome, getStageView, recordBoundaries, recordThread, stageThreadFocus, stages } from "../src/model.js";
 
 test("walkthrough retains four cases and a thirteen-stage connected lifecycle", () => {
   assert.equal(cases.length, 4);
@@ -26,14 +26,34 @@ test("case-specific notes tailor the route without deciding risk or applicabilit
 });
 
 test("record ownership keeps Register, Gate Log, decision and Agent Record distinct", () => {
-  assert.match(stages[5].record, /AIG-DEC-04.*separate Gate Log.*prospective Gate Plan/i);
-  assert.match(stages[8].record, /AIG-DEC-04.*separate Gate Log.*dated Gate Events/i);
-  assert.match(stages[9].record, /AIG-DEC-03.*formal decision.*AIG-DEC-04.*separate Gate Log.*event-linked conditions/i);
+  assert.match(stages[5].record, /AIG-DEC-04 Gate Log.*confirmed AIR-ID/i);
+  assert.match(stages[5].note, /distinct sources linked by the confirmed AIR-ID/i);
+  assert.match(stages[8].record, /AIG-DEC-04 Gate Log.*same AIR-ID/i);
+  assert.match(stages[9].record, /AIG-DEC-03.*formal decision.*AIG-DEC-04 Gate Log.*event and AIR-ID/i);
   assert.match(stages[1].note, /not a second Register.*approval/i);
-  assert.match(recordBoundaries.find(({ number }) => number === "AIG-DEC-04").text, /separate proposed AIG-DEC-04 Gate Log/i);
+  assert.match(recordBoundaries.find(({ number }) => number === "AIG-DEC-04").text, /AIG-DEC-04 Gate Log carries the same confirmed AIR-ID/i);
   assert.match(recordBoundaries.find(({ number }) => number === "AIG-AGT-04").text, /owns agent permissions and delegations/i);
   assert.match(recordBoundaries.find(({ number }) => number === "AIG-INV-04").text, /Council-issued AIR-ID/i);
   assert.match(recordBoundaries.find(({ number }) => number === "AIG-INV-05").text, /relationship.pointer/i);
+});
+
+test("stage-aware thread retains one identity across distinct authoritative records", () => {
+  const threadIds = new Set(recordThread.map(({ id }) => id));
+  assert.equal(stageThreadFocus.length, stages.length);
+  assert.deepEqual(recordThread[0], {
+    id: "identity",
+    number: "AIG-INV-04",
+    title: "Register",
+    description: "Council-issued AIR-ID + current status",
+    role: "Identity owner"
+  });
+  assert.ok(recordThread.some(({ number, description }) => number === "AIG-INV-05" && /proposed catalogue, not adopted/i.test(description)));
+  assert.ok(recordThread.some(({ number, description }) => number === "AIG-DEC-04" && /plans.*dated events.*conditions/i.test(description)));
+  assert.ok(recordThread.some(({ number, description }) => number === "AIG-DEC-03" && /formal decision.*approved native minutes/i.test(description)));
+  assert.ok(stageThreadFocus.every((focus) => focus.every((id) => threadIds.has(id))));
+  assert.ok(stageThreadFocus[0].includes("intake"));
+  assert.ok(stageThreadFocus[9].includes("decision"));
+  assert.doesNotMatch(JSON.stringify(recordThread), /\bAIR-\d{4}-\d+\b/);
 });
 
 test("illustrative responses are explicit handoffs and never approval or saved rows", () => {
