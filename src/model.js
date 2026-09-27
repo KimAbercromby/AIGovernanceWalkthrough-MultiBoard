@@ -71,6 +71,7 @@ export const cases = [
       }
     ],
     stageNotes: {
+      0: "An obviously low-risk use may take the one-page Fast-Track Screening (AIG-INV-02) instead of the full Intake and triage. All ten answers must be No, with no mandatory trigger, and the AI Governance Lead validates the route. The validated answers are recorded as the equality, human-rights and data-protection screening, and a UC-specific decision is still recorded before use.",
       3: "Verify the actual capabilities and permissions. Do not assume that a product marketed as an assistant cannot act.",
       4: "Even a low-priority or light-touch case is screened. AGPI prioritisation does not waive equality, human-rights, privacy or other duties.",
       5: "Record the reason for any gate not required in the proper planning record; do not infer “not applicable” from this example."
