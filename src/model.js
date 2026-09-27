@@ -111,7 +111,7 @@ export const cases = [
     stageNotes: {
       0: "Record the discovery and known facts through the approved intake route. Do not backdate an approval or invent an AIR-ID.",
       2: "Establish current use, ownership, data flows, controls and evidence. Escalate safety, rights, privacy or security concerns through their proper routes.",
-      9: "A decision to continue, change or pause use must come from an authorised forum and be recorded in AIG-DEC-03 or approved native minutes."
+      9: "If there is a real risk of harm, the Service Owner or AI System Owner pauses the use at once, without waiting for a forum (Playbook §4.7.17), and records it in AIG-OPS-03 and AIG-DEC-04. Any decision to continue a suspension, resume, change or withdraw the use must come from an authorised forum and be recorded in AIG-DEC-03 or approved native minutes."
     }
   },
   {
@@ -269,18 +269,18 @@ export const stages = [
   {
     title: "Monitor and respond",
     question: "How will outcomes, incidents, changes and any agent actions be observed?",
-    authority: "Service owner and monitoring / incident responders",
-    evidence: ["Monitoring measures and review dates", "Incident and contestability routes", "Action records and change signals"],
+    authority: "Service owner (who can pause at once if there is a real risk of harm) and monitoring / incident responders",
+    evidence: ["Monitoring measures and review dates", "Incident reporting, severity and escalation", "Contestability and redress route", "Action records and change signals"],
     output: "A monitoring handoff to the designated operational sources.",
     handoff: "Monitoring and runtime records stay in their native sources",
-    record: "AIG-OPS-02 monitoring source; AIG-AGT-04 for agent authority context",
+    record: "AIG-OPS-02 monitoring source; AIG-OPS-03 incident reports; AIG-OPS-04 challenges and redress; AIG-AGT-04 for agent authority context",
     note: "This walkthrough is not an incident, monitoring or runtime action log."
   },
   {
     title: "Re-enter, retire and close",
     question: "Has a material change, retirement or other event changed the governance route?",
     authority: "Accountable owner and relevant authorised forum",
-    evidence: ["Change and re-entry rationale", "Retirement / decommissioning evidence", "Record closure and retention checks"],
+    evidence: ["Change and re-entry rationale", "Retirement evidence for each UC-ID (the AIR-ID retires only when every use is closed)", "Record closure and retention checks"],
     output: "A change or retirement handoff that preserves the system's connected history.",
     handoff: "Update only through the authorised register and event processes",
     record: "AIG-INV-04 current state; AIG-DEC-04 event history; native monitoring / retirement sources",
