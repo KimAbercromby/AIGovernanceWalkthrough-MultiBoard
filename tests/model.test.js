@@ -17,6 +17,7 @@ test("walkthrough retains four cases and a thirteen-stage connected lifecycle", 
 
 test("case-specific notes tailor the route without deciding risk or applicability", () => {
   assert.match(getStageView("staff-assistant", 4).caseNote, /is screened/i);
+  assert.match(getStageView("staff-assistant", 0).caseNote, /Fast-Track Screening \(AIG-INV-02\).*decision is still recorded/i);
   assert.match(getStageView("staff-assistant", 5).caseNote, /proper planning record/i);
   assert.equal(getStageView("staff-assistant", 8).caseNote, null);
   assert.match(getStageView("agentic", 6).caseNote, /does not.*assign.*tier|Do not use this illustration to assign/i);
