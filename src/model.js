@@ -264,8 +264,8 @@ export const stages = [
     evidence: ["Decision and conditions", "Operational readiness", "Approved limitations and escalation routes"],
     output: "A draft release-readiness handoff for authorised review—not a deployment decision.",
     handoff: "Reconcile live handoff against exact approved workbook headers",
-    record: "AIG-DEC-04 plan/events and AIG-DEC-03 decision source; AIG-AGT-04 if agent authority applies",
-    note: "The walkthrough does not mark conditions satisfied or authorise deployment."
+    record: "AIG-OPS-01 — AI Deployment and Rollout Plan (readiness, conditions carried into go-live, rollback); AIG-DEC-04 plan/events and AIG-DEC-03 decision source; AIG-AGT-04 if agent authority applies",
+    note: "The walkthrough does not mark conditions satisfied or authorise deployment. Go-live needs the Register to show Approved and Active for the authorised UC-ID, as AIG-OPS-01 sets out."
   },
   {
     title: "Monitor and respond",
