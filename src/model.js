@@ -34,8 +34,10 @@ export const cases = [
     stageNotes: {
       0: "Capture intended service, affected people and supplier context. The intake is a draft handoff, not a Council-issued identifier.",
       4: "Determine risk and assurance needs with the responsible owners. A resident-facing context merits careful screening; this example does not predetermine a risk tier.",
-      7: "Consider procurement and supplier assurance if applicable. Confirm procurement requirements and legal scope with their owners.",
-      9: "A formal decision belongs in AIG-DEC-03 or approved native forum minutes, not in this walkthrough or an event log."
+      5: "If the system is procured, the Gate Plan includes Gate 4 (Procurement board); Gate 5 (ethics) applies from Medium. Mark any gate that does not apply as N/A in the Gate Plan with its reason (AIG-DEC-01).",
+      7: "Consider procurement and supplier assurance if applicable. Confirm procurement requirements and legal scope with their owners. If the service uses generative AI and its governing tier is Medium, a documented adversarial test (AIG-ASS-11 Section 7) is required before go-live (Gate 6); at High and Critical the full AIG-ASS-11 security review applies (Proposed — for Council confirmation).",
+      9: "A formal decision belongs in AIG-DEC-03 or approved native forum minutes, not in this walkthrough or an event log.",
+      10: "Where the adversarial test applies (resident-facing generative AI at Medium), confirm its outcome is recorded in the AIG-OPS-01 pre-go-live checklist before the Gate 6 go-live decision (Proposed — for Council confirmation)."
     }
   },
   {
@@ -71,8 +73,8 @@ export const cases = [
       }
     ],
     stageNotes: {
-      0: "An obviously low-risk use may take the one-page Fast-Track Screening (AIG-INV-02) instead of the full Intake and triage. All ten answers must be No, with no mandatory trigger, and the AI Governance Lead validates the route. The validated answers are recorded as the equality, human-rights and data-protection screening, and a UC-specific decision is still recorded before use.",
-      3: "Verify the actual capabilities and permissions. Do not assume that a product marketed as an assistant cannot act.",
+      0: "An obviously low-risk use may take the one-page Fast-Track Screening (AIG-INV-02) instead of the full Intake and triage. All ten answers must be No, with no mandatory trigger, and the AI Governance Lead validates the route. The screen is a routing decision only: it does not replace intake facts, create an AIR-ID or authorise use, and equality, Convention-rights and DPIA screening still apply at Low. After validation, a proportionate delegated decision for the UC-ID is still recorded (AIG-DEC-03 or approved minutes) and a Gate Event is logged in AIG-DEC-04 before use.",
+      3: "Verify the actual capabilities and permissions. Do not assume that a product marketed as an assistant cannot act. If it can act, or the answer is Unsure, Fast Track stops and the use goes through Agentic Triage (AIG-AGT-03).",
       4: "Even a low-priority or light-touch case is screened. AGPI prioritisation does not waive equality, human-rights, privacy or other duties.",
       5: "Record the reason for any gate not required in the proper planning record; do not infer “not applicable” from this example."
     }
@@ -120,8 +122,8 @@ export const cases = [
     number: "04",
     title: "Action-capable agent",
     short: "Can act · enhanced controls",
-    type: "AGENTIC ROUTE",
-      description: "An agentic system may call tools, change records or otherwise act. Capability and permission are assessed explicitly; agent authority and delegations are owned by AIG-AGT-04, not inferred from a lifecycle stage.",
+    type: "ENHANCED / AGENTIC ROUTE",
+    description: "An agentic system may call tools, change records or otherwise act. Capability and permission are assessed explicitly; agent authority and delegations are owned by AIG-AGT-04, not inferred from a lifecycle stage.",
     emphasis: "No authority is granted here. Apply the can-it-act screen and verify permissions in the authorised source.",
     route: "Potentially action-capable · enhanced controls to assess",
     system: {
@@ -148,10 +150,13 @@ export const cases = [
       }
     ],
     stageNotes: {
-      3: "Test whether the system can take actions in its real configuration, including tool access, delegated credentials, write permissions and human confirmation.",
-      6: "Use the approved agency profile and tiering process. Do not use this illustration to assign an agency tier or grant permission.",
+      3: "Test whether the system can take actions in its real configuration, including tool access, delegated credentials, write permissions and human confirmation. “Unsure” is treated as Yes (action-capable) until confirmed.",
+      5: "For every action-capable use (any agency tier, including T0) the Gate Plan includes Gate 2 (Technical design review, where the agentic control checkpoints are evidenced) and Gate 6 (go-live, which grants the permitted autonomy level), whatever the risk tier.",
+      6: "Use the Agentic Triage (AIG-AGT-03) agency profile and tiering process. Do not use this illustration to assign an agency tier or grant permission. The agency tier sets a minimum pathway (T0 and T1 none; T2 Medium; T3 High; T4 High, or Critical without evidenced per-action human review; T5 Critical) and the governing tier is the higher of that and the risk-tier route. Actions without evidenced per-action human review engage the §4.4.6 Critical floor (“Unsure” counts as No). From T3 a formal AI Assurance Board recommendation precedes the decision (the Board advises; it does not decide); at T4 the AIG-ASS-11 security review is complete before the Gate 2 decision; T5 needs executive and safety escalation.",
       7: "AIG-AGT-04 owns agent authority, permissions and delegations. This walkthrough does not create or modify that record.",
-      10: "Runtime Action / Decision Records remain in their designated source. Monitoring must cover actual actions, limits, failures and revocation."
+      9: "At Gate 6 the go-live decision-maker grants the permitted autonomy level for each UC-ID and records it in AIG-DEC-03; it is then written to AIG-AGT-04 with its decision reference, and may be lower than the level requested.",
+      10: "Before go-live, AIG-OPS-01 confirms the AIG-AGT-04 runtime controls are Implemented / Evidenced and the agentic control checkpoints are re-confirmed at Gate 6. No consequential action runs before the Gate 6 decision.",
+      11: "Runtime action records (AIG-AGT-06) remain in their designated source, from go-live onwards. Monitoring (AIG-OPS-02) must cover actual actions, limits, failures and revocation."
     }
   }
 ];
@@ -193,25 +198,25 @@ export const stages = [
     authority: "Service, technical and security owners",
     evidence: ["Capabilities and permissions", "Human oversight", "Data, integrations and change history"],
     output: "A capability and action-screening handoff, including whether enhanced agentic controls need assessment.",
-    handoff: "Route verified findings to the right assurance owners",
+    handoff: "Route verified findings to the right assurance owners; an action-capable use (“can it act?” Yes or Unsure) goes to Agentic Triage (AIG-AGT-03)",
     record: "Proposed AIG-INV-05 map relationship pointers only; AIG-INV-04 current state; AIG-AGT-04 agent authority and permissions",
-    note: "Marketing labels and a stage in this walkthrough do not establish capability."
+    note: "Marketing labels and a stage in this walkthrough do not establish capability. “Unsure” is treated as Yes until confirmed."
   },
   {
     title: "Prioritise and assess risk",
     question: "What assurance depth and case-specific screening are needed?",
     authority: "Relevant assurance leads and accountable service owner",
-    evidence: ["AGPI priority rationale", "Risk and impact assessment", "Equality, rights, privacy and safety screening"],
+    evidence: ["AGPI priority rationale (urgency and sequencing)", "Risk and impact assessment, with the governing tier rationale (AIG-ASS-02 Step 6)", "Equality, rights, privacy and safety screening"],
     output: "A proposed assessment plan; decisions and findings must be recorded in their proper sources.",
     handoff: "Screen every tier; route specialist questions to accountable owners",
     record: "AIG-INV-04 current assurance state; AIG-ASS-01 priority, AIG-ASS-02 risk assessment and native specialist sources",
-    note: "AGPI orders attention; it is not risk classification, permission or a waiver of duties."
+    note: "AGPI priority sets how soon and in what order governance looks at the use; it is not risk classification, permission or a waiver of duties. The route (forum, assessments, gates and review cadence) follows the governing tier: the highest of the §4.4 risk tier, any §4.4.6 trigger floor, the impact floor (a confirmed Impact 5 sets at least Medium) and, for action-capable uses, the agency-tier minimum. Nothing lowers it."
   },
   {
     title: "Build the gate plan",
     question: "Which reviews are planned, by whom, and when?",
     authority: "Governance coordinator and accountable owners",
-    evidence: ["Applicable proposed gates", "Owners and target dates", "Reason for any gate not planned"],
+    evidence: ["Applicable proposed gates (AIG-DEC-01 Gate Map, set by the governing tier)", "Owners and target dates", "Non-applicable gates marked N/A, with the reason"],
     output: "A prospective Gate Plan—not proof that any gate occurred or passed.",
     handoff: "Verify the destination and exact headers before preparing a live handoff",
     record: "AIG-DEC-04 Gate Log — prospective plan under the confirmed AIR-ID",
@@ -220,12 +225,12 @@ export const stages = [
   {
     title: "Assess agency and authority",
     question: "Can an agent act, and what limits or delegations are authorised?",
-    authority: "Authorised agent-governance and service owners",
+    authority: "AI Governance Lead (Agentic Triage, AIG-AGT-03) with service and technical owners; decisions stay with the officer or forum with confirmed delegation",
     evidence: ["Agency profile and proposed tier", "Tool and permission inventory", "Human controls and revocation route"],
     output: "An authority-review handoff; no authority or permission is conferred by this walkthrough.",
     handoff: "Agent permissions and delegations stay with their authorised owner",
-    record: "AIG-AGT-04 — Agent Record / ASBOM and authority source",
-    note: "Only relevant where agentic controls apply; never infer permission from an approval elsewhere."
+    record: "AIG-AGT-03 Agentic Triage result; AIG-AGT-04 — Agent Record (ASBOM) and authority source",
+    note: "Applies to every action-capable use (any agency tier, including T0). Agentic triage is a routing and evidence mechanism, not an approval layer; the agency tier sets a minimum pathway and never lowers the risk-tier route. Never infer permission from an approval elsewhere."
   },
   {
     title: "Complete specialist reviews",
@@ -234,7 +239,7 @@ export const stages = [
     evidence: ["Native specialist reviews", "Source and supplier assurance", "Applicable obligations confirmed for this case"],
     output: "Versioned evidence pointers and open questions for the appropriate owners.",
     handoff: "AIG-INV-04 Evidence Index points to native evidence; evidence remains authoritative at source",
-    record: "AIG-INV-04 Evidence Index; AIG-AIMS-05 requirements and AIG-AIMS-13 source assurance crosswalk where relevant",
+    record: "AIG-INV-04 Evidence Index; AIG-AIMS-05 AIMS Applicable Requirements and Change Register and AIG-AIMS-13 AI Source Assurance and Traceability Register where relevant",
     note: "EU AI Act, ATRS, procurement and standards questions require case-specific confirmation."
   },
   {
@@ -250,7 +255,7 @@ export const stages = [
   {
     title: "Record decision and conditions",
     question: "What did the authorised decision-maker decide, and on what basis?",
-    authority: "Approved forum / delegated decision-maker",
+    authority: "The officer or forum with confirmed delegation (the AI Assurance Board advises and recommends; it does not decide)",
     evidence: ["Authority and date", "Rationale and evidence", "Conditions, owners and due dates"],
     output: "A formal decision in AIG-DEC-03 or approved native forum minutes; linked event references only.",
     handoff: "Event-linked conditions stay traceable to their originating decision",
@@ -265,12 +270,12 @@ export const stages = [
     output: "A draft release-readiness handoff for authorised review—not a deployment decision.",
     handoff: "Reconcile live handoff against exact approved workbook headers",
     record: "AIG-OPS-01 — AI Deployment and Rollout Plan (readiness, conditions carried into go-live, rollback); AIG-DEC-04 plan/events and AIG-DEC-03 decision source; AIG-AGT-04 if agent authority applies",
-    note: "The walkthrough does not mark conditions satisfied or authorise deployment. Go-live needs the Register to show Approved and Active for the authorised UC-ID, as AIG-OPS-01 sets out."
+    note: "The walkthrough does not mark conditions satisfied or authorise deployment. Use of a UC-ID begins only after its delegated go-live decision (Gate 6) is recorded in AIG-DEC-03 with the dated event in AIG-DEC-04; the AIG-INV-04 system baseline is then reconciled to Approved / Active, which is not itself use permission (AIG-OPS-01)."
   },
   {
     title: "Monitor and respond",
     question: "How will outcomes, incidents, changes and any agent actions be observed?",
-    authority: "Service owner (who can pause at once if there is a real risk of harm) and monitoring / incident responders",
+    authority: "Service Owner or AI System Owner (who can pause at once if there is a real risk of harm, Playbook §4.7.17) and monitoring / incident responders",
     evidence: ["Monitoring measures and review dates", "Incident reporting, severity and escalation", "Contestability and redress route", "Action records and change signals"],
     output: "A monitoring handoff to the designated operational sources.",
     handoff: "Monitoring and runtime records stay in their native sources",
