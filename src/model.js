@@ -34,7 +34,7 @@ export const cases = [
     stageNotes: {
       0: "Capture intended service, affected people and supplier context. The intake is a draft handoff, not a Council-issued identifier.",
       4: "Determine risk and assurance needs with the responsible owners. A resident-facing context merits careful screening; this example does not predetermine a risk tier.",
-      5: "If the system is procured, the Gate Plan includes Gate 4 (Procurement board); Gate 5 (ethics) applies from Medium. Mark any gate that does not apply as N/A in the Gate Plan with its reason (AIG-DEC-01).",
+      5: "Gate 4 (Procurement board) applies wherever a procurement, new contract, licence change or contract variation is needed. For an AI feature under an existing contract or licence, or a free public tool, record Gate 4 as “N/A — existing contract / free tool” with the reason, and still complete the supplier checks that apply: data processing terms and the AIG-ASS-08 sections on data protection and security (section 5) and business continuity and exit (section 8) (AIG-DEC-01 Gate 4 rule; Proposed — for Council confirmation). Gate 5 (ethics) applies from Medium. Mark any gate that does not apply as N/A in the Gate Plan with its reason (AIG-DEC-01).",
       7: "Consider procurement and supplier assurance if applicable. Confirm procurement requirements and legal scope with their owners. If the service uses generative AI and its governing tier is Medium, a documented adversarial test (AIG-ASS-11 Section 7) is required before go-live (Gate 6); at High and Critical the full AIG-ASS-11 security review applies (Proposed — for Council confirmation).",
       9: "A formal decision belongs in AIG-DEC-03 or approved native forum minutes, not in this walkthrough or an event log.",
       10: "Where the adversarial test applies (resident-facing generative AI at Medium), confirm its outcome is recorded in the AIG-OPS-01 pre-go-live checklist before the Gate 6 go-live decision (Proposed — for Council confirmation)."
@@ -114,7 +114,7 @@ export const cases = [
     stageNotes: {
       0: "Record the discovery and known facts through the approved intake route. Do not backdate an approval or invent an AIR-ID.",
       2: "Establish current use, ownership, data flows, controls and evidence. Escalate safety, rights, privacy or security concerns through their proper routes.",
-      9: "If there is a real risk of harm, the Service Owner or AI System Owner pauses the use at once, without waiting for a forum (Playbook §4.7.17), and records it in AIG-OPS-03 and AIG-DEC-04. Any decision to continue a suspension, resume, change or withdraw the use must come from an authorised forum and be recorded in AIG-DEC-03 or approved native minutes."
+      9: "If there is a real risk of harm, the Service Owner or AI System Owner pauses the use at once, without waiting for a decision (Playbook §4.7.17). The pause is containment, not a decision: it is recorded in AIG-OPS-03 Part A and logged in AIG-DEC-04 as a “Precautionary pause (containment)” event with Outcome “Paused — pending decision”, the incident reference and a follow-up decision due date. Continued suspension, resumption, change or withdrawal is decided by the officer or forum with confirmed delegation and recorded in AIG-DEC-03 or approved native minutes; the AI Assurance Board may call for a pause and recommends, but does not decide (Proposed — for Council confirmation)."
     }
   },
   {
@@ -206,7 +206,7 @@ export const stages = [
     title: "Prioritise and assess risk",
     question: "What assurance depth and case-specific screening are needed?",
     authority: "Relevant assurance leads and accountable service owner",
-    evidence: ["AGPI priority rationale (urgency and sequencing)", "Risk and impact assessment, with the governing tier rationale (AIG-ASS-02 Step 6)", "Equality, rights, privacy and safety screening"],
+    evidence: ["AGPI priority rationale (urgency and sequencing)", "Risk and impact assessment, with the governing tier rationale (AIG-ASS-02 Step 6)", "Equality, rights, privacy and safety screening", "Assurance depth by governing tier: an independent assurance review at High (Playbook §4.5.3, §4.5.9); independent challenge and independent assurance at Critical (§3.10.2)"],
     output: "A proposed assessment plan; decisions and findings must be recorded in their proper sources.",
     handoff: "Screen every tier; route specialist questions to accountable owners",
     record: "AIG-INV-04 current assurance state; AIG-ASS-01 priority, AIG-ASS-02 risk assessment and native specialist sources",
@@ -240,7 +240,7 @@ export const stages = [
     output: "Versioned evidence pointers and open questions for the appropriate owners.",
     handoff: "AIG-INV-04 Evidence Index points to native evidence; evidence remains authoritative at source",
     record: "AIG-INV-04 Evidence Index; AIG-AIMS-05 AIMS Applicable Requirements and Change Register and AIG-AIMS-13 AI Source Assurance and Traceability Register where relevant",
-    note: "EU AI Act, ATRS, procurement and standards questions require case-specific confirmation."
+    note: "EU AI Act, ATRS, procurement and standards questions require case-specific confirmation. At High, an independent assurance review applies (Playbook §4.5.3, §4.5.9); at Critical, independent challenge and independent assurance (§3.10.2) (Proposed — for Council confirmation)."
   },
   {
     title: "Hold dated gate events",
@@ -275,12 +275,12 @@ export const stages = [
   {
     title: "Monitor and respond",
     question: "How will outcomes, incidents, changes and any agent actions be observed?",
-    authority: "Service Owner or AI System Owner (who can pause at once if there is a real risk of harm, Playbook §4.7.17) and monitoring / incident responders",
+    authority: "Service Owner or AI System Owner (who pauses at once, without waiting for a decision, if there is a real risk of harm, Playbook §4.7.17) and monitoring / incident responders",
     evidence: ["Monitoring measures and review dates", "Incident reporting, severity and escalation", "Contestability and redress route", "Action records and change signals"],
     output: "A monitoring handoff to the designated operational sources.",
     handoff: "Monitoring and runtime records stay in their native sources",
     record: "AIG-OPS-02 monitoring source; AIG-OPS-03 incident reports; AIG-OPS-04 challenges and redress; AIG-AGT-04 for agent authority context",
-    note: "This walkthrough is not an incident, monitoring or runtime action log."
+    note: "This walkthrough is not an incident, monitoring or runtime action log. A precautionary pause is containment, logged in AIG-DEC-04 as a “Precautionary pause (containment)” event; continued suspension, resumption or withdrawal is decided by the officer or forum with confirmed delegation."
   },
   {
     title: "Re-enter, retire and close",
