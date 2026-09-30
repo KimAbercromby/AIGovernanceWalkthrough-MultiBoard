@@ -269,7 +269,7 @@ export const stages = [
     evidence: ["Decision and conditions", "Operational readiness", "Approved limitations and escalation routes"],
     output: "A draft release-readiness handoff for authorised review—not a deployment decision.",
     handoff: "Reconcile live handoff against exact approved workbook headers",
-    record: "AIG-OPS-01 — AI Deployment and Rollout Plan (readiness, conditions carried into go-live, rollback); AIG-DEC-04 plan/events and AIG-DEC-03 decision source; AIG-AGT-04 if agent authority applies",
+    record: "AIG-OPS-01 — AI Deployment and Rollout Plan (readiness, conditions carried into go-live, rollback and fallback; section 8 business continuity link, Proposed — for Council confirmation: is this service a prioritised activity in the Council's business continuity plan? Yes / No / Not known, with the plan reference if yes); AIG-DEC-04 plan/events and AIG-DEC-03 decision source; AIG-AGT-04 if agent authority applies",
     note: "The walkthrough does not mark conditions satisfied or authorise deployment. Use of a UC-ID begins only after its delegated go-live decision (Gate 6) is recorded in AIG-DEC-03 with the dated event in AIG-DEC-04; the AIG-INV-04 system baseline is then reconciled to Approved / Active, which is not itself use permission (AIG-OPS-01)."
   },
   {
