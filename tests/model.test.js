@@ -163,7 +163,7 @@ test("v3.9: resident-facing generative AI at Medium needs an adversarial test be
   assert.match(getStageView("resident-service", 5).caseNote, /Gate 4.*Gate 5 \(ethics\) applies from Medium.*N\/A/i);
 });
 
-test("decision authority, go-live and pause wording match the v3.9 artefacts", () => {
+test("decision authority, go-live and pause wording match the v3.9.1 artefacts", () => {
   assert.match(stages[9].authority, /^The officer or forum with confirmed delegation/);
   assert.match(stages[9].authority, /AI Assurance Board advises.*does not decide/i);
   assert.match(stages[10].note, /go-live decision \(Gate 6\) is recorded in AIG-DEC-03 with the dated event in AIG-DEC-04/i);
