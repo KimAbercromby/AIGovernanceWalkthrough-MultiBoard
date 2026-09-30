@@ -110,10 +110,10 @@ test("legal and framework notes preserve the conditional boundaries", () => {
   assert.match(allText, /AIG-INV-05.*not approved\/adopted/i);
   assert.doesNotMatch(allText, /\bAIR-\d{4}-\d+\b/);
 });
-// Suite v3.9 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.10
+// Suite v3.9.1 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.11
 // (Glossary "Governing tier", "Action-capable use"; §4.4.4 impact floor; §4.7.17),
-// AIG-DEC-01 Gate Map v1.6 (Gate 2, Gate 5, Gate 6 rows; Agentic pathway table and R1-R4),
-// AIG-ASS-11 v1.5 (scope; Section 7), AIG-INV-02 v1.4 (Part B/C), AIG-OPS-01 v1.5, AIG-GOV-03 v1.25 titles.
+// AIG-DEC-01 Gate Map v1.7 (Gate 2, Gate 5, Gate 6 rows; Agentic pathway table and R1-R4),
+// AIG-ASS-11 v1.6 (scope; Section 7), AIG-INV-02 v1.5 (Part B/C), AIG-OPS-01 v1.6 (section 8), AIG-GOV-03 v1.26 titles.
 test("v3.8: priority sets urgency only; the governing tier sets the route, including the impact floor", () => {
   const stage = stages[4];
   assert.match(stage.note, /priority sets how soon/i);
@@ -173,4 +173,15 @@ test("decision authority, go-live and pause wording match the v3.9 artefacts", (
   assert.match(stages[7].record, /AIG-AIMS-05 AIMS Applicable Requirements and Change Register/);
   assert.match(stages[7].record, /AIG-AIMS-13 AI Source Assurance and Traceability Register/);
   assert.match(stages[6].record, /AIG-AGT-04 — Agent Record \(ASBOM\)/);
+});
+
+test("v3.9.1: the release handoff names the AIG-OPS-01 section 8 business continuity link", () => {
+  const release = stages.find((s) => s.title === "Prepare release handoff");
+  assert.match(release.record, /AIG-OPS-01 .*section 8 business continuity link, Proposed — for Council confirmation/);
+  assert.match(release.record, /is this service a prioritised activity in the Council's business continuity plan\? Yes \/ No \/ Not known/);
+});
+
+test("v3.9.1: the agency-tier minimum stated for agentic cases includes T2 Medium (AIG-ASS-02 v1.9 row 82)", () => {
+  const allText = JSON.stringify({ cases, stages });
+  assert.match(allText, /T0 and T1 none; T2 Medium; T3 High; T4 High, or Critical without evidenced per-action human review; T5 Critical/);
 });

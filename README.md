@@ -49,15 +49,16 @@ node --test
   assessment, decision or approval authority.
 - Case-specific changes in emphasis without deciding actual risk tier, legal
   scope, approval, or whether a control is applicable.
-- Routing statements aligned to the proposed suite release v3.9 (Playbook
-  v19.9.10, AIG-DEC-01 Gate Map v1.6, AIG-ASS-11 v1.5), all Proposed — for
+- Routing statements aligned to the proposed suite release v3.9.1 (Playbook
+  v19.9.11, AIG-DEC-01 Gate Map v1.7, AIG-ASS-11 v1.6, AIG-OPS-01 v1.6), all Proposed — for
   Council confirmation: AGPI priority sets urgency only and the governing tier
   (highest of risk tier, trigger floors, the Impact 5 floor and, for
   action-capable uses, the agency-tier minimum) sets the route; every
   action-capable use ("can it act?" Yes or Unsure, any agency tier including
   T0) has Gate 2 and Gate 6, and Gate 6 grants the permitted autonomy level;
   resident-facing generative AI at Medium needs an adversarial test (AIG-ASS-11
-  Section 7) before go-live. The walkthrough has no downloads or exports.
+  Section 7) before go-live; the release handoff names the AIG-OPS-01 section 8
+  business continuity link (v3.9.1). The walkthrough has no downloads or exports.
 - Separate record ownership: proposed AIG-INV-04 holds the permanent
   Council-issued AIR-ID and current system/assurance state; proposed AIG-DEC-04 holds a
   prospective Gate Plan, dated Gate Events and event-linked Gate Conditions.
