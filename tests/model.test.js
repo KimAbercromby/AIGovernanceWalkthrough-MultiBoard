@@ -110,10 +110,11 @@ test("legal and framework notes preserve the conditional boundaries", () => {
   assert.match(allText, /AIG-INV-05.*not approved\/adopted/i);
   assert.doesNotMatch(allText, /\bAIR-\d{4}-\d+\b/);
 });
-// Suite v3.9.1 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.11
+// Suite v3.9.2 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.12
 // (Glossary "Governing tier", "Action-capable use"; §4.4.4 impact floor; §4.7.17),
-// AIG-DEC-01 Gate Map v1.7 (Gate 2, Gate 5, Gate 6 rows; Agentic pathway table and R1-R4),
-// AIG-ASS-11 v1.6 (scope; Section 7), AIG-INV-02 v1.5 (Part B/C), AIG-OPS-01 v1.6 (section 8), AIG-GOV-03 v1.26 titles.
+// AIG-DEC-01 Gate Map v1.8 (Gate 2, Gate 4 rule, Gate 5, Gate 6, Gate 7 rows; Agentic pathway table and R1-R4),
+// AIG-ASS-11 v1.6 (scope; Section 7), AIG-INV-02 v1.5 (Part B/C), AIG-OPS-01 v1.7 (section 8), AIG-DEC-04 v1.1
+// (Precautionary pause event), AIG-GOV-06 v1.7 / AIG-ASS-03 v1.6 (independent assurance), AIG-GOV-03 v1.27 titles.
 test("v3.8: priority sets urgency only; the governing tier sets the route, including the impact floor", () => {
   const stage = stages[4];
   assert.match(stage.note, /priority sets how soon/i);
@@ -163,7 +164,33 @@ test("v3.9: resident-facing generative AI at Medium needs an adversarial test be
   assert.match(getStageView("resident-service", 5).caseNote, /Gate 4.*Gate 5 \(ethics\) applies from Medium.*N\/A/i);
 });
 
-test("decision authority, go-live and pause wording match the v3.9.1 artefacts", () => {
+test("v3.9.2: Gate 4 follows the AIG-DEC-01 v1.8 procurement rule (N/A for an existing contract or free tool)", () => {
+  const note = getStageView("resident-service", 5).caseNote;
+  assert.match(note, /Gate 4 \(Procurement board\) applies wherever a procurement, new contract, licence change or contract variation is needed/);
+  assert.match(note, /existing contract or licence, or a free public tool, record Gate 4 as “N\/A — existing contract \/ free tool” with the reason/);
+  assert.match(note, /data processing terms and the AIG-ASS-08 sections on data protection and security \(section 5\) and business continuity and exit \(section 8\)/);
+  assert.doesNotMatch(note, /If the system is procured, the Gate Plan includes Gate 4/);
+});
+
+test("v3.9.2: independent assurance review at High, independent challenge at Critical (W-11)", () => {
+  const specialist = stages.find((s) => s.title === "Complete specialist reviews");
+  assert.match(specialist.note, /At High, an independent assurance review applies \(Playbook §4\.5\.3, §4\.5\.9\); at Critical, independent challenge and independent assurance \(§3\.10\.2\)/);
+  const risk = stages.find((s) => s.title === "Prioritise and assess risk");
+  assert.ok(risk.evidence.some((e) => /independent assurance review at High.*independent challenge and independent assurance at Critical/.test(e)));
+});
+
+test("v3.9.2: pause wording follows Playbook §4.7.17 and the AIG-DEC-04 precautionary pause event (W-03, W-06)", () => {
+  const found = getStageView("retrospective", 9).caseNote;
+  assert.match(found, /pauses the use at once, without waiting for a decision \(Playbook §4\.7\.17\)/);
+  assert.match(found, /“Precautionary pause \(containment\)” event with Outcome “Paused — pending decision”/);
+  assert.match(found, /decided by the officer or forum with confirmed delegation/);
+  assert.match(found, /AI Assurance Board may call for a pause and recommends, but does not decide/);
+  assert.doesNotMatch(found, /must come from an authorised forum/);
+  const monitor = stages.find((s) => s.title === "Monitor and respond");
+  assert.match(monitor.note, /Precautionary pause \(containment\)/);
+});
+
+test("decision authority, go-live and pause wording match the v3.9.2 artefacts", () => {
   assert.match(stages[9].authority, /^The officer or forum with confirmed delegation/);
   assert.match(stages[9].authority, /AI Assurance Board advises.*does not decide/i);
   assert.match(stages[10].note, /go-live decision \(Gate 6\) is recorded in AIG-DEC-03 with the dated event in AIG-DEC-04/i);
