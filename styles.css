@@ -276,7 +276,7 @@ a { color: inherit; }
   .journey-body { grid-template-columns: 1fr; }
   .stage-nav { padding: 9px 12px; overflow-x: auto; border-right: 0; border-bottom: 1px solid #e6ecef; }
   .stage-nav ol { display: flex; width: max-content; gap: 4px; }
-  .stage-nav li button { width: 38px; height: 36px; min-height: 36px; grid-template-columns: 1fr; justify-items: center; padding: 4px; }
+  .stage-nav li button { position: relative; width: 38px; height: 36px; min-height: 36px; grid-template-columns: 1fr; justify-items: center; padding: 4px; }
   .stage-nav li button > span:nth-child(2) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
   .stage-nav .step-number { width: 25px; height: 25px; }
   .explored-mark { display: none; }
@@ -286,7 +286,7 @@ a { color: inherit; }
   .control-note { display: none; }
   .guardrail-grid, .toolkit-layout { grid-template-columns: 1fr; }
   .guardrail-grid { gap: 9px; }
-  .record-grid { gap: 8px; }
+  .record-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .record-card { min-height: 0; padding: 13px; }
   .record-card-top { align-items: flex-start; flex-direction: column; gap: 7px; }
   .record-card h3 { margin-top: 11px; }

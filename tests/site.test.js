@@ -40,8 +40,9 @@ test("public copy states the proposed-draft status and record/legal boundaries",
   assert.match(copy, /Equality Act 2010 section 149/i);
   assert.match(copy, /Human Rights Act\s+1998\s+section 6/i);
   assert.match(copy, /EU AI Act, ATRS,\s*procurement/i);
-  assert.match(copy, /AIG-AIMS-05.*Applicable Requirements and Change Register/i);
-  assert.match(copy, /AIG-AIMS-13.*Source Assurance and Traceability Register/i);
+  assert.match(page, /AIG-AIMS-05<\/span><div><b>AIMS Applicable Requirements and Change Register<\/b>/);
+  assert.match(page, /AIG-AIMS-13<\/span><div><b>AI Source Assurance and Traceability Register<\/b>/);
+  assert.match(page, /AGPI priority sets urgency only.*route follows the governing tier/i);
   assert.match(copy, /does not decide whether a law applies/i);
   assert.match(page, /Governance\s+<b>Walkthrough<\/b>/);
   assert.doesNotMatch(copy, /\bWestminster\b|London borough/i);
@@ -56,4 +57,7 @@ test("draft handoffs do not claim live workbook integration or persistence", () 
   assert.match(docs, /every UC decision—including ordinary non-agentic use—is\s+unverified/i);
   assert.doesNotMatch(`${page}\n${docs}\n${app}`, /approved baseline/i);
   assert.match(app, /no AIG-DEC-04 event or AIG-DEC-03 decision is created/i);
+});
+test("the walkthrough offers no downloads, exports, clipboard or print outputs", () => {
+  assert.doesNotMatch(`${page}\n${app}`, /\bdownload\b|new Blob|createObjectURL|clipboard|window\.print|text\/csv/i);
 });
