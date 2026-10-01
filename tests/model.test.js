@@ -110,11 +110,11 @@ test("legal and framework notes preserve the conditional boundaries", () => {
   assert.match(allText, /AIG-INV-05.*not approved\/adopted/i);
   assert.doesNotMatch(allText, /\bAIR-\d{4}-\d+\b/);
 });
-// Suite v3.9.3 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.13
+// Suite v3.9.4 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.14
 // (Glossary "Governing tier", "Action-capable use"; §4.4.4 impact floor; §4.7.17),
 // AIG-DEC-01 Gate Map v1.9 (Gate 2, Gate 4 rule, Gate 5, Gate 6, Gate 7 rows; Agentic pathway table and R1-R4),
-// AIG-ASS-11 v1.7 (scope; Section 7), AIG-INV-02 v1.6 (Part B/C), AIG-OPS-01 v1.8 (section 8), AIG-DEC-04 v1.1
-// (Precautionary pause event), AIG-GOV-06 v1.8 / AIG-ASS-03 v1.7 (independent assurance), AIG-GOV-03 v1.28 titles.
+// AIG-ASS-11 v1.8 (scope; Section 7), AIG-INV-02 v1.6 (Part B/C), AIG-OPS-01 v1.8 (section 8), AIG-DEC-04 v1.1
+// (Precautionary pause event), AIG-GOV-06 v1.8 / AIG-ASS-03 v1.7 (independent assurance), AIG-GOV-03 v1.29 titles.
 test("v3.8: priority sets urgency only; the governing tier sets the route, including the impact floor", () => {
   const stage = stages[4];
   assert.match(stage.note, /priority sets how soon/i);
@@ -190,7 +190,7 @@ test("v3.9.2: pause wording follows Playbook §4.7.17 and the AIG-DEC-04 precaut
   assert.match(monitor.note, /Precautionary pause \(containment\)/);
 });
 
-test("decision authority, go-live and pause wording match the v3.9.3 artefacts", () => {
+test("decision authority, go-live and pause wording match the v3.9.4 artefacts", () => {
   assert.match(stages[9].authority, /^The officer or forum with confirmed delegation/);
   assert.match(stages[9].authority, /AI Assurance Board advises.*does not decide/i);
   assert.match(stages[10].note, /go-live decision \(Gate 6\) is recorded in AIG-DEC-03 with the dated event in AIG-DEC-04/i);
