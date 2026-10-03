@@ -110,11 +110,11 @@ test("legal and framework notes preserve the conditional boundaries", () => {
   assert.match(allText, /AIG-INV-05.*not approved\/adopted/i);
   assert.doesNotMatch(allText, /\bAIR-\d{4}-\d+\b/);
 });
-// Suite v3.9.6 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.15
+// Suite v3.9.7 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.16
 // (Glossary "Governing tier", "Action-capable use"; §4.4.4 impact floor; §4.7.17),
-// AIG-DEC-01 Gate Map v1.10 (Gate 2, Gate 4 rule, Gate 5, Gate 6, Gate 7 rows; Agentic pathway table and R1-R4),
-// AIG-ASS-11 v1.9 (scope; Section 7), AIG-INV-02 v1.7 (Part B/C), AIG-OPS-01 v1.10 (section 8), AIG-DEC-04 v1.1
-// (Precautionary pause event), AIG-GOV-06 v1.9 / AIG-ASS-03 v1.9 (independent assurance), AIG-GOV-03 v1.31 titles.
+// AIG-DEC-01 Gate Map v1.11 (Gate 2, Gate 4 rule, Gate 5, Gate 6, Gate 7 rows; Agentic pathway table and R1-R4),
+// AIG-ASS-11 v1.9 (scope; Section 7), AIG-INV-02 v1.8 (Part B/C), AIG-OPS-01 v1.10 (section 8), AIG-DEC-04 v1.2
+// (Precautionary pause event), AIG-GOV-06 v1.9 / AIG-ASS-03 v1.10 (independent assurance), AIG-GOV-03 v1.32 titles.
 test("v3.8: priority sets urgency only; the governing tier sets the route, including the impact floor", () => {
   const stage = stages[4];
   assert.match(stage.note, /priority sets how soon/i);
@@ -190,7 +190,7 @@ test("v3.9.2: pause wording follows Playbook §4.7.17 and the AIG-DEC-04 precaut
   assert.match(monitor.note, /Precautionary pause \(containment\)/);
 });
 
-test("decision authority, go-live and pause wording match the v3.9.6 artefacts", () => {
+test("decision authority, go-live and pause wording match the v3.9.7 artefacts", () => {
   assert.match(stages[9].authority, /^The officer or forum with confirmed delegation/);
   assert.match(stages[9].authority, /AI Assurance Board advises.*does not decide/i);
   assert.match(stages[10].note, /go-live decision \(Gate 6\) is recorded in AIG-DEC-03 with the dated event in AIG-DEC-04/i);
@@ -211,4 +211,16 @@ test("v3.9.1: the release handoff names the AIG-OPS-01 section 8 business contin
 test("v3.9.1: the agency-tier minimum stated for agentic cases includes T2 Medium (AIG-ASS-02 v1.9 row 82)", () => {
   const allText = JSON.stringify({ cases, stages });
   assert.match(allText, /T0 and T1 none; T2 Medium; T3 High; T4 High, or Critical without evidenced per-action human review; T5 Critical/);
+});
+
+test("Fast Track is described as a step within Intake (AIG-INV-02 v1.8, suite v3.9.7)", async () => {
+  const src = (await import("node:fs")).readFileSync(new URL("../src/model.js", import.meta.url), "utf8");
+  assert.ok(src.includes("as a step within AI Intake (AIG-INV-03)"));
+  assert.ok(!src.includes("instead of the full Intake"));
+});
+
+test("Light-touch wording covers screening by reference and the Gate 1 and 3 rule (suite v3.9.7)", async () => {
+  const src = (await import("node:fs")).readFileSync(new URL("../src/model.js", import.meta.url), "utf8");
+  assert.ok(src.includes("can be done by reference to a current assessment"));
+  assert.ok(src.includes("AIG-DEC-01 Gate 1 and 3 rule"));
 });
