@@ -110,7 +110,7 @@ test("legal and framework notes preserve the conditional boundaries", () => {
   assert.match(allText, /AIG-INV-05.*not approved\/adopted/i);
   assert.doesNotMatch(allText, /\bAIR-\d{4}-\d+\b/);
 });
-// Suite v3.9.7 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.15
+// Suite v3.9.7 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.16
 // (Glossary "Governing tier", "Action-capable use"; §4.4.4 impact floor; §4.7.17),
 // AIG-DEC-01 Gate Map v1.10 (Gate 2, Gate 4 rule, Gate 5, Gate 6, Gate 7 rows; Agentic pathway table and R1-R4),
 // AIG-ASS-11 v1.9 (scope; Section 7), AIG-INV-02 v1.8 (Part B/C), AIG-OPS-01 v1.10 (section 8), AIG-DEC-04 v1.2
