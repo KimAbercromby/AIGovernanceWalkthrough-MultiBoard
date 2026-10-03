@@ -50,7 +50,7 @@ node --test
 - Case-specific changes in emphasis without deciding actual risk tier, legal
   scope, approval, or whether a control is applicable.
 - Routing statements aligned to the proposed suite release v3.9.7 (Playbook
-  v19.9.16, AIG-DEC-01 Gate Map v1.10, AIG-ASS-11 v1.9, AIG-OPS-01 v1.10, AIG-DEC-04 v1.2), all Proposed — for
+  v19.9.16, AIG-DEC-01 Gate Map v1.11, AIG-ASS-11 v1.9, AIG-OPS-01 v1.10, AIG-DEC-04 v1.2), all Proposed — for
   Council confirmation: AGPI priority sets urgency only and the governing tier
   (highest of risk tier, trigger floors, the Impact 5 floor and, for
   action-capable uses, the agency-tier minimum) sets the route; every
