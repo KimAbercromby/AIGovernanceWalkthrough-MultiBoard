@@ -15,6 +15,12 @@ const byId = (id) => {
   return element;
 };
 
+// Sentence case for labels that arrive in capitals (e.g. "STANDARD / ENHANCED ROUTE").
+const sentence = (value) => {
+  const text = String(value || "").toLowerCase();
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
 const state = { caseId: cases[0].id, stageIndex: 0, outcome: null };
 const caseList = byId("case-list");
 const caseSummary = byId("case-summary");
@@ -40,33 +46,32 @@ const renderSummary = () => {
   const example = cases.find((item) => item.id === state.caseId);
   caseSummary.innerHTML = `
     <div class="summary-copy">
-      <span class="route-label">${example.type}</span>
+      <p class="summary-kicker"><span class="route-label">${sentence(example.type)}</span><span class="example-note">Example ${Number(example.number)}, not a live case</span></p>
       <h3>${example.title}</h3>
       <p>${example.description}</p>
       <p class="case-emphasis"><b>Route context</b> · ${example.route}<br>${example.emphasis}</p>
       <section class="use-case-map" aria-label="Illustrative system and use-case identity mapping">
         <div class="use-case-system">
-          <div><span class="mini-label">ONE SYSTEM · AIR-ID</span><b>${example.system.label}</b></div>
-          <span class="identity-status">${identifierStatus([example.system.airId])} · not populated</span>
+          <div><span class="mini-label">One system, one AIR-ID</span><b>${example.system.label}</b></div>
+          <span class="identity-status">${sentence(identifierStatus([example.system.airId]))}</span>
           <p>Verify the one Council-issued AIR-ID in AIG-INV-04. System-level status: ${example.system.status}. It does not establish a decision for any UC-ID.</p>
         </div>
         <div class="use-case-list">
-          <span class="mini-label">DISTINCT MATERIAL USES · EACH NEEDS ITS OWN UC-ID</span>
+          <span class="mini-label">Distinct material uses: each needs its own UC-ID</span>
           ${example.useCases.map((useCase) => `
             <article class="use-case-item">
-              <div class="use-case-heading"><b>${useCase.reference}</b><span>UC-ID: ${identifierStatus([useCase.ucId])}${useCase.ucId ? ` · ${useCase.ucId}` : " · not populated"}</span></div>
+              <div class="use-case-heading"><b>${useCase.reference}</b><span>${useCase.ucId ? `UC-ID ${useCase.ucId}` : "No UC-ID shown"}</span></div>
               <p>${useCase.purpose}</p>
               <dl>
                 <div><dt>Priority</dt><dd>${useCase.priority}</dd></div>
                 <div><dt>Risk</dt><dd>${useCase.risk}</dd></div>
-                <div><dt>UC decision / conditions</dt><dd>${useCase.decision}</dd></div>
+                <div><dt>UC decision / conditions</dt><dd>${useCase.decision.replace(/^UNVERIFIED\s*[—–-]\s*/, "Unverified: ")}</dd></div>
               </dl>
             </article>`).join("")}
         </div>
         <p class="use-case-disclaimer">All labels and outcomes here are illustrative, not Council records, findings or decisions. Missing or conflicting identifiers/statuses are unverified; no approval authority is implied.</p>
       </section>
-    </div>
-    <div class="summary-badge"><span>EXAMPLE</span><b>${example.number}</b><small>NOT A LIVE CASE</small></div>`;
+    </div>`;
 };
 
 const renderStageNavigation = () => {
@@ -89,7 +94,7 @@ const renderRecordThread = () => {
   );
   recordThreadElement.innerHTML = `
     <div class="thread-heading">
-      <div><span class="mini-label">ONE CASE · DISTINCT RECORDS</span><b>Reference thread</b></div>
+      <div><span class="mini-label">One case, distinct records</span><b>Reference thread</b></div>
       <span class="thread-stage">Stage ${String(state.stageIndex + 1).padStart(2, "0")} focus</span>
     </div>
     <ol class="thread-list" tabindex="0" aria-label="Separate authoritative records connected by references">
@@ -113,25 +118,25 @@ const renderStageDetail = () => {
   stageDetail.setAttribute("tabindex", "-1");
   stageDetail.innerHTML = `
     <div class="stage-topline">
-      <span class="stage-number">STAGE ${String(state.stageIndex + 1).padStart(2, "0")}</span>
-      <span class="stage-state">ILLUSTRATIVE · NOT RECORDED</span>
+      <span class="stage-number">Stage ${String(state.stageIndex + 1).padStart(2, "0")}</span>
+      <span class="stage-state">Illustrative, not recorded</span>
     </div>
     <h3>${stage.title}</h3>
-    <div class="question-card"><span class="mini-label">DECISION QUESTION</span><p>${stage.question}</p></div>
+    <div class="question-card"><span class="mini-label">Decision question</span><p>${stage.question}</p></div>
     <div class="stage-meta">
-      <div><span class="mini-label">ACCOUNTABLE ROUTE / AUTHORITY</span><p>${stage.authority}</p></div>
-      <div><span class="mini-label">RECORD DESTINATION</span><p>${stage.record}</p></div>
+      <div><span class="mini-label">Accountable route or authority</span><p>${stage.authority}</p></div>
+      <div><span class="mini-label">Record destination</span><p>${stage.record}</p></div>
     </div>
     <div class="stage-block">
-      <span class="mini-label">EVIDENCE TO CHECK</span>
+      <span class="mini-label">Evidence to check</span>
       <ul class="evidence-list">${stage.evidence.map((item) => `<li>${item}</li>`).join("")}</ul>
     </div>
     <div class="handoff-card">
       <span class="handoff-icon" aria-hidden="true">↗</span>
-      <div><span class="mini-label">HANDOFF</span><p>${stage.handoff}</p></div>
+      <div><span class="mini-label">Handoff</span><p>${stage.handoff}</p></div>
     </div>
     ${stage.caseNote ? `<p class="case-stage-note"><b>For this example:</b> ${stage.caseNote}</p>` : ""}
-    <div class="stage-output"><span class="mini-label">ILLUSTRATIVE OUTPUT</span><p>${stage.output}</p><p class="stage-note">${stage.note}</p></div>
+    <div class="stage-output"><span class="mini-label">Illustrative output</span><p>${stage.output}</p><p class="stage-note">${stage.note}</p></div>
     ${canExploreOutcome ? `
       <div class="decision-explorer">
         <div><b>Explore a gate response</b><span>Demonstration only; no AIG-DEC-04 event or AIG-DEC-03 decision is created.</span></div>
@@ -200,7 +205,7 @@ nextButton.addEventListener("click", () => {
 const recordGrid = byId("record-grid");
 recordGrid.innerHTML = recordBoundaries.map((record) => `
   <article class="record-card record-${record.color}">
-    <div class="record-card-top"><span class="record-number">${record.number}</span><span class="mini-label">${record.label}</span></div>
+    <div class="record-card-top"><span class="record-number">${record.number}</span><span class="mini-label">${sentence(record.label)}</span></div>
     <h3>${record.title}</h3><p>${record.text}</p>
   </article>`).join("");
 
