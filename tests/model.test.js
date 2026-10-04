@@ -113,7 +113,7 @@ test("legal and framework notes preserve the conditional boundaries", () => {
 // Suite v3.9.9 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.18
 // (Glossary "Governing tier", "Action-capable use"; §4.4.4 impact floor; §4.7.17),
 // AIG-DEC-01 Gate Map v1.13 (Gate 2, Gate 4 rule, Gate 5, Gate 6, Gate 7 rows; Agentic pathway table and R1-R4),
-// AIG-ASS-11 v1.9 (scope; Section 7), AIG-INV-02 v1.9 (Part B/C), AIG-OPS-01 v1.12 (section 8), AIG-DEC-04 v1.3
+// AIG-ASS-11 v1.10 (scope; Section 7), AIG-INV-02 v1.9 (Part B/C), AIG-OPS-01 v1.12 (section 8), AIG-DEC-04 v1.3
 // (Precautionary pause event, Resume), AIG-GOV-06 v1.10 / AIG-ASS-03 v1.11 (independent assurance), AIG-GOV-03 v1.34 titles; AIG-AGT-04 v0.6 record levels (Playbook F.3).
 test("v3.8: priority sets urgency only; the governing tier sets the route, including the impact floor", () => {
   const stage = stages[4];
