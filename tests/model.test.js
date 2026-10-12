@@ -110,11 +110,11 @@ test("legal and framework notes preserve the conditional boundaries", () => {
   assert.match(allText, /AIG-INV-05.*not approved\/adopted/i);
   assert.doesNotMatch(allText, /\bAIR-\d{4}-\d+\b/);
 });
-// Suite v3.9.9 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.18
+// Suite v3.9.10 (Proposed — for Council confirmation). Sources: AIG-GOV-02 Playbook v19.9.19
 // (Glossary "Governing tier", "Action-capable use"; §4.4.4 impact floor; §4.7.17),
-// AIG-DEC-01 Gate Map v1.13 (Gate 2, Gate 4 rule, Gate 5, Gate 6, Gate 7 rows; Agentic pathway table and R1-R4),
-// AIG-ASS-11 v1.10 (scope; Section 7), AIG-INV-02 v1.9 (Part B/C), AIG-OPS-01 v1.12 (section 8), AIG-DEC-04 v1.3
-// (Precautionary pause event, Resume), AIG-GOV-06 v1.10 / AIG-ASS-03 v1.11 (independent assurance), AIG-GOV-03 v1.34 titles; AIG-AGT-04 v0.6 record levels (Playbook F.3).
+// AIG-DEC-01 Gate Map v1.14 (Gate 2, Gate 4 rule, Gate 5, Gate 6, Gate 7 rows; Agentic pathway table and R1-R4),
+// AIG-ASS-11 v1.11 (scope; Section 7), AIG-INV-02 v1.10 (Part B/C), AIG-OPS-01 v1.13 (section 8), AIG-DEC-04 v1.3
+// (Precautionary pause event, Resume), AIG-GOV-06 v1.12 / AIG-ASS-03 v1.13 (independent assurance), AIG-GOV-03 v1.35 titles; AIG-AGT-04 v0.6 record levels (Playbook F.3).
 test("v3.8: priority sets urgency only; the governing tier sets the route, including the impact floor", () => {
   const stage = stages[4];
   assert.match(stage.note, /priority sets how soon/i);
@@ -190,7 +190,7 @@ test("v3.9.2: pause wording follows Playbook §4.7.17 and the AIG-DEC-04 precaut
   assert.match(monitor.note, /Precautionary pause \(containment\)/);
 });
 
-test("decision authority, go-live and pause wording match the v3.9.9 artefacts", () => {
+test("decision authority, go-live and pause wording match the v3.9.10 artefacts", () => {
   assert.match(stages[9].authority, /^The officer or forum with confirmed delegation/);
   assert.match(stages[9].authority, /AI Assurance Board advises.*does not decide/i);
   assert.match(stages[10].note, /go-live decision \(Gate 6\) is recorded in AIG-DEC-03 with the dated event in AIG-DEC-04/i);
@@ -227,4 +227,10 @@ test("Light-touch wording covers screening by reference and the Gate 1 and 3 rul
   assert.ok(src.includes("AIG-DEC-01 Gate 1 and 3 rule"));
   assert.ok(src.includes("completed or reviewed in the last 12 months"));
   assert.ok(src.includes("a new system always goes to Gate 1"));
+});
+
+test("v3.9.10: data governance links appear at intake and identity confirmation", () => {
+  assert.ok(stages[0].evidence.some((e) => /Record of processing \(ROPA\) reference/.test(e)));
+  const identity = stages.find((s) => s.title === "Confirm identity and scope");
+  assert.ok(identity.evidence.some((e) => /Information Asset Register reference.*AIG-INV-04 column AA.*asset owner stays/.test(e)));
 });
