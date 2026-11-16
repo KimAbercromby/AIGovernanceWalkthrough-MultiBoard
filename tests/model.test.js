@@ -1,9 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { cases, createIllustrativeOutcome, getStageView, identifierStatus, recordBoundaries, recordThread, stageThreadFocus, stages } from "../src/model.js";
+import { cases, createIllustrativeOutcome, getStageView, identifierStatus, recordBoundaries, recordThread, stageThreadFocus, stages, tierGuide } from "../src/model.js";
 
-test("walkthrough retains four cases and a thirteen-stage connected lifecycle", () => {
-  assert.equal(cases.length, 4);
+test("walkthrough retains five cases and a thirteen-stage connected lifecycle", () => {
+  assert.equal(cases.length, 5);
   assert.equal(stages.length, 13);
   assert.equal(new Set(cases.map(({ id }) => id)).size, cases.length);
   assert.equal(stages[0].title, "Discover and intake");
@@ -20,9 +20,9 @@ test("case-specific notes tailor the route without deciding risk or applicabilit
   assert.match(getStageView("staff-assistant", 0).caseNote, /Fast-Track Screening \(AIG-INV-02\).*decision for the UC-ID is still recorded \(AIG-DEC-03.*Gate Event is logged in AIG-DEC-04 before use/i);
   assert.match(getStageView("staff-assistant", 0).caseNote, /routing decision only/i);
   assert.doesNotMatch(getStageView("staff-assistant", 0).caseNote, /recorded as the equality/i);
-  assert.match(getStageView("staff-assistant", 5).caseNote, /proper planning record/i);
+  assert.match(getStageView("staff-assistant", 6).caseNote, /proper planning record/i);
   assert.equal(getStageView("staff-assistant", 8).caseNote, null);
-  assert.match(getStageView("agentic", 6).caseNote, /does not.*assign.*tier|Do not use this illustration to assign/i);
+  assert.match(getStageView("agentic", 5).caseNote, /does not.*assign.*tier|Do not use this illustration to assign/i);
   assert.match(getStageView("resident-service", 7).caseNote, /Confirm.*requirements/i);
   assert.match(getStageView("retrospective", 0).caseNote, /Do not backdate/i);
   assert.throws(() => getStageView("unknown", 0), RangeError);
@@ -57,10 +57,10 @@ test("missing or conflicting identifiers remain unverified", () => {
 });
 
 test("record ownership keeps Register, Gate Log, decision and Agent Record distinct", () => {
-  assert.match(stages[5].record, /AIG-DEC-04 Gate Log.*confirmed AIR-ID/i);
-  assert.match(stages[5].note, /distinct sources linked by the confirmed AIR-ID/i);
-  assert.match(stages[8].record, /AIG-DEC-04 Gate Log.*same AIR-ID/i);
-  assert.match(stages[9].record, /AIG-DEC-03.*formal decision.*AIG-DEC-04 Gate Log.*event and AIR-ID/i);
+  assert.match(stages[6].record, /AIG-DEC-04 Gate Log.*confirmed AIR-ID/i);
+  assert.match(stages[6].note, /distinct sources linked by the confirmed AIR-ID/i);
+  assert.match(stages[9].record, /AIG-DEC-04 Gate Log.*same AIR-ID/i);
+  assert.match(stages[8].record, /AIG-DEC-03.*formal decision.*AIG-DEC-04 Gate Log.*event and AIR-ID/i);
   assert.match(stages[1].note, /not a second Register.*approval/i);
   assert.match(recordBoundaries.find(({ number }) => number === "AIG-DEC-04").text, /AIG-DEC-04 Gate Log carries the same confirmed AIR-ID/i);
   assert.match(recordBoundaries.find(({ number }) => number === "AIG-AGT-04").text, /owns agent permissions and delegations/i);
@@ -83,7 +83,7 @@ test("stage-aware thread retains one identity across distinct authoritative reco
   assert.ok(recordThread.some(({ number, description }) => number === "AIG-DEC-03" && /formal decision.*approved native minutes/i.test(description)));
   assert.ok(stageThreadFocus.every((focus) => focus.every((id) => threadIds.has(id))));
   assert.ok(stageThreadFocus[0].includes("intake"));
-  assert.ok(stageThreadFocus[9].includes("decision"));
+  assert.ok(stageThreadFocus[8].includes("decision"));
   assert.doesNotMatch(JSON.stringify(recordThread), /\bAIR-\d{4}-\d+\b/);
 });
 
@@ -128,17 +128,17 @@ test("v3.8: priority sets urgency only; the governing tier sets the route, inclu
 test("v3.7: every action-capable use (any tier, incl. T0) has Gate 2 and Gate 6; Unsure = Yes", () => {
   assert.match(stages[3].note, /Unsure.*treated as Yes/i);
   assert.match(stages[3].handoff, /Agentic Triage \(AIG-AGT-03\)/);
-  assert.match(stages[6].note, /every action-capable use \(any agency tier, including T0\)/i);
-  assert.match(stages[6].note, /not an approval layer/i);
-  assert.match(stages[6].authority, /officer or forum with confirmed delegation/i);
+  assert.match(stages[5].note, /every action-capable use \(any agency tier, including T0\)/i);
+  assert.match(stages[5].note, /not an approval layer/i);
+  assert.match(stages[5].authority, /officer or forum with confirmed delegation/i);
   assert.match(getStageView("agentic", 3).caseNote, /Unsure.*treated as Yes/i);
-  assert.match(getStageView("agentic", 5).caseNote, /including T0.*Gate 2.*Gate 6.*permitted autonomy/i);
-  assert.match(getStageView("agentic", 9).caseNote, /Gate 6.*permitted autonomy level.*AIG-DEC-03.*AIG-AGT-04/i);
+  assert.match(getStageView("agentic", 6).caseNote, /including T0.*Gate 2.*Gate 6.*permitted autonomy/i);
+  assert.match(getStageView("agentic", 8).caseNote, /Gate 6.*permitted autonomy level.*AIG-DEC-03.*AIG-AGT-04/i);
   assert.match(getStageView("staff-assistant", 3).caseNote, /Unsure.*Agentic Triage \(AIG-AGT-03\)/i);
 });
 
 test("v3.7: agency-tier minimum pathways, per-action review floor and Board role match AIG-DEC-01", () => {
-  const note = getStageView("agentic", 6).caseNote;
+  const note = getStageView("agentic", 5).caseNote;
   assert.match(note, /T0 and T1 none; T2 Medium; T3 High; T4 High, or Critical without evidenced per-action human review; T5 Critical/);
   assert.match(note, /higher of that and the risk-tier route/i);
   assert.match(note, /§4\.4\.6 Critical floor \(“Unsure” counts as No\)/);
@@ -161,11 +161,11 @@ test("v3.9: resident-facing generative AI at Medium needs an adversarial test be
   assert.match(specialist, /generative AI.*Medium.*adversarial test \(AIG-ASS-11 Section 7\).*before go-live \(Gate 6\)/i);
   assert.match(specialist, /Proposed — for Council confirmation/);
   assert.match(getStageView("resident-service", 10).caseNote, /adversarial test.*AIG-OPS-01.*Gate 6/i);
-  assert.match(getStageView("resident-service", 5).caseNote, /Gate 4.*Gate 5 \(ethics\) applies from Medium.*N\/A/i);
+  assert.match(getStageView("resident-service", 6).caseNote, /Gate 4.*Gate 5 \(ethics\) applies from Medium.*N\/A/i);
 });
 
 test("v3.9.2: Gate 4 follows the AIG-DEC-01 v1.8 procurement rule (N/A for an existing contract or free tool)", () => {
-  const note = getStageView("resident-service", 5).caseNote;
+  const note = getStageView("resident-service", 6).caseNote;
   assert.match(note, /Gate 4 \(Procurement board\) applies wherever a procurement, new contract, licence change or contract variation is needed/);
   assert.match(note, /existing contract or licence, or a free public tool, record Gate 4 as “N\/A — existing contract \/ free tool” with the reason/);
   assert.match(note, /data processing terms and the AIG-ASS-08 sections on data protection and security \(section 5\) and business continuity and exit \(section 8\)/);
@@ -174,13 +174,13 @@ test("v3.9.2: Gate 4 follows the AIG-DEC-01 v1.8 procurement rule (N/A for an ex
 
 test("v3.9.2: independent assurance review at High, independent challenge at Critical (W-11)", () => {
   const specialist = stages.find((s) => s.title === "Complete specialist reviews");
-  assert.match(specialist.note, /At High, an independent assurance review applies \(Playbook §4\.5\.3, §4\.5\.9\); at Critical, independent challenge and independent assurance \(§3\.10\.2\)/);
+  assert.match(specialist.note, /At High, an independent assurance review applies \(Playbook §4\.5\.9, §6\.3\); at Critical, independent challenge and independent assurance \(§3\.10\.1, §4\.5\.9\)/);
   const risk = stages.find((s) => s.title === "Prioritise and assess risk");
   assert.ok(risk.evidence.some((e) => /independent assurance review at High.*independent challenge and independent assurance at Critical/.test(e)));
 });
 
 test("v3.9.2: pause wording follows Playbook §4.7.17 and the AIG-DEC-04 precautionary pause event (W-03, W-06)", () => {
-  const found = getStageView("retrospective", 9).caseNote;
+  const found = getStageView("retrospective", 8).caseNote;
   assert.match(found, /pauses the use at once, without waiting for a decision \(Playbook §4\.7\.17\)/);
   assert.match(found, /“Precautionary pause \(containment\)” event with Outcome “Paused — pending decision”/);
   assert.match(found, /decided by the officer or forum with confirmed delegation/);
@@ -191,8 +191,8 @@ test("v3.9.2: pause wording follows Playbook §4.7.17 and the AIG-DEC-04 precaut
 });
 
 test("decision authority, go-live and pause wording match the v3.9.10 artefacts", () => {
-  assert.match(stages[9].authority, /^The officer or forum with confirmed delegation/);
-  assert.match(stages[9].authority, /AI Assurance Board advises.*does not decide/i);
+  assert.match(stages[8].authority, /^The officer or forum with confirmed delegation/);
+  assert.match(stages[8].authority, /AI Assurance Board advises.*does not decide/i);
   assert.match(stages[10].note, /go-live decision \(Gate 6\) is recorded in AIG-DEC-03 with the dated event in AIG-DEC-04/i);
   assert.match(stages[10].note, /not itself use permission/i);
   assert.doesNotMatch(stages[10].note, /Register to show Approved and Active for the authorised UC-ID/i);
@@ -201,7 +201,7 @@ test("decision authority, go-live and pause wording match the v3.9.10 artefacts"
   assert.match(JSON.stringify({ cases, stages }), /short core record for every agent that can act.*full ASBOM at T3 and above/);
   assert.match(stages[7].record, /AIG-AIMS-05 AIMS Applicable Requirements and Change Register/);
   assert.match(stages[7].record, /AIG-AIMS-13 AI Source Assurance and Traceability Register/);
-  assert.match(stages[6].record, /AIG-AGT-04 — Agent Record \(ASBOM\)/);
+  assert.match(stages[5].record, /AIG-AGT-04 — Agent Record \(ASBOM\)/);
 });
 
 test("v3.9.1: the release handoff names the AIG-OPS-01 section 8 business continuity link", () => {
@@ -233,4 +233,64 @@ test("v3.9.10: data governance links appear at intake and identity confirmation"
   assert.ok(stages[0].evidence.some((e) => /Record of processing \(ROPA\) reference/.test(e)));
   const identity = stages.find((s) => s.title === "Confirm identity and scope");
   assert.ok(identity.evidence.some((e) => /Information Asset Register reference.*AIG-INV-04 column AA.*asset owner stays/.test(e)));
+});
+
+// Tier logic review, 16 Nov 2026 (Playbook §3.8.1, §3.8.3, §3.10.1, §3.10.2, §4.5.9, §6.3; AIG-DEC-01 gate table,
+// Gate 1 and 3 rule and Agentic pathway; AIG-AGT-03 route figure).
+test("stage order: Agentic Triage before the Gate Plan; decision before the gate event that points to it", () => {
+  const index = (title) => stages.findIndex((stage) => stage.title === title);
+  assert.ok(index("Prioritise and assess risk") < index("Assess agency and authority"));
+  assert.ok(index("Assess agency and authority") < index("Build the gate plan"));
+  assert.ok(index("Record decision and conditions") < index("Hold dated gate events"));
+  assert.match(stages[index("Build the gate plan")].note, /planned after Agentic Triage/i);
+  assert.match(stages[index("Build the gate plan")].note, /Gate 1 soon after triage, Gate 2 at design/i);
+  assert.match(stages[index("Hold dated gate events")].note, /logged once the decision exists/i);
+});
+
+test("the By governing tier panel covers all four tiers on the gate, assurance, decision and monitoring stages", () => {
+  assert.deepEqual(tierGuide.rows.map(({ tier }) => tier), ["Low", "Medium", "High", "Critical"]);
+  const focuses = stages.map(({ tierFocus }) => tierFocus).filter(Boolean);
+  assert.deepEqual(focuses, ["gates", "assess", "decide", "monitor"]);
+  for (const row of tierGuide.rows) {
+    for (const column of Object.keys(tierGuide.columns)) assert.ok(row[column], `${row.tier} ${column}`);
+  }
+  const [low, medium, high, critical] = tierGuide.rows;
+  assert.match(low.gates, /Gate 0, Gate 6 and Gate 7/);
+  assert.match(low.monitor, /annual formal review/i);
+  assert.match(medium.decide, /Working Group does the detailed review.*assurance opinion.*decides/i);
+  assert.match(medium.monitor, /Monthly operational monitoring; quarterly performance review/);
+  assert.match(high.gates, /Gates 1, 2, 3, 5 and 6 always apply/);
+  assert.match(high.decide, /formal AI Assurance Board recommendation/);
+  assert.match(high.assess, /legal review.*AIG-ASS-11/);
+  assert.match(critical.decide, /SRO and Executive Sponsor.*Audit and Risk Committee/);
+  assert.match(critical.assess, /mandatory Human Rights Assessment/);
+  assert.match(tierGuide.footer, /action-capable use always has Gates 1, 2, 3 and 6 and the AIG-ASS-11 Security Review/);
+  assert.match(tierGuide.footer, /AI found already in use always has Gates 1 and 3/);
+});
+
+test("the Medium example walks the middle route without deciding its tier", () => {
+  const medium = cases.find(({ id }) => id === "operational-forecast");
+  assert.match(medium.emphasis, /does not set a tier/i);
+  assert.match(getStageView("operational-forecast", 4).caseNote, /If the assessment confirms Medium/);
+  assert.match(getStageView("operational-forecast", 6).caseNote, /Gate 5 \(ethics\) and Gate 6/);
+  assert.match(getStageView("operational-forecast", 8).caseNote, /Working Group.*assurance opinion.*Board does not decide/);
+  assert.match(getStageView("operational-forecast", 11).caseNote, /quarterly performance review/);
+  assert.match(getStageView("resident-service", 4).caseNote, /Public-facing AI services are a High example/);
+});
+
+test("Light-touch, agentic and retrospective notes carry the remaining gate rules", () => {
+  const fast = getStageView("staff-assistant", 0).caseNote;
+  assert.match(fast, /can take or initiate any action; a Yes or Unsure ends Fast Track/);
+  assert.match(fast, /higher tier stands/);
+  assert.match(getStageView("staff-assistant", 4).caseNote, /Use B.*not Light-touch/);
+  assert.match(getStageView("agentic", 6).caseNote, /Gates 1 and 3 also always apply to an action-capable use/);
+  assert.match(getStageView("agentic", 5).caseNote, /every action-capable use needs the AIG-ASS-11 Security Review with a threat model/);
+  assert.match(getStageView("agentic", 5).caseNote, /no consequential production use runs until it is resolved/);
+  assert.match(getStageView("agentic", 7).caseNote, /Agent Authority Graph \(AIG-AGT-05\)/);
+  assert.match(getStageView("agentic", 12).caseNote, /delegations are revoked.*Agent Record \(AIG-AGT-04\) closed/);
+  assert.match(cases.find(({ id }) => id === "agentic").useCases[0].risk, /“Unsure” counts as Yes/);
+  assert.match(getStageView("retrospective", 2).caseNote, /Governance Investigation pathway/);
+  assert.match(getStageView("retrospective", 6).caseNote, /Gates 1 and 3 always apply to AI found already in use/);
+  assert.match(getStageView("retrospective", 10).caseNote, /no first go-live.*continues.*withdrawn/);
+  assert.match(stages.at(-1).note, /Retirement is Gate 8/);
 });

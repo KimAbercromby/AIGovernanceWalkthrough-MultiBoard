@@ -2,10 +2,10 @@
 
 An organisation-neutral, interactive walkthrough of how one AI system can move
 from discovery to monitoring and retirement while retaining a connected
-governance history. It preserves four example routes (resident-facing service,
-staff productivity assistant, retrospective discovery and action-capable
-agent), thirteen lifecycle stages, and the condition / return-for-evidence
-illustrations.
+governance history. It preserves five example routes (resident-facing service,
+staff productivity assistant, retrospective discovery, action-capable agent and
+a Medium-risk demand forecasting tool), thirteen lifecycle stages, and the
+condition / return-for-evidence illustrations.
 
 **Live tool:** https://kimabercromby.github.io/AIGovernanceWalkthrough-MultiBoard/
 
@@ -27,8 +27,15 @@ node --test
 
 ## What it demonstrates
 
-- Four illustrative cases, selected independently of the shared thirteen-stage
+- Five illustrative cases, selected independently of the shared thirteen-stage
   lifecycle.
+- A "By governing tier" panel on the gate-plan, specialist-review, decision and
+  monitoring stages, showing Low, Medium, High and Critical side by side: gates,
+  assessments, who reviews and decides, and monitoring cadence (Playbook §3.10.1,
+  §4.5.9; AIG-DEC-01; Proposed — for Council confirmation).
+- Stage order that follows the suite: Agentic Triage comes before the Gate Plan,
+  because the agency tier can raise the governing tier, and the decision is
+  recorded before the gate event that points to it.
 - The intake-to-register handoff: AIG-INV-03 intake → proposed controlled
   artefact AIG-INV-05 Capabilities and System Map → AIG-INV-04 Register. The map
   links outcome-led use cases, capabilities, systems and component references;
