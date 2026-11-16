@@ -33,10 +33,10 @@ export const cases = [
     ],
     stageNotes: {
       0: "Capture intended service, affected people and supplier context. The intake is a draft handoff, not a Council-issued identifier.",
-      4: "Determine risk and assurance needs with the responsible owners. A resident-facing context merits careful screening; this example does not predetermine a risk tier.",
-      5: "Gate 4 (Procurement board) applies wherever a procurement, new contract, licence change or contract variation is needed. For an AI feature under an existing contract or licence, or a free public tool, record Gate 4 as “N/A — existing contract / free tool” with the reason, and still complete the supplier checks that apply: data processing terms and the AIG-ASS-08 sections on data protection and security (section 5) and business continuity and exit (section 8) (AIG-DEC-01 Gate 4 rule; Proposed — for Council confirmation). Gate 5 (ethics) applies from Medium. Mark any gate that does not apply as N/A in the Gate Plan with its reason (AIG-DEC-01).",
+      4: "Determine risk and assurance needs with the responsible owners. A resident-facing context merits careful screening; this example does not predetermine a risk tier. Public-facing AI services are a High example in the Playbook (§3.10.2), so the Medium notes in this example apply only if the assessment confirms Medium; example 05 walks a Medium use.",
+      6: "Gate 4 (Procurement board) applies wherever a procurement, new contract, licence change or contract variation is needed. For an AI feature under an existing contract or licence, or a free public tool, record Gate 4 as “N/A — existing contract / free tool” with the reason, and still complete the supplier checks that apply: data processing terms and the AIG-ASS-08 sections on data protection and security (section 5) and business continuity and exit (section 8) (AIG-DEC-01 Gate 4 rule; Proposed — for Council confirmation). Gate 5 (ethics) applies from Medium, and at Low only where the Governance Checklist assigns it. At High, Gates 1, 2, 3, 5 and 6 always apply. Mark any gate that does not apply as N/A in the Gate Plan with its reason (AIG-DEC-01).",
       7: "Consider procurement and supplier assurance if applicable. Confirm procurement requirements and legal scope with their owners. If the service uses generative AI and its governing tier is Medium, a documented adversarial test (AIG-ASS-11 Section 7) is required before go-live (Gate 6); at High and Critical the full AIG-ASS-11 security review applies (Proposed — for Council confirmation).",
-      9: "A formal decision belongs in AIG-DEC-03 or approved native forum minutes, not in this walkthrough or an event log.",
+      8: "A formal decision belongs in AIG-DEC-03 or approved native forum minutes, not in this walkthrough or an event log.",
       10: "Where the adversarial test applies (resident-facing generative AI at Medium), confirm its outcome is recorded in the AIG-OPS-01 pre-go-live checklist before the Gate 6 go-live decision (Proposed — for Council confirmation)."
     }
   },
@@ -73,10 +73,10 @@ export const cases = [
       }
     ],
     stageNotes: {
-      0: "An obviously low-risk use may complete the one-page Fast-Track Screening (AIG-INV-02) as a step within AI Intake (AIG-INV-03), in place of full triage. Ordinary staff tools can pass: names the user already handles, or staff using a tool for their own work, are not a Yes on their own. All ten answers must be No, with no mandatory trigger, and the AI Governance Lead validates the route. The screen is a routing decision only: it does not replace intake facts, create an AIR-ID or authorise use, and equality, Convention-rights and DPIA screening still apply at Low. The equality, Convention-rights and data protection screening can be done by reference to a current assessment that already covers this kind of use, such as the system's DPIA, if it is Accepted and was completed or reviewed in the last 12 months, with its applicability checked (Playbook §4.6). After validation, a proportionate delegated decision for the UC-ID is still recorded (AIG-DEC-03 or approved minutes) and a Gate Event is logged in AIG-DEC-04 before use. For a new use of an already approved system whose approval is current, with no new investment, the investment gates (Gates 1 and 3) are N/A; a new system always goes to Gate 1, even if free (AIG-DEC-01 Gate 1 and 3 rule).",
+      0: "An obviously low-risk use may complete the one-page Fast-Track Screening (AIG-INV-02) as a step within AI Intake (AIG-INV-03), in place of full triage. One of its ten questions is whether the tool can take or initiate any action; a Yes or Unsure ends Fast Track. Ordinary staff tools can pass: names the user already handles, or staff using a tool for their own work, are not a Yes on their own. All ten answers must be No, with no mandatory trigger, and the AI Governance Lead validates the route. The screen is a routing decision only: it does not replace intake facts, create an AIR-ID or authorise use, and equality, Convention-rights and DPIA screening still apply at Low. The equality, Convention-rights and data protection screening can be done by reference to a current assessment that already covers this kind of use, such as the system's DPIA, if it is Accepted and was completed or reviewed in the last 12 months, with its applicability checked (Playbook §4.6). After validation, a proportionate delegated decision for the UC-ID is still recorded (AIG-DEC-03 or approved minutes) and a Gate Event is logged in AIG-DEC-04 before use. For a new use of an already approved system whose approval is current, with no new investment, the investment gates (Gates 1 and 3) are N/A; a new system always goes to Gate 1, even if free (AIG-DEC-01 Gate 1 and 3 rule). So a Light-touch new use of an approved system normally runs Gate 0, Gate 6 and Gate 7, and a free new system Gates 0, 1, 6 and 7. If every answer is No but triage puts the governing tier above Low, the higher tier stands and the AI Governance Lead checks the answers (Playbook §3.8.1).",
       3: "Verify the actual capabilities and permissions. Do not assume that a product marketed as an assistant cannot act. If it can act, or the answer is Unsure, Fast Track stops and the use goes through Agentic Triage (AIG-AGT-03).",
-      4: "Even a low-priority or light-touch case is screened. AGPI prioritisation does not waive equality, human-rights, privacy or other duties.",
-      5: "Record the reason for any gate not required in the proper planning record; do not infer “not applicable” from this example."
+      4: "Even a low-priority or light-touch case is screened. AGPI prioritisation does not waive equality, human-rights, privacy or other duties. Use B (summarising sensitive case material) is not Light-touch: it goes through full triage on the Standard route, and its governing tier, gates and decision-maker follow from its own assessment.",
+      6: "Record the reason for any gate not required in the proper planning record; do not infer “not applicable” from this example."
     }
   },
   {
@@ -113,8 +113,10 @@ export const cases = [
     ],
     stageNotes: {
       0: "Record the discovery and known facts through the approved intake route. Do not backdate an approval or invent an AIR-ID.",
-      2: "Establish current use, ownership, data flows, controls and evidence. Escalate safety, rights, privacy or security concerns through their proper routes.",
-      9: "If there is a real risk of harm, the Service Owner or AI System Owner pauses the use at once, without waiting for a decision (Playbook §4.7.17). The pause is containment, not a decision: it is recorded in AIG-OPS-03 Part A and logged in AIG-DEC-04 as a “Precautionary pause (containment)” event with Outcome “Paused — pending decision”, the incident reference and a follow-up decision due date. Continued suspension, resumption, change or withdrawal is decided by the officer or forum with confirmed delegation and recorded in AIG-DEC-03 or approved native minutes; lifting the pause with the approval unchanged is logged in AIG-DEC-04 as a Decision with Outcome “Resume”. The AI Assurance Board may call for a pause and recommends, but does not decide (Proposed — for Council confirmation)."
+      2: "Establish current use, ownership, data flows, controls and evidence. Escalate safety, rights, privacy or security concerns through their proper routes. The Register entry is marked retrospective (Playbook §3.8.3). Where ownership or purpose cannot yet be established, the system goes to the Governance Investigation pathway (§3.9.5) and a precautionary pause is considered (§4.7.17).",
+      6: "Gates 1 and 3 always apply to AI found already in use: the Gate 1 and 3 rule never makes them N/A for it (AIG-DEC-01). Plan the remaining gates from the governing tier as for any other use.",
+      8: "If there is a real risk of harm, the Service Owner or AI System Owner pauses the use at once, without waiting for a decision (Playbook §4.7.17). The pause is containment, not a decision: it is recorded in AIG-OPS-03 Part A and logged in AIG-DEC-04 as a “Precautionary pause (containment)” event with Outcome “Paused — pending decision”, the incident reference and a follow-up decision due date. Continued suspension, resumption, change or withdrawal is decided by the officer or forum with confirmed delegation and recorded in AIG-DEC-03 or approved native minutes; lifting the pause with the approval unchanged is logged in AIG-DEC-04 as a Decision with Outcome “Resume”. The AI Assurance Board may call for a pause and recommends, but does not decide (Proposed — for Council confirmation).",
+      10: "This system is already live, so there is no first go-live to prepare. The delegated decision for each UC-ID is whether the use continues (with any conditions), stays paused, changes or is withdrawn. AIG-OPS-01 then records the conditions carried forward and the AIG-INV-04 current state is reconciled. Nothing is backdated."
     }
   },
   {
@@ -137,7 +139,7 @@ export const cases = [
         ucId: null,
         purpose: "Ordinary non-agentic use with actions disabled",
         priority: "Illustrative: assess proportionately",
-        risk: "Unassessed; verify actual configuration",
+        risk: "Unassessed; normal route only once the disabled configuration is verified, otherwise “Unsure” counts as Yes",
         decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
       },
       {
@@ -151,12 +153,55 @@ export const cases = [
     ],
     stageNotes: {
       3: "Test whether the system can take actions in its real configuration, including tool access, delegated credentials, write permissions and human confirmation. “Unsure” is treated as Yes (action-capable) until confirmed.",
-      5: "For every action-capable use (any agency tier, including T0) the Gate Plan includes Gate 2 (Technical design review, where the agentic control checkpoints are evidenced) and Gate 6 (go-live, which grants the permitted autonomy level), whatever the risk tier.",
-      6: "Use the Agentic Triage (AIG-AGT-03) agency profile and tiering process. Do not use this illustration to assign an agency tier or grant permission. The agency tier sets a minimum pathway (T0 and T1 none; T2 Medium; T3 High; T4 High, or Critical without evidenced per-action human review; T5 Critical) and the governing tier is the higher of that and the risk-tier route. Actions without evidenced per-action human review engage the §4.4.6 Critical floor (“Unsure” counts as No). From T3 a formal AI Assurance Board recommendation precedes the decision (the Board advises; it does not decide); at T4 the AIG-ASS-11 security review is complete before the Gate 2 decision; T5 needs executive and safety escalation.",
-      7: "AIG-AGT-04 owns agent authority, permissions and delegations. It is kept in proportion: a short core record for every agent that can act, extra sheets for persistence, memory, tool discovery, credential access or delegation, and the full ASBOM at T3 and above (Playbook F.3). This walkthrough does not create or modify that record.",
-      9: "At Gate 6 the go-live decision-maker grants the permitted autonomy level for each UC-ID and records it in AIG-DEC-03; it is then written to AIG-AGT-04 with its decision reference, and may be lower than the level requested.",
+      6: "For every action-capable use (any agency tier, including T0) the Gate Plan includes Gate 2 (Technical design review, where the agentic control checkpoints are evidenced) and Gate 6 (go-live, which grants the permitted autonomy level), whatever the risk tier. Gates 1 and 3 also always apply to an action-capable use: the Gate 1 and 3 rule never makes them N/A (AIG-DEC-01).",
+      5: "Use the Agentic Triage (AIG-AGT-03) agency profile and tiering process. Do not use this illustration to assign an agency tier or grant permission. The agency tier sets a minimum pathway (T0 and T1 none; T2 Medium; T3 High; T4 High, or Critical without evidenced per-action human review; T5 Critical) and the governing tier is the higher of that and the risk-tier route. Actions without evidenced per-action human review engage the §4.4.6 Critical floor (“Unsure” counts as No). From T3 a formal AI Assurance Board recommendation precedes the decision (the Board advises; it does not decide); at T4 the AIG-ASS-11 security review is complete before the Gate 2 decision; T5 needs executive and safety escalation, and no consequential production use runs until it is resolved. Whatever the tier, every action-capable use needs the AIG-ASS-11 Security Review with a threat model, confirmed at Gate 6 (Playbook §3.10.2; AIG-DEC-01).",
+      7: "AIG-AGT-04 owns agent authority, permissions and delegations. It is kept in proportion: a short core record for every agent that can act, extra sheets for persistence, memory, tool discovery, credential access or delegation, and the full ASBOM at T3 and above (Playbook F.3), with the Agent Authority Graph (AIG-AGT-05) derived from it and referenced in the Decision-Ready Paper. This walkthrough does not create or modify that record.",
+      8: "At Gate 6 the go-live decision-maker grants the permitted autonomy level for each UC-ID and records it in AIG-DEC-03; it is then written to AIG-AGT-04 with its decision reference, and may be lower than the level requested.",
       10: "Before go-live, AIG-OPS-01 confirms the AIG-AGT-04 runtime controls are Implemented / Evidenced and the agentic control checkpoints are re-confirmed at Gate 6. No consequential action runs before the Gate 6 decision.",
-      11: "Runtime action records (AIG-AGT-06) remain in their designated source, from go-live onwards. Monitoring (AIG-OPS-02) must cover actual actions, limits, failures and revocation."
+      11: "Runtime action records (AIG-AGT-06) remain in their designated source, from go-live onwards. Monitoring (AIG-OPS-02) must cover actual actions, limits, failures and revocation.",
+      12: "When an action-capable use is retired, its delegations are revoked, credentials and access removed, and the Agent Record (AIG-AGT-04) closed, as part of the Gate 8 closure evidence."
+    }
+  },
+  {
+    id: "operational-forecast",
+    number: "05",
+    title: "Service demand forecasting",
+    short: "Informs planning · Medium example",
+    type: "STANDARD ROUTE · MEDIUM EXAMPLE",
+    description: "A forecasting tool that uses service data, including personal data, to predict demand and plan staffing. It informs business decisions but does not determine outcomes for individuals, which is what the Playbook describes as Medium (§3.10.2, §4.5.2).",
+    emphasis: "Shows the middle route. The example does not set a tier: Medium applies only if the assessment confirms it.",
+    route: "Decision support · personal data · cannot act",
+    system: {
+      label: "Illustrative forecasting system",
+      airId: null,
+      status: "Unverified; system-level status does not establish any use-specific decision"
+    },
+    useCases: [
+      {
+        reference: "Illustrative use A",
+        ucId: null,
+        purpose: "Forecasting service demand to plan staffing and resources",
+        priority: "Illustrative: standard attention",
+        risk: "Illustrative: moderate; informs but does not determine outcomes for individuals; confirm by assessment",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      },
+      {
+        reference: "Illustrative use B",
+        ucId: null,
+        purpose: "Using the same forecasts to rank individual residents for contact",
+        priority: "Illustrative: heightened attention",
+        risk: "Illustrative: affects individuals, potentially High; assess separately",
+        decision: "UNVERIFIED — verify the UC-specific decision and any conditions in authorised records"
+      }
+    ],
+    stageNotes: {
+      0: "Not obviously low-impact: it uses personal data to inform service planning, so it goes through full Intake (AIG-INV-03) rather than ending at Fast-Track Screening.",
+      3: "The tool produces forecasts for people to act on; it cannot send, update or instruct anything. The can-it-act answer is No, so there is no Agentic Triage. Check this against the real configuration.",
+      4: "If the assessment confirms Medium, the route below follows. Use B affects individual residents, so it is assessed on its own and may be High; it does not inherit use A's tier.",
+      6: "At Medium the Gate Plan includes Gate 5 (ethics) and Gate 6 (go-live). Gate 1 applies if the system is new to the Council, needs new investment or its approval is not current; Gate 3 if there is new investment or the approval is not current; Gate 4 if a procurement or contract change is needed. Gate 2 applies only for a fundamental architectural change. Gates that do not apply are marked N/A with the reason (AIG-DEC-01).",
+      7: "Structured risk assessment; Responsible AI Assessment, which the Gate 5 ethics decision relies on; DPIA where Article 35 applies; an EIA considered; and the data protection, equality and Convention-rights screening that applies at every tier (Playbook §4.5.9).",
+      8: "The AI Governance Working Group does the detailed review and the AI Assurance Board gives an assurance opinion. The officer or forum with confirmed delegation decides and records it in AIG-DEC-03 or approved minutes (Playbook §3.10.1). The Board does not decide.",
+      11: "Monthly operational monitoring, a quarterly performance review and an annual formal review by the AI Governance Working Group (Playbook §4.5.9). A change that moves the forecasts towards decisions about individuals is a material change and re-enters intake."
     }
   }
 ];
@@ -206,21 +251,11 @@ export const stages = [
     title: "Prioritise and assess risk",
     question: "What assurance depth and case-specific screening are needed?",
     authority: "Relevant assurance leads and accountable service owner",
-    evidence: ["AGPI priority rationale (urgency and sequencing)", "Risk and impact assessment, with the governing tier rationale (AIG-ASS-02 Step 6)", "Equality, rights, privacy and safety screening", "Assurance depth by governing tier: an independent assurance review at High (Playbook §4.5.3, §4.5.9); independent challenge and independent assurance at Critical (§3.10.2)"],
+    evidence: ["AGPI priority rationale (urgency and sequencing)", "Risk and impact assessment, with the governing tier rationale (AIG-ASS-02 Step 6)", "Equality, rights, privacy and safety screening", "Assurance depth by governing tier: an independent assurance review at High (Playbook §4.5.9, §6.3); independent challenge and independent assurance at Critical (§3.10.1, §4.5.9)"],
     output: "A proposed assessment plan; decisions and findings must be recorded in their proper sources.",
     handoff: "Screen every tier; route specialist questions to accountable owners",
     record: "AIG-INV-04 current assurance state; AIG-ASS-01 priority, AIG-ASS-02 risk assessment and native specialist sources",
     note: "AGPI priority sets how soon and in what order governance looks at the use; it is not risk classification, permission or a waiver of duties. The route (forum, assessments, gates and review cadence) follows the governing tier: the highest of the §4.4 risk tier, any §4.4.6 trigger floor, the impact floor (a confirmed Impact 5 sets at least Medium) and, for action-capable uses, the agency-tier minimum. Nothing lowers it."
-  },
-  {
-    title: "Build the gate plan",
-    question: "Which reviews are planned, by whom, and when?",
-    authority: "Governance coordinator and accountable owners",
-    evidence: ["Applicable proposed gates (AIG-DEC-01 Gate Map, set by the governing tier)", "Owners and target dates", "Non-applicable gates marked N/A, with the reason"],
-    output: "A prospective Gate Plan—not proof that any gate occurred or passed.",
-    handoff: "Verify the destination and exact headers before preparing a live handoff",
-    record: "AIG-DEC-04 Gate Log — prospective plan under the confirmed AIR-ID",
-    note: "The Gate Log and Register remain distinct sources linked by the confirmed AIR-ID. A proposed plan is not an event, decision or approval."
   },
   {
     title: "Assess agency and authority",
@@ -233,6 +268,17 @@ export const stages = [
     note: "Applies to every action-capable use (any agency tier, including T0). Agentic triage is a routing and evidence mechanism, not an approval layer; the agency tier sets a minimum pathway and never lowers the risk-tier route. Never infer permission from an approval elsewhere."
   },
   {
+    title: "Build the gate plan",
+    question: "Which reviews are planned, by whom, and when?",
+    authority: "Governance coordinator and accountable owners",
+    evidence: ["Applicable proposed gates (AIG-DEC-01 Gate Map, set by the governing tier, including any agency-tier minimum from the previous stage)", "Owners and target dates", "Non-applicable gates marked N/A, with the reason"],
+    output: "A prospective Gate Plan—not proof that any gate occurred or passed.",
+    handoff: "Verify the destination and exact headers before preparing a live handoff",
+    record: "AIG-DEC-04 Gate Log — prospective plan under the confirmed AIR-ID",
+    note: "The plan is built once the governing tier is known, so an action-capable use is planned after Agentic Triage. Gates are held at different points, not all at once: Gate 1 soon after triage, Gate 2 at design, Gate 4 at procurement, Gate 5 before delivery and Gate 6 at go-live. The Gate Log and Register remain distinct sources linked by the confirmed AIR-ID. A proposed plan is not an event, decision or approval.",
+    tierFocus: "gates"
+  },
+  {
     title: "Complete specialist reviews",
     question: "Which technical, rights, privacy, commercial or legal reviews apply?",
     authority: "The relevant specialist and legal/policy owners",
@@ -240,17 +286,8 @@ export const stages = [
     output: "Versioned evidence pointers and open questions for the appropriate owners.",
     handoff: "AIG-INV-04 Evidence Index points to native evidence; evidence remains authoritative at source",
     record: "AIG-INV-04 Evidence Index; AIG-AIMS-05 AIMS Applicable Requirements and Change Register and AIG-AIMS-13 AI Source Assurance and Traceability Register where relevant",
-    note: "EU AI Act, ATRS, procurement and standards questions require case-specific confirmation. At High, an independent assurance review applies (Playbook §4.5.3, §4.5.9); at Critical, independent challenge and independent assurance (§3.10.2) (Proposed — for Council confirmation)."
-  },
-  {
-    title: "Hold dated gate events",
-    question: "What review actually happened, when, and with what outcome?",
-    authority: "The relevant forum, within its approved authority",
-    evidence: ["Meeting/event date", "Participants and evidence considered", "Decision reference and outcome"],
-    output: "A dated event handoff linked to the appropriate formal decision record.",
-    handoff: "A plan is prospective; an event is dated history",
-    record: "AIG-DEC-04 Gate Log — dated events linked by the same AIR-ID",
-    note: "A logged event does not itself supply the decision, authority or approval."
+    note: "EU AI Act, ATRS, procurement and standards questions require case-specific confirmation. At High, an independent assurance review applies (Playbook §4.5.9, §6.3); at Critical, independent challenge and independent assurance (§3.10.1, §4.5.9) (Proposed — for Council confirmation).",
+    tierFocus: "assess"
   },
   {
     title: "Record decision and conditions",
@@ -260,7 +297,18 @@ export const stages = [
     output: "A formal decision in AIG-DEC-03 or approved native forum minutes; linked event references only.",
     handoff: "Event-linked conditions stay traceable to their originating decision",
     record: "AIG-DEC-03 — formal decision; AIG-DEC-04 Gate Log — conditions linked to its event and AIR-ID",
-    note: "This walkthrough cannot record, infer, or present an approval as granted."
+    note: "This walkthrough cannot record, infer, or present an approval as granted.",
+    tierFocus: "decide"
+  },
+  {
+    title: "Hold dated gate events",
+    question: "What review actually happened, when, and with what outcome?",
+    authority: "The relevant forum, within its approved authority",
+    evidence: ["Meeting/event date", "Participants and evidence considered", "Decision reference and outcome"],
+    output: "A dated event handoff that points to the formal decision recorded in the previous stage.",
+    handoff: "A plan is prospective; an event is dated history",
+    record: "AIG-DEC-04 Gate Log — dated events linked by the same AIR-ID",
+    note: "The event is logged once the decision exists, and points to it. A logged event does not itself supply the decision, authority or approval."
   },
   {
     title: "Prepare release handoff",
@@ -280,19 +328,62 @@ export const stages = [
     output: "A monitoring handoff to the designated operational sources.",
     handoff: "Monitoring and runtime records stay in their native sources",
     record: "AIG-OPS-02 monitoring source; AIG-OPS-03 incident reports; AIG-OPS-04 challenges and redress; AIG-AGT-04 for agent authority context",
-    note: "This walkthrough is not an incident, monitoring or runtime action log. A precautionary pause is containment, logged in AIG-DEC-04 as a “Precautionary pause (containment)” event; continued suspension, resumption or withdrawal is decided by the officer or forum with confirmed delegation."
+    note: "This walkthrough is not an incident, monitoring or runtime action log. A precautionary pause is containment, logged in AIG-DEC-04 as a “Precautionary pause (containment)” event; continued suspension, resumption or withdrawal is decided by the officer or forum with confirmed delegation.",
+    tierFocus: "monitor"
   },
   {
     title: "Re-enter, retire and close",
     question: "Has a material change, retirement or other event changed the governance route?",
     authority: "Accountable owner and relevant authorised forum",
-    evidence: ["Change and re-entry rationale", "Retirement evidence for each UC-ID (the AIR-ID retires only when every use is closed)", "Record closure and retention checks"],
+    evidence: ["Change and re-entry rationale", "Retirement and exit plan for each UC-ID: data retention and deletion, supplier exit, user and resident communication, open conditions closed or transferred, the ATRS record updated where published", "Final monitoring summary (AIG-OPS-02) and closure evidence (AIG-OPS-01; Playbook Appendix E.7)", "The AIR-ID retires only when every linked use is closed"],
     output: "A change or retirement handoff that preserves the system's connected history.",
     handoff: "Update only through the authorised register and event processes",
-    record: "AIG-INV-04 current state; AIG-DEC-04 event history; native monitoring / retirement sources",
-    note: "Material change may reopen relevant reviews; retirement does not erase the audit history."
+    record: "AIG-DEC-03 retirement decision per UC-ID; AIG-DEC-04 final Gate 8 event and condition closure; AIG-INV-04 current state",
+    note: "A material change re-enters intake on the same AIR-ID and is never Light-touch. Retirement is Gate 8: a delegated decision by the officer or forum holding the retirement delegation, recorded in AIG-DEC-03, with the final event in AIG-DEC-04 (AIG-DEC-01). Retirement does not erase the audit history."
   }
 ];
+
+// What changes with the governing tier, in one place (Playbook §3.10.1, §4.5.9, §6.3; AIG-DEC-01 gate table and
+// Gate 1 and 3 rule). Shown on the stages whose tierFocus names a column. Proposed — for Council confirmation.
+export const tierGuide = {
+  columns: {
+    gates: "Gates that apply",
+    assess: "Assessments and assurance",
+    decide: "Who reviews and who decides",
+    monitor: "Monitoring and review"
+  },
+  rows: [
+    {
+      tier: "Low",
+      gates: "Light-touch (all ten Fast-Track answers No, validated): Gate 0, Gate 6 and Gate 7 for a new use of an approved system with no new investment; Gates 0, 1, 6 and 7 for a free system new to the Council. Otherwise Gates 1 and 3 are N/A only where there is no new investment and the system's approval is current. Gate 5 only where the Governance Checklist assigns it.",
+      assess: "Basic risk assessment by the Service Owner; DPIA, equality and Convention-rights screening (can be by reference); fuller assessments only where screening indicates.",
+      decide: "The officer or forum with confirmed delegation decides (Service Owner or Service Manager only if delegated). The AI Governance Lead validates the route. A self-assessment is never self-approval.",
+      monitor: "Routine operational monitoring; annual formal review (self-assessment by the AI System Owner)."
+    },
+    {
+      tier: "Medium",
+      gates: "Gate 5 (ethics) and Gate 6. Gate 1 where the system is new to the Council, needs new investment or its approval is not current; Gate 3 where there is new investment or the approval is not current. Gate 2 only for a fundamental architectural change.",
+      assess: "Structured risk assessment; Responsible AI Assessment; DPIA where Article 35 applies; EIA considered; for resident-facing generative AI, an adversarial test (AIG-ASS-11 Section 7) before Gate 6.",
+      decide: "The AI Governance Working Group does the detailed review; the AI Assurance Board gives an assurance opinion; the officer or forum with confirmed delegation decides.",
+      monitor: "Monthly operational monitoring; quarterly performance review; annual formal review by the AI Governance Working Group."
+    },
+    {
+      tier: "High",
+      gates: "Gates 1, 2, 3, 5 and 6 always apply, then Gate 7. Gates 1 and 3 are never N/A at High.",
+      assess: "DPIA normally required; EIA; legal review; Responsible AI Assessment; AIG-ASS-11 Security Review; Human Rights Assessment where Convention rights may be engaged; independent assurance review before deployment.",
+      decide: "A formal AI Assurance Board recommendation and single assurance opinion, with independent challenge where the Board recommends it; the competent delegated forum or officer decides.",
+      monitor: "Continuous operational monitoring; monthly performance review; quarterly formal review reported to the AI Assurance Board; periodic independent assurance review."
+    },
+    {
+      tier: "Critical",
+      gates: "As High, under executive oversight.",
+      assess: "Everything at High, with a mandatory Human Rights Assessment and comprehensive independent assurance, including an annual independent review with Internal Audit coverage.",
+      decide: "As High, plus SRO and Executive Sponsor oversight, Executive Leadership Team involvement, escalation to the relevant executive member or committee and the Audit and Risk Committee, and independent challenge. The competent delegated authority still decides.",
+      monitor: "Continuous monitoring; at least monthly performance and formal review; reported to every AI Assurance Board meeting."
+    }
+  ],
+  footer: "The governing tier is the highest of the risk tier, any §4.4.6 trigger floor, the Impact 5 floor and, for an action-capable use, the agency-tier minimum. Whatever the tier, an action-capable use always has Gates 1, 2, 3 and 6 and the AIG-ASS-11 Security Review with a threat model; AI found already in use always has Gates 1 and 3. Gate 4 applies wherever procurement or a contract change is needed. (Playbook §3.10.1, §3.10.2, §4.5.9; AIG-DEC-01; Proposed — for Council confirmation.)"
+};
 
 export const recordBoundaries = [
   {
@@ -379,11 +470,11 @@ export const stageThreadFocus = [
   ["identity"],
   ["map", "identity"],
   ["identity"],
-  ["history"],
-  ["identity"],
   ["identity"],
   ["history"],
+  ["identity"],
   ["decision", "history"],
+  ["history"],
   ["decision", "history"],
   ["history"],
   ["identity", "history"]

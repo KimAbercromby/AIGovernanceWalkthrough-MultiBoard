@@ -6,7 +6,8 @@ import {
   recordBoundaries,
   recordThread,
   stageThreadFocus,
-  stages
+  stages,
+  tierGuide
 } from "./model.js";
 
 const byId = (id) => {
@@ -112,6 +113,20 @@ const renderRecordThread = () => {
     <p class="thread-note">References preserve continuity; each source keeps its own authority. Nothing is joined, copied or updated by this illustrative walkthrough.</p>`;
 };
 
+// The same four tiers on every stage that has a tierFocus, so the reader can compare them side by side.
+const renderTierPanel = (focus) => {
+  if (!focus || !tierGuide.columns[focus]) return "";
+  return `
+    <section class="tier-panel" aria-label="By governing tier: ${tierGuide.columns[focus]}">
+      <span class="mini-label">By governing tier · ${tierGuide.columns[focus]}</span>
+      <dl class="tier-list">
+        ${tierGuide.rows.map((row) => `
+          <div class="tier-row tier-${row.tier.toLowerCase()}"><dt>${row.tier}</dt><dd>${row[focus]}</dd></div>`).join("")}
+      </dl>
+      <p class="tier-footer">${tierGuide.footer}</p>
+    </section>`;
+};
+
 const renderStageDetail = () => {
   const stage = getStageView(state.caseId, state.stageIndex);
   const canExploreOutcome = state.stageIndex >= 4 && state.stageIndex <= 10;
@@ -136,6 +151,7 @@ const renderStageDetail = () => {
       <div><span class="mini-label">Handoff</span><p>${stage.handoff}</p></div>
     </div>
     ${stage.caseNote ? `<p class="case-stage-note"><b>For this example:</b> ${stage.caseNote}</p>` : ""}
+    ${renderTierPanel(stage.tierFocus)}
     <div class="stage-output"><span class="mini-label">Illustrative output</span><p>${stage.output}</p><p class="stage-note">${stage.note}</p></div>
     ${canExploreOutcome ? `
       <div class="decision-explorer">

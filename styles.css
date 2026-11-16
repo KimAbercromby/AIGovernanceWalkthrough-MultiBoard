@@ -369,3 +369,13 @@ a { color: inherit; }
   .site-header nav { flex-wrap: wrap; gap: 4px 18px; }
   .site-header nav a { font-size: 14px; }
 }
+
+/* By governing tier panel: the four tiers side by side on the gate, assurance, decision and monitoring stages. */
+.tier-panel { margin-top: 13px; padding: 11px 12px; border: 1px solid #e3e9ec; border-left: 3px solid var(--gold, #C8AB36); border-radius: 5px; background: #fbfaf6; }
+.tier-list { margin: 8px 0 0; display: grid; gap: 6px; }
+.tier-row { display: grid; grid-template-columns: 74px 1fr; gap: 10px; align-items: start; padding: 6px 0; border-top: 1px solid #ece9df; }
+.tier-row:first-child { border-top: 0; }
+.tier-row dt { font-weight: 700; color: var(--navy); font-size: 13px; }
+.tier-row dd { margin: 0; color: #344a5d; font-size: 13px; line-height: 1.55; }
+.tier-footer { margin: 8px 0 0; color: #798895; font-size: 12px; line-height: 1.5; }
+@media (max-width: 560px) { .tier-row { grid-template-columns: 1fr; gap: 2px; } }
